@@ -1,26 +1,164 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-green-900: #1a3c1a;
+  --color-green-800: #234d23;
+  --color-green-700: #2d6a2d;
+  --color-green-600: #3a8a3a;
+  --color-green-500: #4a9e4a;
+  --color-green-400: #6bb96b;
+  --color-green-300: #8fd38f;
+  --color-green-200: #b8e6b8;
+  --color-green-100: #e8f5e8;
+  --color-green-50: #f0faf0;
+  --color-earth-700: #8B6914;
+  --color-earth-600: #a47d1a;
+  --color-earth-500: #b8932e;
+  --color-earth-400: #d4ad4a;
+  --color-earth-300: #e6ca7a;
+  --color-earth-200: #f0dfa6;
+  --color-earth-100: #faf5e8;
+  --color-cream: #fefcf5;
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: auto;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: #1a1a1a;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), Georgia, serif;
+}
+
+/* Brand marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Ken Burns zoom */
+@keyframes kenburns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+.animate-kenburns {
+  animation: kenburns 8s ease-out forwards;
+  backface-visibility: hidden;
+}
+
+/* Hero text fade-in on slide change */
+@keyframes heroTextEnter {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-text-enter {
+  animation: heroTextEnter 0.6s ease-out both;
+}
+
+/* ── Scroll-triggered CSS animations ── */
+.animate-on-scroll {
+  opacity: 0;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Variants */
+.anim-fade-in-up {
+  transform: translateY(24px);
+}
+.anim-slide-in-left {
+  transform: translateX(-40px);
+}
+.anim-slide-in-right {
+  transform: translateX(40px);
+}
+.anim-scale-in {
+  transform: scale(0.92);
+}
+
+/* Stagger children: each direct child delays by --stagger-delay * index */
+.stagger-children > .animate-on-scroll {
+  --stagger-index: 0;
+  transition-delay: calc(var(--stagger-index) * 80ms);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* Leaflet fix for Next.js */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Blog prose styling */
+.prose-blog {
+  line-height: 1.8;
+}
+.prose-blog h2 {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-green-900);
+}
+.prose-blog h3 {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-green-800);
+}
+.prose-blog p {
+  margin-bottom: 1.25rem;
+}
+.prose-blog ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.prose-blog li {
+  margin-bottom: 0.5rem;
+}
+.prose-blog blockquote {
+  border-left: 4px solid var(--color-green-500);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: #555;
+  margin: 1.5rem 0;
+}
+.prose-blog img {
+  border-radius: 12px;
+  margin: 2rem 0;
 }
