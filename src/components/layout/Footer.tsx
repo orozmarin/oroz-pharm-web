@@ -9,13 +9,13 @@ export default function Footer() {
     <footer className="bg-green-900 text-white">
       {/* Logo centerpiece */}
       <div className="flex flex-col items-center justify-center py-12 border-b border-green-800">
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2">
           <Image
-            src="/images/logo-oroz.jpeg"
+            src="/images/logo-oroz.png"
             alt="Oroz PHARM - Poljoprivredne ljekarne"
             width={120}
             height={120}
-            className="w-24 h-24 md:w-32 md:h-32 object-contain grayscale invert brightness-200 mix-blend-screen"
+            className="w-24 h-24 md:w-32 md:h-32 object-contain brightness-0 invert"
           />
           <div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-wide font-[family-name:var(--font-heading)]">

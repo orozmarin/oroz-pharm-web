@@ -18,7 +18,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Oroz PHARM d.o.o. | Poljoprivredna ljekarna",
+    default: "Oroz PHARM | Poljoprivredna ljekarna",
     template: "%s | Oroz PHARM",
   },
   description:
@@ -34,6 +34,10 @@ export const metadata: Metadata = {
     "stočna hrana",
     "Oroz PHARM",
   ],
+  icons: {
+    icon: "/images/logo-oroz.png",
+    apple: "/images/logo-oroz.png",
+  },
   openGraph: {
     title: "Oroz PHARM d.o.o.",
     description: "Poljoprivredna ljekarna - Vaš partner od 1998.",

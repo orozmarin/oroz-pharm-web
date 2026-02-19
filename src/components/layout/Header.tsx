@@ -17,20 +17,25 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-3">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-4">
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/images/logo-oroz.jpeg"
+              src="/images/logo-oroz.png"
               alt="Oroz PHARM - Poljoprivredne ljekarne"
-              width={80}
-              height={80}
-              className="h-10 w-10 object-contain"
+              width={112}
+              height={112}
+              className="h-14 w-14 object-contain"
               priority
             />
-            <span className="text-lg font-bold text-green-900">
-              Oroz <span className="text-green-600">PHARM</span>
-            </span>
+            <div className="flex flex-col leading-none">
+              <span className="text-2xl font-bold text-green-900 font-[family-name:var(--font-heading)] tracking-tight">
+                Oroz <span className="text-green-600">PHARM</span>
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mt-0.5">
+                Poljoprivredna ljekarna
+              </span>
+            </div>
           </Link>
 
           {/* Desktop nav */}
