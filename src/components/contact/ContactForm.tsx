@@ -20,13 +20,25 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const categories = [
-  "Zaštita bilja",
+  "Sjemenski program",
   "Gnojiva",
-  "Sjeme",
-  "Navodnjavanje",
+  "Zaštita bilja",
   "Stočna hrana",
+  "Sadni materijal",
+  "Oprema za povrtlarstvo i cvjećarstvo",
+  "Navodnjavanje",
+  "Enologija",
+  "Oprema za pčelarstvo",
+  "Poljoprivredni strojevi",
+  "Alati",
+  "Oprema za stočarstvo",
+  "Ulja i maziva",
   "Kućni ljubimci",
-  "Oprema",
+  "Pribor za kolinje",
+  "Gume i zračnice",
+  "Vrt i okućnica",
+  "Roba široke potrošnje",
+  "Ekološki proizvodi",
   "Ostalo",
 ];
 

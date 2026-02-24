@@ -18,10 +18,12 @@ export default function CategoryGrid() {
           gridTemplateColumns: "repeat(4, 1fr)",
           gridTemplateAreas: `
             "zastita zastita gnojivo gnojivo"
-            "sjeme sjeme navod navod"
-            "pcelar ulja stocna stocna"
-            "kucni kucni substr eko"
-            "enolog skare stroj stroj"
+            "sjeme sjeme stocna stocna"
+            "sadni sadni substr substr"
+            "navod pcelar ulja enolog"
+            "stroj stroj alati stocar"
+            "kucni kucni kolinje gume"
+            "vrt vrt roba eko"
           `,
         }}
       >
