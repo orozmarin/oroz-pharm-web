@@ -43,3 +43,16 @@ export interface Brand {
   logo?: string;
   website?: string;
 }
+
+// Product view model (normalised from Payload's Product type)
+export interface Product {
+  id: string;
+  slug: string;
+  categorySlug: string;
+  subcategoryId: string;
+  name: string;
+  manufacturer: string;
+  description: string;
+  instructions: unknown; // Lexical SerializedEditorState from Payload
+  image: string;
+}

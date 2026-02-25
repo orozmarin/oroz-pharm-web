@@ -36,11 +36,7 @@ export default async function ProductsPage() {
     icon: doc.icon ?? "",
     image: getImageUrl(doc.image, FALLBACK_IMAGE),
     gridArea: doc.gridArea ?? "",
-    subcategories:
-      doc.subcategories?.map((sub) => ({
-        id: sub.id ?? sub.slug,
-        name: sub.name,
-      })) ?? [],
+    subcategories: [],
     brands: [],
   }));
 

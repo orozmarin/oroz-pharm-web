@@ -8,7 +8,7 @@ import Button from "@/components/shared/Button";
 import CategoryDetailClient from "@/components/products/CategoryDetailClient";
 import RelatedCategoriesGrid from "@/components/products/RelatedCategoriesGrid";
 import { ArrowLeft } from "lucide-react";
-import type { ProductCategory } from "@/types/views";
+import type { ProductCategory, Product, Subcategory } from "@/types/views";
 import type { Category } from "@/payload-types";
 import { getImageUrl } from "@/lib/utils";
 
@@ -24,11 +24,7 @@ function normalizeCategory(doc: Category): ProductCategory {
     icon: doc.icon ?? "",
     image: getImageUrl(doc.image, FALLBACK_IMAGE),
     gridArea: doc.gridArea ?? "",
-    subcategories:
-      doc.subcategories?.map((sub) => ({
-        id: sub.id ?? sub.slug,
-        name: sub.name,
-      })) ?? [],
+    subcategories: [],
     brands: [],
   };
 }
@@ -38,15 +34,7 @@ interface Props {
 }
 
 export const revalidate = 60;
-
-export async function generateStaticParams() {
-  const payload = await getPayload({ config });
-  const { docs } = await payload.find({
-    collection: "categories",
-    limit: 1000,
-  });
-  return docs.map((cat) => ({ category: cat.slug }));
-}
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category: slug } = await params;
@@ -68,7 +56,12 @@ export default async function CategoryPage({ params }: Props) {
   const { category: slug } = await params;
   const payload = await getPayload({ config });
 
-  const [{ docs: catDocs }, { docs: relatedDocs }] = await Promise.all([
+  const [
+    { docs: catDocs },
+    { docs: relatedDocs },
+    { docs: subcategoryDocs },
+    { docs: productDocs },
+  ] = await Promise.all([
     payload.find({
       collection: "categories",
       where: { slug: { equals: slug } },
@@ -81,13 +74,54 @@ export default async function CategoryPage({ params }: Props) {
       depth: 1,
       limit: 3,
     }),
+    payload.find({
+      collection: "subcategories",
+      where: { "category.slug": { equals: slug } },
+      depth: 0,
+      sort: "name",
+      limit: 100,
+    }),
+    payload.find({
+      collection: "products",
+      where: { "category.slug": { equals: slug } },
+      depth: 1,
+      limit: 500,
+      sort: "name",
+    }),
   ]);
 
   const rawCat = catDocs[0];
   if (!rawCat) notFound();
 
-  const category = normalizeCategory(rawCat);
+  const subcategories: Subcategory[] = subcategoryDocs.map((sub) => ({
+    id: String(sub.id),
+    name: sub.name,
+  }));
+
+  const category: ProductCategory = {
+    ...normalizeCategory(rawCat),
+    subcategories,
+  };
+
   const related = relatedDocs.map(normalizeCategory);
+
+  const products: Product[] = productDocs.map((doc) => ({
+    id: String(doc.id),
+    slug: doc.slug,
+    categorySlug: slug,
+    subcategoryId:
+      typeof doc.subcategory === "object" && doc.subcategory !== null
+        ? String(doc.subcategory.id)
+        : String(doc.subcategory ?? ""),
+    name: doc.name,
+    manufacturer:
+      typeof doc.manufacturer === "object" && doc.manufacturer !== null
+        ? doc.manufacturer.name
+        : "",
+    description: doc.description ?? "",
+    instructions: doc.instructions,
+    image: getImageUrl(doc.image, FALLBACK_IMAGE),
+  }));
 
   return (
     <>
@@ -118,7 +152,7 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </div>
 
-      <CategoryDetailClient category={category} />
+      <CategoryDetailClient category={category} products={products} />
 
       {/* Related categories */}
       <section className="py-16 bg-green-50 px-4 md:px-8">
