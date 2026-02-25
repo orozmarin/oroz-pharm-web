@@ -4,7 +4,17 @@ import { Quote } from "lucide-react";
 import SectionHeading from "@/components/shared/SectionHeading";
 import LeafDivider from "@/components/shared/LeafDivider";
 import { useInView } from "@/lib/useInView";
-import { testimonials } from "@/data/testimonials";
+
+type Testimonial = {
+  id: string | number;
+  quote: string;
+  author: string;
+  company?: string | null;
+};
+
+interface Props {
+  testimonials: Testimonial[];
+}
 
 function getInitials(name: string): string {
   const parts = name.trim().split(" ");
@@ -14,7 +24,7 @@ function getInitials(name: string): string {
   return parts[0].slice(0, 2).toUpperCase();
 }
 
-export default function PartnersTestimonials() {
+export default function PartnersTestimonials({ testimonials }: Props) {
   const ref = useInView<HTMLDivElement>();
 
   return (
@@ -47,17 +57,18 @@ export default function PartnersTestimonials() {
               <div className="flex items-center gap-3 border-t border-white/10 pt-4">
                 <div className="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center shrink-0">
                   <span className="text-white text-sm font-semibold">
-                    {getInitials(t.name)}
+                    {getInitials(t.author)}
                   </span>
                 </div>
                 <div className="min-w-0">
                   <p className="text-white font-semibold text-sm truncate">
-                    {t.name}
+                    {t.author}
                   </p>
-                  <p className="text-green-300 text-xs truncate">
-                    {t.role} &middot; {t.company}
-                    {t.location && `, ${t.location}`}
-                  </p>
+                  {t.company && (
+                    <p className="text-green-300 text-xs truncate">
+                      {t.company}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import "./globals.css";
+import "../globals.css";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -46,14 +46,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function SiteLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="hr">
-      <body className={`${playfair.variable} ${inter.variable} antialiased`}>
+      <body className={`${playfair.variable} ${inter.variable} antialiased site-body`}>
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

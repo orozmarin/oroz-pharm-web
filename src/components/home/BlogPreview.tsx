@@ -3,14 +3,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useInView } from "@/lib/useInView";
-import { blogPosts } from "@/data/blogs";
+import type { BlogPost } from "@/types/views";
 import SectionHeading from "@/components/shared/SectionHeading";
 import Button from "@/components/shared/Button";
 import { formatDate } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
-export default function BlogPreview() {
-  const latestPosts = blogPosts.slice(0, 3);
+interface Props {
+  posts: BlogPost[];
+}
+
+export default function BlogPreview({ posts }: Props) {
   const ref = useInView<HTMLDivElement>();
 
   return (
@@ -24,7 +27,7 @@ export default function BlogPreview() {
         ref={ref}
         className="stagger-children max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8"
       >
-        {latestPosts.map((post) => (
+        {posts.map((post) => (
           <div key={post.slug} className="animate-on-scroll anim-fade-in-up">
             <Link
               href={`/blog/${post.slug}`}

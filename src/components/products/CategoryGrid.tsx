@@ -1,10 +1,14 @@
 "use client";
 
 import { useInView } from "@/lib/useInView";
-import { categories } from "@/data/categories";
+import type { ProductCategory } from "@/types/views";
 import CategoryCard from "./CategoryCard";
 
-export default function CategoryGrid() {
+interface Props {
+  categories: ProductCategory[];
+}
+
+export default function CategoryGrid({ categories }: Props) {
   const desktopRef = useInView<HTMLDivElement>("-50px");
   const mobileRef = useInView<HTMLDivElement>("-50px");
 

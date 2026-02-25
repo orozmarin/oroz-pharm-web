@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ProductCategory } from "@/types/product";
+import { ProductCategory } from "@/types/views";
 import { ChevronDown } from "lucide-react";
 
 interface Props {
@@ -20,7 +20,7 @@ export default function CategoryDetailClient({ category }: Props) {
         {/* Subcategories accordion */}
         {category.subcategories.length > 0 && (
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-green-900 mb-6 font-[family-name:var(--font-heading)]">
+            <h2 className="text-3xl font-bold text-green-900 mb-6 font-[family-name:var(--font-heading)]">
               Potkategorije
             </h2>
             <div className="space-y-3">
@@ -33,7 +33,7 @@ export default function CategoryDetailClient({ category }: Props) {
                     onClick={() => setOpenSub(openSub === sub.id ? null : sub.id)}
                     className="w-full flex items-center justify-between p-5 text-left hover:bg-green-50 transition-colors"
                   >
-                    <span className="font-semibold text-green-900">
+                    <span className="font-semibold text-green-900 text-base">
                       {sub.name}
                     </span>
                     <ChevronDown
@@ -52,7 +52,7 @@ export default function CategoryDetailClient({ category }: Props) {
                         transition={{ duration: 0.2 }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 pb-5 text-gray-600 text-sm">
+                        <div className="px-5 pt-3 pb-5 text-gray-600 text-sm">
                           <p>
                             {sub.description ||
                               `Širok izbor proizvoda iz kategorije ${sub.name}. Posjetite nas u poslovnici za detaljan pregled ponude i stručno savjetovanje.`}
