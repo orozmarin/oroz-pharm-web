@@ -107,6 +107,16 @@ export interface Team {
   createdAt: string;
 }
 
+// ─── Manufacturer ─────────────────────────────────────────────────────────────
+
+export interface Manufacturer {
+  id: number;
+  name: string;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+
 // ─── Category ─────────────────────────────────────────────────────────────────
 
 export interface Category {
@@ -117,12 +127,48 @@ export interface Category {
   icon?: string | null;
   image?: number | Media | null;
   gridArea?: string | null;
-  subcategories?: {
-    name: string;
-    slug: string;
-    image?: number | Media | null;
-    id?: string | null;
-  }[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+
+// ─── Subcategory ──────────────────────────────────────────────────────────────
+
+export interface Subcategory {
+  id: number;
+  name: string;
+  slug: string;
+  category: number | Category;
+  image?: number | Media | null;
+  updatedAt: string;
+  createdAt: string;
+}
+
+// ─── Product ──────────────────────────────────────────────────────────────────
+
+export interface Product {
+  id: number;
+  name: string;
+  slug: string;
+  category: number | Category;
+  subcategory?: number | Subcategory | null;
+  manufacturer?: number | Manufacturer | null;
+  description?: string | null;
+  instructions?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: number | Media | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -164,7 +210,10 @@ export interface Config {
     blogs: Blog;
     testimonials: Testimonial;
     team: Team;
+    manufacturers: Manufacturer;
+    subcategories: Subcategory;
     categories: Category;
+    products: Product;
   };
   collectionsJoins: Record<string, never>;
   db: {

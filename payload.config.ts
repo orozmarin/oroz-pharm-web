@@ -26,7 +26,10 @@ import { Media } from '@/collections/Media'
 import { Blogs } from '@/collections/Blogs'
 import { Testimonials } from '@/collections/Testimonials'
 import { Team } from '@/collections/Team'
+import { Manufacturers } from '@/collections/Manufacturers'
+import { Subcategories } from '@/collections/Subcategories'
 import { Categories } from '@/collections/Categories'
+import { Products } from '@/collections/Products'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -38,7 +41,6 @@ export default buildConfig({
     dateFormat: 'dd.MM.yyyy. HH:mm',
     meta: {
       titleSuffix: '— Oroz PHARM',
-      favicon: '/images/logo-oroz.png',
       description: 'Oroz PHARM — sustav za upravljanje sadržajem',
     },
     components: {
@@ -59,7 +61,10 @@ export default buildConfig({
     Blogs,
     Testimonials,
     Team,
+    Manufacturers,
+    Subcategories,
     Categories,
+    Products,
   ],
   editor: lexicalEditor({
     features: () => [

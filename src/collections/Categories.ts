@@ -53,33 +53,5 @@ export const Categories: CollectionConfig = {
         description: 'CSS grid-area naziv za pozicioniranje u rešetki',
       },
     },
-    {
-      name: 'subcategories',
-      type: 'array',
-      label: 'Podkategorije',
-      admin: {
-        description: 'Dodajte podkategorije s nazivom, slugom i slikom',
-      },
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-          required: true,
-          label: 'Naziv podkategorije',
-        },
-        {
-          name: 'slug',
-          type: 'text',
-          required: true,
-          label: 'Slug',
-        },
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Slika podkategorije',
-        },
-      ],
-    },
   ],
 }

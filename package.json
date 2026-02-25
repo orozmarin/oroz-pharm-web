@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "node --env-file=.env.local src/scripts/seed.js",
-    "seed:images": "node --env-file=.env.local src/scripts/seed-images.js"
+    "seed:images": "node --env-file=.env.local src/scripts/seed-images.js",
+    "seed:subcategories": "node --env-file=.env.local src/scripts/seed-subcategories.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
