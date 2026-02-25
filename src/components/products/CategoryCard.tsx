@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ProductCategory } from "@/types/product";
+import { ProductCategory } from "@/types/views";
 import { ArrowRight } from "lucide-react";
 
 interface Props {
@@ -32,7 +32,11 @@ export default function CategoryCard({ category, mobile }: Props) {
         <div className="absolute inset-0 bg-gradient-to-t from-green-900/90 via-green-900/40 to-transparent group-hover:from-green-900/80 transition-colors duration-300" />
 
         {/* Content */}
-        <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
+        <div className={`absolute inset-0 flex flex-col p-5 md:p-6 ${
+          category.subcategories.length === 0
+            ? "justify-center items-start text-left"
+            : "justify-end"
+        }`}>
           <h3 className="text-white font-bold text-xl md:text-2xl mb-1 font-[family-name:var(--font-heading)]">
             {category.name}
           </h3>

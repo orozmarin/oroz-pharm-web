@@ -2,23 +2,39 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { blogPosts } from "@/data/blogs";
-import { formatDate } from "@/lib/utils";
+import { getPayload } from "payload";
+import config from "@payload-config";
+import { formatDate, getImageUrl } from "@/lib/utils";
 import BlogPostContent from "@/components/blog/BlogPostContent";
 import BlogRelatedPosts from "@/components/blog/BlogRelatedPosts";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
+import type { BlogPost } from "@/types/views";
+
+const FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+  const payload = await getPayload({ config });
+  const { docs } = await payload.find({
+    collection: "blogs",
+    limit: 1000,
+  });
+  return docs.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const payload = await getPayload({ config });
+  const { docs } = await payload.find({
+    collection: "blogs",
+    where: { slug: { equals: slug } },
+    limit: 1,
+  });
+  const post = docs[0];
   if (!post) return {};
   return {
     title: post.title,
@@ -28,10 +44,48 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
-  if (!post) notFound();
+  const payload = await getPayload({ config });
 
-  const related = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+  const [{ docs: postDocs }, { docs: relatedDocs }] = await Promise.all([
+    payload.find({
+      collection: "blogs",
+      where: { slug: { equals: slug } },
+      depth: 1,
+      limit: 1,
+    }),
+    payload.find({
+      collection: "blogs",
+      where: { slug: { not_equals: slug } },
+      depth: 1,
+      sort: "-date",
+      limit: 2,
+    }),
+  ]);
+
+  const rawPost = postDocs[0];
+  if (!rawPost) notFound();
+
+  const post: BlogPost = {
+    slug: rawPost.slug,
+    title: rawPost.title,
+    excerpt: rawPost.excerpt,
+    coverImage: getImageUrl(rawPost.coverImage, FALLBACK_IMAGE),
+    date: rawPost.date,
+    readingTime: rawPost.readingTime ?? 5,
+    content: rawPost.content,
+    tags: rawPost.tags?.map((t) => t.tag) ?? [],
+  };
+
+  const related: BlogPost[] = relatedDocs.map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    coverImage: getImageUrl(p.coverImage, FALLBACK_IMAGE),
+    date: p.date,
+    readingTime: p.readingTime ?? 5,
+    content: p.content,
+    tags: p.tags?.map((t) => t.tag) ?? [],
+  }));
 
   return (
     <>
@@ -72,7 +126,10 @@ export default async function BlogPostPage({ params }: Props) {
       <article className="max-w-3xl mx-auto px-4 md:px-8 py-12 md:py-16">
         <div className="flex flex-wrap gap-2 mb-8">
           {post.tags.map((tag) => (
-            <span key={tag} className="text-sm bg-green-50 text-green-700 px-3 py-1.5 rounded-full font-medium">
+            <span
+              key={tag}
+              className="text-sm bg-green-50 text-green-700 px-3 py-1.5 rounded-full font-medium"
+            >
               {tag}
             </span>
           ))}

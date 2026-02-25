@@ -10,7 +10,9 @@ UI copy is in Croatian.
 
 | Layer | Technology |
 |---|---|
-| Framework | Next.js 16 (App Router) |
+| Framework | Next.js 15 (App Router) |
+| CMS | Payload CMS v3 (embedded, admin UI at `/admin`) |
+| Database | PostgreSQL via `@payloadcms/db-postgres` |
 | Language | TypeScript 5 (strict, path alias `@/*` → `src/*`) |
 | Styling | Tailwind CSS v4 + custom theme in `src/app/globals.css` |
 | Animation | Framer Motion + custom IntersectionObserver system |
@@ -19,17 +21,29 @@ UI copy is in Croatian.
 | Icons | Lucide React |
 | Fonts | Playfair Display (headings) + Inter (body) via Google Fonts |
 
-No database, no API routes, no authentication, no tests configured.
+Authentication exists (Payload admin users). API routes exist (`/api/[...slug]`). No test runner configured — `next build` is the primary correctness check.
 
 ## Key Directories
 
 ```
 src/
 ├── app/                    # Next.js App Router pages & layouts
-│   ├── layout.tsx          # Root layout — Google Fonts, Header, Footer
-│   ├── globals.css         # Tailwind theme, custom animations, CSS utilities
-│   ├── blog/[slug]/        # Dynamic blog post pages
-│   └── proizvodi/[category]/ # Dynamic product category pages
+│   ├── (site)/             # Public-facing route group
+│   │   ├── layout.tsx      # Site layout — Google Fonts, Header, Footer
+│   │   ├── page.tsx        # Home page (async, fetches from Payload)
+│   │   ├── blog/           # Blog list + [slug] detail pages
+│   │   ├── proizvodi/      # Product category list + [category] detail pages
+│   │   ├── o-nama/         # About page
+│   │   ├── kontakt/        # Contact page
+│   │   └── not-found.tsx   # 404 page
+│   ├── (payload)/          # Payload CMS admin + API (auto-generated routes)
+│   └── globals.css         # Tailwind theme, custom animations, CSS utilities
+├── collections/            # Payload collection definitions (schema = source of truth)
+│   ├── Blogs.ts            # Blog posts — title, slug, date, coverImage, content (Lexical)
+│   ├── Categories.ts       # Product categories — name, slug, image, subcategories
+│   ├── Testimonials.ts     # Customer quotes — quote, author, company
+│   ├── Team.ts             # Team members — name, role, image, bio
+│   └── Media.ts            # Uploaded media (images)
 ├── components/
 │   ├── shared/             # Reusable primitives: Button, AnimatedSection, SectionHeading, Map
 │   ├── layout/             # Header, Footer, MobileNav
@@ -38,30 +52,31 @@ src/
 │   ├── products/           # CategoryGrid, CategoryCard, CategoryDetailClient, BrandMarquee
 │   ├── contact/            # ContactForm, StoreLocations, LegalData
 │   └── about/              # Timeline, TeamGrid, LocationGallery
-├── data/                   # All static content (no CMS/DB)
-│   ├── categories.ts       # 22 product categories with subcategories
-│   ├── blogs.ts            # Blog posts (content as template-literal strings)
-│   ├── testimonials.ts     # Customer quotes
+├── data/                   # Static content NOT managed by CMS
 │   ├── locations.ts        # Store coordinates, hours, contact
 │   └── navigation.ts       # Nav link definitions
 ├── lib/
 │   ├── useInView.ts        # IntersectionObserver hook for scroll animations
 │   └── utils.ts            # cn() (clsx + twMerge), formatDate()
+├── payload-types.ts        # Auto-generated Payload types (Media, Blog, Category, etc.)
+├── scripts/                # One-off scripts (e.g. seed.ts to populate database)
 └── types/
-    ├── product.ts           # ProductCategory, Subcategory, Brand
-    └── blog.ts              # BlogPost interface
+    └── views.ts            # View-layer interfaces: BlogPost, ProductCategory, Subcategory, Brand
 ```
 
 ## Build & Dev Commands
 
 ```bash
 npm run dev       # Dev server → http://localhost:3000
-npm run build     # Production build (static generation)
+npm run build     # Production build
 npm run start     # Serve production build
 npm run lint      # ESLint (next/core-web-vitals config)
+npx tsx src/scripts/seed.ts   # Seed database from static data (run once after fresh DB)
 ```
 
 No test runner is configured. `next build` is the primary correctness check.
+
+Payload admin UI is at `http://localhost:3000/admin`. Database connection is configured via `DATABASE_URI` env var (PostgreSQL).
 
 ## External Image Domains
 
@@ -71,4 +86,4 @@ Allowed in `next.config.ts`: `images.unsplash.com`, `unpkg.com` (Leaflet assets)
 
 Check these files when working on the relevant areas:
 
-- [.claude/docs/architectural_patterns.md](.claude/docs/architectural_patterns.md) — Component structure conventions, scroll animation system, form pattern, dynamic route pattern, static data management, shared component API
+- [.claude/docs/architectural_patterns.md](.claude/docs/architectural_patterns.md) — Component structure conventions, scroll animation system, form pattern, dynamic route pattern, Payload CMS data fetching, shared component API

@@ -1,11 +1,11 @@
 "use client";
 
 import { useInView } from "@/lib/useInView";
-import { blogPosts } from "@/data/blogs";
+import type { BlogPost } from "@/types/views";
 import BlogCard from "./BlogCard";
 
 interface Props {
-  posts: typeof blogPosts;
+  posts: BlogPost[];
 }
 
 export default function BlogRelatedPosts({ posts }: Props) {

@@ -1,13 +1,17 @@
 "use client";
 
 import { useInView } from "@/lib/useInView";
-import { blogPosts } from "@/data/blogs";
+import type { BlogPost } from "@/types/views";
 import BlogCard from "./BlogCard";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { Leaf } from "lucide-react";
 
-export default function BlogListClient() {
-  const [featured, ...rest] = blogPosts;
+interface Props {
+  posts: BlogPost[];
+}
+
+export default function BlogListClient({ posts }: Props) {
+  const [featured, ...rest] = posts;
   const featuredRef = useInView<HTMLDivElement>();
   const gridRef = useInView<HTMLDivElement>();
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BlogPost } from "@/types/blog";
+import { BlogPost } from "@/types/views";
 import { ArrowRight, Clock } from "lucide-react";
 
 interface Props {
