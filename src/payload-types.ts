@@ -174,6 +174,20 @@ export interface Product {
   createdAt: string;
 }
 
+// ─── ContactSubmission ────────────────────────────────────────────────────────
+
+export interface ContactSubmission {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string | null;
+  category: string;
+  message: string;
+  status: 'novo' | 'odgovoreno' | 'arhivirano';
+  updatedAt: string;
+  createdAt: string;
+}
+
 // ─── User ─────────────────────────────────────────────────────────────────────
 
 export interface User {
@@ -215,6 +229,7 @@ export interface Config {
     subcategories: Subcategory;
     categories: Category;
     products: Product;
+    'contact-submissions': ContactSubmission;
   };
   collectionsJoins: Record<string, never>;
   db: {
