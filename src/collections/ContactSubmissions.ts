@@ -6,6 +6,7 @@ const isAdmin = ({ req: { user } }: { req: { user: unknown } }) => {
 
 export const ContactSubmissions: CollectionConfig = {
   slug: 'contact-submissions',
+  labels: { singular: 'Upit', plural: 'Upiti' },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email', 'category', 'status', 'createdAt'],
