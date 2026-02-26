@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const Subcategories: CollectionConfig = {
   slug: 'subcategories',
+  labels: { singular: 'Podkategorija', plural: 'Podkategorije' },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'category', 'slug', 'updatedAt'],

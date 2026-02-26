@@ -15,13 +15,20 @@ export default function ProductCard({ product }: Props) {
       href={`/proizvodi/${product.categorySlug}/${product.slug}`}
       className="group flex flex-col bg-white rounded-xl border border-green-100 overflow-hidden hover:shadow-lg hover:border-green-200 transition-all duration-300"
     >
-      <div className="relative aspect-4/3 overflow-hidden bg-green-50">
+      <div className="relative aspect-4/3 overflow-hidden bg-gray-100">
+        <Image
+          src={product.image || FALLBACK_IMAGE}
+          alt=""
+          fill
+          aria-hidden="true"
+          className="object-cover scale-110 blur-md opacity-50"
+        />
         <Image
           src={product.image || FALLBACK_IMAGE}
           alt={product.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          className="object-contain group-hover:scale-105 transition-transform duration-300"
         />
       </div>
       <div className="flex flex-col gap-2 p-4 flex-1">

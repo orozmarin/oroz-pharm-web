@@ -1,4 +1,5 @@
 import { buildConfig } from 'payload'
+import { hr } from '@payloadcms/translations/languages/hr'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import {
   lexicalEditor,
@@ -36,6 +37,10 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  i18n: {
+    supportedLanguages: { hr },
+    fallbackLanguage: 'hr',
+  },
   admin: {
     user: 'users',
     theme: 'all',

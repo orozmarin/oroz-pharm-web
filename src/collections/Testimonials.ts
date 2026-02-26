@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 export const Testimonials: CollectionConfig = {
   slug: 'testimonials',
+  labels: { singular: 'Preporuka', plural: 'Preporuke' },
   admin: {
     useAsTitle: 'author',
     defaultColumns: ['author', 'company', 'order'],
