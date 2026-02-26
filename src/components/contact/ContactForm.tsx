@@ -44,6 +44,7 @@ const categories = [
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const ref = useInView<HTMLDivElement>();
   const {
     register,
@@ -53,10 +54,22 @@ export default function ContactForm() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (_data: FormData) => {
-    // Simulate submission delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setSubmitted(true);
+  const onSubmit = async (data: FormData) => {
+    setSubmitError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        setSubmitError("Greška pri slanju poruke. Molimo pokušajte ponovo ili nas kontaktirajte telefonom.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setSubmitError("Greška pri slanju poruke. Molimo pokušajte ponovo ili nas kontaktirajte telefonom.");
+    }
   };
 
   return (
@@ -101,7 +114,7 @@ export default function ContactForm() {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-base font-medium text-gray-700 mb-1">
                         Ime i prezime *
                       </label>
                       <input
@@ -114,7 +127,7 @@ export default function ContactForm() {
                       )}
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-base font-medium text-gray-700 mb-1">
                         Email *
                       </label>
                       <input
@@ -131,7 +144,7 @@ export default function ContactForm() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-base font-medium text-gray-700 mb-1">
                         Telefon
                       </label>
                       <input
@@ -142,7 +155,7 @@ export default function ContactForm() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-base font-medium text-gray-700 mb-1">
                         Kategorija *
                       </label>
                       <select
@@ -166,7 +179,7 @@ export default function ContactForm() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-base font-medium text-gray-700 mb-1">
                       Poruka *
                     </label>
                     <textarea
@@ -180,7 +193,7 @@ export default function ContactForm() {
                     )}
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full gap-2">
+                  <Button type="submit" size="lg" className="w-full gap-2" disabled={isSubmitting}>
                     {isSubmitting ? (
                       "Slanje..."
                     ) : (
@@ -189,6 +202,10 @@ export default function ContactForm() {
                       </>
                     )}
                   </Button>
+
+                  {submitError && (
+                    <p className="text-red-600 text-sm text-center mt-2">{submitError}</p>
+                  )}
                 </form>
               </>
             )}

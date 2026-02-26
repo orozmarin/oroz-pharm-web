@@ -30,6 +30,7 @@ import { Manufacturers } from '@/collections/Manufacturers'
 import { Subcategories } from '@/collections/Subcategories'
 import { Categories } from '@/collections/Categories'
 import { Products } from '@/collections/Products'
+import { ContactSubmissions } from '@/collections/ContactSubmissions'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -65,6 +66,7 @@ export default buildConfig({
     Subcategories,
     Categories,
     Products,
+    ContactSubmissions,
   ],
   editor: lexicalEditor({
     features: () => [

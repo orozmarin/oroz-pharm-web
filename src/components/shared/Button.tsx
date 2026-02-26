@@ -9,6 +9,7 @@ interface Props {
   size?: "sm" | "md" | "lg";
   className?: string;
   type?: "button" | "submit";
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -19,6 +20,7 @@ export default function Button({
   size = "md",
   className,
   type = "button",
+  disabled,
 }: Props) {
   const base = "inline-flex items-center justify-center font-semibold rounded-xl transition-[background-color,color,box-shadow] duration-300 cursor-pointer";
   const variants = {
@@ -39,7 +41,7 @@ export default function Button({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {children}
     </button>
   );
