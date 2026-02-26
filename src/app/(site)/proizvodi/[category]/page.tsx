@@ -15,7 +15,10 @@ import { getImageUrl } from "@/lib/utils";
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80";
 
-function normalizeCategory(doc: Category): ProductCategory {
+function normalizeCategory(
+  doc: Category,
+  subcategories: { id: string; name: string }[] = []
+): ProductCategory {
   return {
     id: String(doc.id),
     slug: doc.slug,
@@ -24,7 +27,7 @@ function normalizeCategory(doc: Category): ProductCategory {
     icon: doc.icon ?? "",
     image: getImageUrl(doc.image, FALLBACK_IMAGE),
     gridArea: doc.gridArea ?? "",
-    subcategories: [],
+    subcategories,
     brands: [],
   };
 }
@@ -65,7 +68,7 @@ export default async function CategoryPage({ params }: Props) {
     payload.find({
       collection: "categories",
       where: { slug: { equals: slug } },
-      depth: 1,
+      depth: 2,
       limit: 1,
     }),
     payload.find({
@@ -76,10 +79,9 @@ export default async function CategoryPage({ params }: Props) {
     }),
     payload.find({
       collection: "subcategories",
-      where: { "category.slug": { equals: slug } },
       depth: 0,
       sort: "name",
-      limit: 100,
+      limit: 1000,
     }),
     payload.find({
       collection: "products",
@@ -93,17 +95,29 @@ export default async function CategoryPage({ params }: Props) {
   const rawCat = catDocs[0];
   if (!rawCat) notFound();
 
-  const subcategories: Subcategory[] = subcategoryDocs.map((sub) => ({
-    id: String(sub.id),
-    name: sub.name,
-  }));
+  // Group all subcategories by their parent category ID
+  const subsByCategoryId = new Map<string, { id: string; name: string }[]>();
+  for (const sub of subcategoryDocs) {
+    const catId = String(typeof sub.category === "object" ? sub.category.id : sub.category);
+    if (!subsByCategoryId.has(catId)) subsByCategoryId.set(catId, []);
+    subsByCategoryId.get(catId)!.push({ id: String(sub.id), name: sub.name });
+  }
 
-  const category: ProductCategory = {
-    ...normalizeCategory(rawCat),
-    subcategories,
-  };
+  const subcategories: Subcategory[] = subsByCategoryId.get(String(rawCat.id)) ?? [];
 
-  const related = relatedDocs.map(normalizeCategory);
+  const category: ProductCategory = normalizeCategory(rawCat, subcategories);
+
+  // Use manually curated related categories if set; otherwise fall back to auto-generated
+  const relatedCategoryDocs: Category[] =
+    rawCat.relatedCategories && rawCat.relatedCategories.length > 0
+      ? (rawCat.relatedCategories as (number | Category)[]).filter(
+          (c): c is Category => typeof c === "object"
+        )
+      : relatedDocs;
+
+  const related = relatedCategoryDocs.map((doc) =>
+    normalizeCategory(doc, subsByCategoryId.get(String(doc.id)) ?? [])
+  );
 
   const products: Product[] = productDocs.map((doc) => ({
     id: String(doc.id),

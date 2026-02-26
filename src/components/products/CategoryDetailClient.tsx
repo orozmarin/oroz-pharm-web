@@ -79,7 +79,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
         <div className="flex flex-wrap gap-2 mb-8 pb-8 border-b border-green-100">
           <button
             onClick={() => setActiveMfr("svi")}
-            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+            className={`px-3 py-1.5 rounded-full text-sm font-semibold transition-colors ${
               activeMfr === "svi"
                 ? "bg-earth-500 text-white"
                 : "bg-earth-100 text-earth-700 hover:bg-earth-200"
@@ -91,7 +91,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
             <button
               key={mfr}
               onClick={() => setActiveMfr(mfr)}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+              className={`px-3 py-1.5 rounded-full text-sm font-semibold transition-colors ${
                 activeMfr === mfr
                   ? "bg-earth-500 text-white"
                   : "bg-earth-100 text-earth-700 hover:bg-earth-200"
