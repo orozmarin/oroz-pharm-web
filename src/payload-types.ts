@@ -127,6 +127,7 @@ export interface Category {
   icon?: string | null;
   image?: number | Media | null;
   gridArea?: string | null;
+  relatedCategories?: (number | Category)[] | null;
   updatedAt: string;
   createdAt: string;
 }

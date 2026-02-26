@@ -53,5 +53,15 @@ export const Categories: CollectionConfig = {
         description: 'CSS grid-area naziv za pozicioniranje u rešetki',
       },
     },
+    {
+      name: 'relatedCategories',
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
+      label: 'Srodne kategorije',
+      admin: {
+        description: 'Kategorije prikazane u dijelu "Možda vas zanima" na stranici kategorije (max 3)',
+      },
+    },
   ],
 }

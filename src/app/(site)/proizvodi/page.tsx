@@ -22,11 +22,18 @@ export const metadata: Metadata = {
 
 export default async function ProductsPage() {
   const payload = await getPayload({ config });
-  const { docs } = await payload.find({
-    collection: "categories",
-    depth: 1,
-    limit: 100,
-  });
+  const [{ docs }, { docs: subcategoryDocs }] = await Promise.all([
+    payload.find({ collection: "categories", depth: 1, limit: 100 }),
+    payload.find({ collection: "subcategories", depth: 0, limit: 1000 }),
+  ]);
+
+  // Group subcategories by their parent category ID
+  const subsByCategoryId = new Map<string, { id: string; name: string }[]>();
+  for (const sub of subcategoryDocs) {
+    const catId = String(typeof sub.category === "object" ? sub.category.id : sub.category);
+    if (!subsByCategoryId.has(catId)) subsByCategoryId.set(catId, []);
+    subsByCategoryId.get(catId)!.push({ id: String(sub.id), name: sub.name });
+  }
 
   const categories: ProductCategory[] = docs.map((doc) => ({
     id: String(doc.id),
@@ -36,7 +43,7 @@ export default async function ProductsPage() {
     icon: doc.icon ?? "",
     image: getImageUrl(doc.image, FALLBACK_IMAGE),
     gridArea: doc.gridArea ?? "",
-    subcategories: [],
+    subcategories: subsByCategoryId.get(String(doc.id)) ?? [],
     brands: [],
   }));
 
