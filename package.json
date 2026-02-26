@@ -10,7 +10,9 @@
     "seed": "node --env-file=.env.local src/scripts/seed.js",
     "seed:images": "node --env-file=.env.local src/scripts/seed-images.js",
     "seed:subcategories": "node --env-file=.env.local src/scripts/seed-subcategories.js",
-    "seed:related": "node --env-file=.env.local src/scripts/seed-related-categories.js"
+    "seed:related": "node --env-file=.env.local src/scripts/seed-related-categories.js",
+    "seed:tora": "node --env-file=.env.local src/scripts/seed-tora-products.js",
+    "seed:f1": "node --env-file=.env.local src/scripts/seed-f1-hibridi.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
