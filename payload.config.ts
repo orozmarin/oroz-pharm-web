@@ -26,7 +26,6 @@ import { Users } from '@/collections/Users'
 import { Media } from '@/collections/Media'
 import { Blogs } from '@/collections/Blogs'
 import { Testimonials } from '@/collections/Testimonials'
-import { Team } from '@/collections/Team'
 import { Manufacturers } from '@/collections/Manufacturers'
 import { Subcategories } from '@/collections/Subcategories'
 import { Categories } from '@/collections/Categories'
@@ -66,7 +65,6 @@ export default buildConfig({
     Media,
     Blogs,
     Testimonials,
-    Team,
     Manufacturers,
     Subcategories,
     Categories,

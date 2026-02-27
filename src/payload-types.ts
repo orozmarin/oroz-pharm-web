@@ -94,19 +94,6 @@ export interface Testimonial {
   createdAt: string;
 }
 
-// ─── Team ─────────────────────────────────────────────────────────────────────
-
-export interface Team {
-  id: number;
-  name: string;
-  role: string;
-  bio?: string | null;
-  photo: number | Media;
-  order?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-
 // ─── Manufacturer ─────────────────────────────────────────────────────────────
 
 export interface Manufacturer {
@@ -224,7 +211,6 @@ export interface Config {
     media: Media;
     blogs: Blog;
     testimonials: Testimonial;
-    team: Team;
     manufacturers: Manufacturer;
     subcategories: Subcategory;
     categories: Category;
