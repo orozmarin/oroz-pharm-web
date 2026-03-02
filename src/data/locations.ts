@@ -6,6 +6,7 @@ export interface StoreLocation {
   phone: string;
   lat: number;
   lng: number;
+  gmapsUrl: string;
   hours: { days: string; time: string }[];
   seasonal?: boolean;
 }
@@ -17,8 +18,9 @@ export const locations: StoreLocation[] = [
     address: "Kralja Zvonimira 24",
     city: "HR-34310 Pleternica",
     phone: "+385 34 251 053",
-    lat: 45.2936771,
-    lng: 17.8075799,
+    lat: 45.2880556,
+    lng: 17.8063889,
+    gmapsUrl: "https://maps.app.goo.gl/gkdM4erJB1xFSS129",
     hours: [
       { days: "Pon - Pet", time: "7:00 - 19:00" },
       { days: "Sub", time: "7:00 - 15:00" },
@@ -30,8 +32,9 @@ export const locations: StoreLocation[] = [
     address: "Frankopanska 53",
     city: "HR-34000 Požega",
     phone: "+385 34 211 224",
-    lat: 45.3382851,
-    lng: 17.6523297,
+    lat: 45.3372368,
+    lng: 17.662954,
+    gmapsUrl: "https://maps.app.goo.gl/HLtjmFSzWKA21hPs9",
     hours: [
       { days: "Pon - Pet", time: "7:00 - 19:00" },
       { days: "Sub", time: "8:00 - 13:00" },

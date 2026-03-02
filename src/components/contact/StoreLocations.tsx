@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useInView } from "@/lib/useInView";
 import { locations, contactInfo } from "@/data/locations";
 import SectionHeading from "@/components/shared/SectionHeading";
-import { MapPin, Phone, Clock, Mail, User } from "lucide-react";
+import { MapPin, Phone, Clock, Mail, User, Navigation } from "lucide-react";
 
 const MapComponent = dynamic(() => import("@/components/shared/Map"), { ssr: false });
 
@@ -39,13 +39,26 @@ export default function StoreLocations() {
               </h3>
 
               <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <MapPin size={18} className="text-green-600 mt-0.5 shrink-0" />
+                <div className="flex items-center gap-3">
+                  <MapPin size={18} className="text-green-600 shrink-0" />
                   <span className="text-gray-600">{loc.address}, {loc.city}</span>
+                  <a
+                    href={loc.gmapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Otvori u Google Maps"
+                    aria-label="Otvori u Google Maps"
+                    className="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-green-100 hover:bg-green-200 text-green-700 hover:text-green-900 transition-colors"
+                  >
+                    <Navigation size={12} />
+                  </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={18} className="text-green-600 shrink-0" />
-                  <a href={`tel:${loc.phone}`} className="text-gray-600 hover:text-green-700 transition-colors font-medium">
+                  <a
+                    href={`tel:${loc.phone}`}
+                    className="inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded-md bg-green-100 hover:bg-green-200 text-green-700 hover:text-green-900 transition-colors font-medium"
+                  >
                     {loc.phone}
                   </a>
                 </div>

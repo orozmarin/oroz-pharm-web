@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useInView } from "@/lib/useInView";
 import { locations } from "@/data/locations";
 import SectionHeading from "@/components/shared/SectionHeading";
-import { MapPin, Phone, Clock } from "lucide-react";
+import { MapPin, Phone, Clock, Navigation } from "lucide-react";
 
 const MapComponent = dynamic(() => import("@/components/shared/Map"), { ssr: false });
 
@@ -20,10 +20,10 @@ export default function LocationsPreview() {
 
       <div
         ref={ref}
-        className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start"
+        className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch"
       >
         {/* Map */}
-        <div className="animate-on-scroll anim-slide-in-left h-80 md:h-96 rounded-2xl overflow-hidden shadow-lg">
+        <div className="animate-on-scroll anim-slide-in-left min-h-80 h-full rounded-2xl overflow-hidden shadow-lg">
           <MapComponent />
         </div>
 
@@ -38,13 +38,26 @@ export default function LocationsPreview() {
                 {loc.name}
               </h3>
               <div className="space-y-2 text-sm">
-                <div className="flex items-start gap-2">
-                  <MapPin size={16} className="text-green-600 mt-0.5 shrink-0" />
+                <div className="flex items-center gap-2">
+                  <MapPin size={16} className="text-green-600 shrink-0" />
                   <span className="text-gray-600">{loc.address}, {loc.city}</span>
+                  <a
+                    href={loc.gmapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Otvori u Google Maps"
+                    aria-label="Otvori u Google Maps"
+                    className="shrink-0 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-green-100 hover:bg-green-200 text-green-700 hover:text-green-900 transition-colors"
+                  >
+                    <Navigation size={12} />
+                  </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={16} className="text-green-600 shrink-0" />
-                  <a href={`tel:${loc.phone}`} className="text-gray-600 hover:text-green-700 transition-colors">
+                  <a
+                    href={`tel:${loc.phone}`}
+                    className="inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded-md bg-green-100 hover:bg-green-200 text-green-700 hover:text-green-900 transition-colors font-medium"
+                  >
                     {loc.phone}
                   </a>
                 </div>
