@@ -15,6 +15,29 @@ export default function BlogListClient({ posts }: Props) {
   const featuredRef = useInView<HTMLDivElement>();
   const gridRef = useInView<HTMLDivElement>();
 
+  if (posts.length === 0) {
+    return (
+      <>
+        <div className="bg-green-900 pt-32 pb-16 px-4 md:px-8">
+          <div className="max-w-7xl mx-auto text-center">
+            <Leaf size={48} className="mx-auto text-green-400 mb-4" />
+            <h1 className="text-4xl md:text-6xl font-bold text-white font-[family-name:var(--font-heading)] mb-3">
+              Blog
+            </h1>
+            <p className="text-green-200 text-lg max-w-xl mx-auto">
+              Savjeti, novosti i korisne informacije iz svijeta poljoprivrede
+            </p>
+          </div>
+        </div>
+        <section className="py-16 md:py-24 px-4 md:px-8 bg-earth-100/50">
+          <div className="max-w-6xl mx-auto text-center text-gray-500">
+            Uskoro novi članci.
+          </div>
+        </section>
+      </>
+    );
+  }
+
   return (
     <>
       {/* Hero */}
