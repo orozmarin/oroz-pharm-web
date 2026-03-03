@@ -18,6 +18,7 @@ import {
   HorizontalRuleFeature,
   UploadFeature,
 } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import sharp from 'sharp'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -99,5 +100,25 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    s3Storage({
+      collections: {
+        media: {
+          prefix: 'media',
+          generateFileURL: ({ filename, prefix }) =>
+            `${process.env.S3_PUBLIC_URL}/${prefix ? `${prefix}/` : ''}${filename}`,
+        },
+      },
+      bucket: process.env.S3_BUCKET || '',
+      config: {
+        endpoint: process.env.S3_ENDPOINT || '',
+        region: process.env.S3_REGION || 'auto',
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY || '',
+          secretAccessKey: process.env.S3_SECRET_KEY || '',
+        },
+        forcePathStyle: true,
+      },
+    }),
+  ],
 })
