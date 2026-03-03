@@ -55,6 +55,7 @@ export default async function HomePage() {
       <ServicesIntro />
       <LeafDivider />
       <PartnersTestimonials testimonials={testimonials} />
+      <LeafDivider light className="bg-green-900" />
       <LocationsPreview />
       <LeafDivider className="bg-green-50" />
       <BlogPreview posts={posts} />

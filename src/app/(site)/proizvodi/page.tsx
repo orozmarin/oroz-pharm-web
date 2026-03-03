@@ -71,7 +71,7 @@ export default async function ProductsPage() {
 
       <BrandMarquee />
 
-      <section className="py-16 md:py-24">
+      <section className="pt-8 pb-16 md:pt-12 md:pb-24">
         <CategoryGrid categories={categories} />
       </section>
     </>

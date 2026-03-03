@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Image from "next/image";
 import { useInView } from "@/lib/useInView";
+import { cn } from "@/lib/utils";
 import Button from "@/components/shared/Button";
 import { Send, CheckCircle } from "lucide-react";
 
@@ -18,6 +19,9 @@ const schema = z.object({
 });
 
 type FormData = z.infer<typeof schema>;
+
+const FIELD_CLASS = "w-full border-b-2 border-gray-200 focus:border-green-600 bg-transparent py-2 px-1 outline-none transition-colors text-sm text-gray-900";
+const SUBMIT_ERROR = "Greška pri slanju poruke. Molimo pokušajte ponovo ili nas kontaktirajte telefonom.";
 
 const categories = [
   "Sjemenski program",
@@ -63,12 +67,12 @@ export default function ContactForm() {
         body: JSON.stringify(data),
       });
       if (!res.ok) {
-        setSubmitError("Greška pri slanju poruke. Molimo pokušajte ponovo ili nas kontaktirajte telefonom.");
+        setSubmitError(SUBMIT_ERROR);
         return;
       }
       setSubmitted(true);
     } catch {
-      setSubmitError("Greška pri slanju poruke. Molimo pokušajte ponovo ili nas kontaktirajte telefonom.");
+      setSubmitError(SUBMIT_ERROR);
     }
   };
 
@@ -119,8 +123,8 @@ export default function ContactForm() {
                       </label>
                       <input
                         {...register("name")}
-                        className="w-full border-b-2 border-gray-200 focus:border-green-600 bg-transparent py-2 px-1 outline-none transition-colors text-gray-900"
-                        placeholder="Vaše ime"
+                        className={FIELD_CLASS}
+                        placeholder="Vaše ime i prezime"
                       />
                       {errors.name && (
                         <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
@@ -133,7 +137,7 @@ export default function ContactForm() {
                       <input
                         {...register("email")}
                         type="email"
-                        className="w-full border-b-2 border-gray-200 focus:border-green-600 bg-transparent py-2 px-1 outline-none transition-colors text-gray-900"
+                        className={FIELD_CLASS}
                         placeholder="vas@email.com"
                       />
                       {errors.email && (
@@ -150,7 +154,7 @@ export default function ContactForm() {
                       <input
                         {...register("phone")}
                         type="tel"
-                        className="w-full border-b-2 border-gray-200 focus:border-green-600 bg-transparent py-2 px-1 outline-none transition-colors text-gray-900"
+                        className={FIELD_CLASS}
                         placeholder="+385..."
                       />
                     </div>
@@ -160,7 +164,7 @@ export default function ContactForm() {
                       </label>
                       <select
                         {...register("category")}
-                        className="w-full border-b-2 border-gray-200 focus:border-green-600 bg-transparent py-2 px-1 outline-none transition-colors text-gray-900"
+                        className={FIELD_CLASS}
                         defaultValue=""
                       >
                         <option value="" disabled>
@@ -185,7 +189,7 @@ export default function ContactForm() {
                     <textarea
                       {...register("message")}
                       rows={4}
-                      className="w-full border-b-2 border-gray-200 focus:border-green-600 bg-transparent py-2 px-1 outline-none transition-colors resize-none text-gray-900"
+                      className={cn(FIELD_CLASS, "resize-none")}
                       placeholder="Opišite vaše pitanje ili zahtjev..."
                     />
                     {errors.message && (
