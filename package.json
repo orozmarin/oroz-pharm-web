@@ -12,7 +12,8 @@
     "seed:subcategories": "node --env-file=.env.local src/scripts/seed-subcategories.js",
     "seed:related": "node --env-file=.env.local src/scripts/seed-related-categories.js",
     "seed:tora": "node --env-file=.env.local src/scripts/seed-tora-products.js",
-    "seed:f1": "node --env-file=.env.local src/scripts/seed-f1-hibridi.js"
+    "seed:f1": "node --env-file=.env.local src/scripts/seed-f1-hibridi.js",
+    "migrate:r2": "node --env-file=.env.local src/scripts/migrate-to-r2.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
