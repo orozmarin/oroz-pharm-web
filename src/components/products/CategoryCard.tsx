@@ -8,6 +8,8 @@ interface Props {
   mobile?: boolean;
 }
 
+const LAST_SUBCATEGORY = "ostalo";
+
 export default function CategoryCard({ category, mobile }: Props) {
   return (
     <div
@@ -47,7 +49,14 @@ export default function CategoryCard({ category, mobile }: Props) {
           {/* Subcategory pills - visible on mobile, slide up on hover for desktop */}
           {category.subcategories.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mb-3 md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-[opacity,transform] duration-300">
-              {category.subcategories.slice(0, 4).map((sub) => (
+              {[...category.subcategories]
+                .sort((a, b) => {
+                  if (a.name.toLowerCase() === LAST_SUBCATEGORY) return 1;
+                  if (b.name.toLowerCase() === LAST_SUBCATEGORY) return -1;
+                  return 0;
+                })
+                .slice(0, 4)
+                .map((sub) => (
                 <span
                   key={sub.id}
                   className="text-xs bg-white/25 text-white px-2.5 py-1 rounded-full"

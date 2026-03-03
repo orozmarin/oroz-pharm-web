@@ -2,7 +2,6 @@
 
 import { Quote } from "lucide-react";
 import SectionHeading from "@/components/shared/SectionHeading";
-import LeafDivider from "@/components/shared/LeafDivider";
 import { useInView } from "@/lib/useInView";
 
 type Testimonial = {
@@ -75,7 +74,6 @@ export default function PartnersTestimonials({ testimonials }: Props) {
           ))}
         </div>
       </div>
-      <LeafDivider light />
     </section>
   );
 }
