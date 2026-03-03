@@ -10,20 +10,13 @@ import BlogRelatedPosts from "@/components/blog/BlogRelatedPosts";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
 import type { BlogPost } from "@/types/views";
 
+export const dynamic = 'force-dynamic'
+
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80";
 
 interface Props {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams() {
-  const payload = await getPayload({ config });
-  const { docs } = await payload.find({
-    collection: "blogs",
-    limit: 1000,
-  });
-  return docs.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

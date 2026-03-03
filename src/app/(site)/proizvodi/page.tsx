@@ -10,10 +10,7 @@ import { getImageUrl } from "@/lib/utils";
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80";
 
-// Cache the rendered page for 60 seconds (ISR).
-// After 60s, the next request triggers a background re-render;
-// the stale page is still served instantly while the new one builds.
-export const revalidate = 60;
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: "Proizvodi",

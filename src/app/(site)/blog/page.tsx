@@ -5,6 +5,8 @@ import BlogListClient from "@/components/blog/BlogListClient";
 import type { BlogPost } from "@/types/views";
 import { getImageUrl } from "@/lib/utils";
 
+export const dynamic = 'force-dynamic'
+
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80";
 
