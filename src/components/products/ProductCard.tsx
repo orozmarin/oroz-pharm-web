@@ -13,7 +13,7 @@ export default function ProductCard({ product }: Props) {
   return (
     <Link
       href={`/proizvodi/${product.categorySlug}/${product.slug}`}
-      className="group flex flex-col bg-white rounded-xl border border-green-100 overflow-hidden hover:shadow-lg hover:border-green-200 transition-all duration-300"
+      className="group flex flex-col h-full bg-white rounded-xl border border-green-100 overflow-hidden hover:shadow-lg hover:border-green-200 transition-all duration-300"
     >
       <div className="relative aspect-4/3 overflow-hidden bg-gray-100">
         <Image
