@@ -6,22 +6,22 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80",
+    image: "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?w=1920&q=80",
     title: "Vaš partner u poljoprivredi od 1998.",
     subtitle: "Stručno savjetovanje i kvalitetni proizvodi",
   },
   {
-    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1920&q=80",
-    title: "Preko 12.000 artikala za vašu zemlju",
+    image: "/images/hero/artikli.jpg",
+    title: "Preko 15.000 artikala za vašu zemlju",
     subtitle: "Sve što vam je potrebno na jednom mjestu",
   },
   {
-    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&q=80",
+    image: "/images/hero/savjetovanje.jpg",
     title: "Stručno savjetovanje za svaku kulturu",
     subtitle: "Naš tim poljoprivrednih inženjera na vašem raspolaganju",
   },
   {
-    image: "https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?w=1920&q=80",
+    image: "/images/hero/pcelarstvo-hero.jpg",
     title: "Moderna rješenja za moderne izazove",
     subtitle: "Navodnjavanje, zaštita bilja, gnojiva i još mnogo toga",
   },

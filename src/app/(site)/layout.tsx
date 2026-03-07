@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | Oroz PHARM",
   },
   description:
-    "Vaš pouzdan partner u poljoprivredi od 1998. Preko 12.000 artikala - zaštita bilja, gnojiva, sjeme, navodnjavanje i još mnogo toga. Pleternica i Požega.",
+    "Vaš pouzdan partner u poljoprivredi od 1998. Preko 15.000 artikala - zaštita bilja, gnojiva, sjeme, navodnjavanje i još mnogo toga. Pleternica i Požega.",
   keywords: [
     "poljoprivredna ljekarna",
     "Pleternica",
