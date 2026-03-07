@@ -49,8 +49,8 @@ export default async function ProductsPage() {
       {/* Hero banner */}
       <div className="relative h-[50vh] min-h-100 overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80"
-          alt="Poljoprivredno polje"
+          src="/images/hero/products-hero.jpg"
+          alt="Oroz PHARM asortiman"
           fill
           className="object-cover"
           priority
