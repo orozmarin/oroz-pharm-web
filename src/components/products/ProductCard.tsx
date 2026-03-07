@@ -4,12 +4,13 @@ import type { Product } from "@/types/views";
 
 interface Props {
   product: Product;
+  priority?: boolean;
 }
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&q=80";
 
-export default function ProductCard({ product }: Props) {
+export default function ProductCard({ product, priority = false }: Props) {
   return (
     <Link
       href={`/proizvodi/${product.categorySlug}/${product.slug}`}
@@ -18,16 +19,10 @@ export default function ProductCard({ product }: Props) {
       <div className="relative aspect-4/3 overflow-hidden bg-gray-100">
         <Image
           src={product.image || FALLBACK_IMAGE}
-          alt=""
-          fill
-          aria-hidden="true"
-          className="object-cover scale-110 blur-md opacity-50"
-        />
-        <Image
-          src={product.image || FALLBACK_IMAGE}
           alt={product.name}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          priority={priority}
           className="object-contain group-hover:scale-105 transition-transform duration-300"
         />
       </div>

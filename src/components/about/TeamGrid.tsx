@@ -36,7 +36,7 @@ export default function TeamGrid() {
         {/* Team photo */}
         <div className="animate-on-scroll anim-fade-in-up relative rounded-2xl overflow-hidden shadow-xl aspect-16/7">
           <Image
-            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80"
+            src="/images/team/tim.jpg"
             alt="Tim Oroz PHARM"
             fill
             className="object-cover"
@@ -47,7 +47,7 @@ export default function TeamGrid() {
               Pleternica &amp; Požega
             </p>
             <h3 className="text-white text-2xl md:text-3xl font-bold font-heading">
-              10 stručnjaka na vašoj strani
+              Naši stručnjaci na vašoj strani
             </h3>
           </div>
         </div>

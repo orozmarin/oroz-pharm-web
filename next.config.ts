@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    // R2 is Cloudflare CDN — bypass Next.js proxy to avoid timeout on simultaneous image requests
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
