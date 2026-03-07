@@ -6,19 +6,19 @@ import SectionHeading from "@/components/shared/SectionHeading";
 
 const highlights = [
   {
-    value: "25+",
-    label: "Godina iskustva",
-    desc: "Aktivno poslujemo od 1998. godine uz neprestano usavršavanje znanja.",
+    value: "Svaki dan",
+    label: "Na raspolaganju",
+    desc: "Dostupni radnim danom za savjete, narudžbe i odabir pravog rješenja za vaše potrebe.",
   },
   {
-    value: "10",
-    label: "Stručnih djelatnika",
-    desc: "Diplomirani inženjeri agronomije i poljoprivredni tehničari.",
+    value: "Partneri",
+    label: "Provjerni dobavljači",
+    desc: "Dugogodišnja partnerstva s vodećim domaćim i europskim proizvođačima jamče kvalitetu i dostupnost robe.",
   },
   {
-    value: "2",
-    label: "Poslovnice",
-    desc: "Dostupni u Pleternici i Požegi, a po potrebi i na vašem terenu.",
+    value: "Savjet",
+    label: "Stručno znanje",
+    desc: "Diplomirani inženjeri agronomije s godinama praktičnog iskustva u biljnoj i stočnoj proizvodnji.",
   },
 ];
 

@@ -8,12 +8,12 @@ import { Users, Package, TrendingUp, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "O nama",
-  description: "Oroz PHARM d.o.o. - privatno poduzece osnovano 1998. godine u Pleternici. 10 zaposlenih, preko 12.000 artikala.",
+  description: "Oroz PHARM d.o.o. - privatno poduzece osnovano 1998. godine u Pleternici. 10+ zaposlenih, preko 15.000 artikala.",
 };
 
 const stats = [
-  { icon: Users, value: "10", label: "Zaposlenih" },
-  { icon: Package, value: "12.000+", label: "Artikala" },
+  { icon: Users, value: "10+", label: "Zaposlenih" },
+  { icon: Package, value: "15.000+", label: "Artikala" },
   { icon: TrendingUp, value: "25+", label: "Godina iskustva" },
   { icon: MapPin, value: "2", label: "Lokacije" },
 ];
@@ -24,10 +24,10 @@ export default function AboutPage() {
       {/* Hero */}
       <div className="relative h-[60vh] min-h-[450px] overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1920&q=80"
-          alt="Oroz PHARM poslovnica"
+          src="/images/about/hero-vanjski.jpg"
+          alt="Oroz PHARM poslovnica Pleternica"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-green-900/80 via-green-900/30 to-transparent" />
@@ -67,7 +67,7 @@ export default function AboutPage() {
             OROZ PHARM d.o.o. privatno je poduzeće osnovano 1998. godine, registrirano za maloprodaju
             i veleprodaju repromaterijala u poljoprivredi te za proizvodnu djelatnost. Sjedište tvrtke
             nalazi se u Pleternici, gdje se nalaze maloprodajna trgovina, skladište i računovodstvo.
-            Tim od 10 zaposlenih uključuje diplomirane inženjere agronomije i poljoprivredne tehničara
+            Tim od 10 i više zaposlenih uključuje diplomirane inženjere agronomije i poljoprivredne tehničare
             koji vam stoje na raspolaganju kako u uredskim prostorima tako i na terenu.
           </p>
         </div>

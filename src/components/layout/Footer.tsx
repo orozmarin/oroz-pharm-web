@@ -25,7 +25,7 @@ export default function Footer() {
           </div>
         </div>
         <p className="text-green-200 text-sm leading-relaxed mt-4 text-center max-w-md">
-          Vaš pouzdan partner u poljoprivredi od 1998. godine. Preko 12.000 artikala za sve vaše potrebe.
+          Vaš pouzdan partner u poljoprivredi od 1998. godine. Preko 15.000 artikala za sve vaše potrebe.
         </p>
       </div>
 

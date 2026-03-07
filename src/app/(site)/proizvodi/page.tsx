@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: "Proizvodi",
-  description: "Pregledajte naš asortiman od preko 12.000 artikala - zaštita bilja, gnojiva, sjeme, navodnjavanje, stočna hrana i još mnogo toga.",
+  description: "Pregledajte naš asortiman od preko 15.000 artikala - zaštita bilja, gnojiva, sjeme, navodnjavanje, stočna hrana i još mnogo toga.",
 };
 
 export default async function ProductsPage() {
@@ -62,7 +62,7 @@ export default async function ProductsPage() {
               Naš asortiman
             </h1>
             <p className="text-white/80 text-lg max-w-xl">
-              Preko 12.000 artikala za sve vaše poljoprivredne potrebe, organizirano u{" "}
+              Preko 15.000 artikala za sve vaše poljoprivredne potrebe, organizirano u{" "}
               <span className="text-green-300 font-semibold">13 kategorija</span> s vodećim svjetskim brandovima.
             </p>
           </div>

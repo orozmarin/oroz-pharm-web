@@ -7,32 +7,37 @@ const milestones = [
   {
     year: "1998",
     title: "Osnivanje tvrtke",
-    desc: "Oroz PHARM d.o.o. osnovan u Pleternici kao privatno poduzeće za maloprodaju i veleprodaju poljoprivrednog materijala.",
+    desc: "Oroz PHARM d.o.o. osnovan u Pleternici kao privatno poduzeće za maloprodaju i veleprodaju repromaterijala u poljoprivredi.",
   },
   {
-    year: "2005",
-    title: "Proširenje asortimana",
-    desc: "Uspostavljene suradnje s vodećim svjetskim proizvođačima gnojiva i sredstava za zaštitu bilja.",
-  },
-  {
-    year: "2010",
-    title: "Otvaranje poslovnice u Požegi",
-    desc: "Druga poslovnica otvorena na adresi Frankopanska 53, Požega - proširujući dostupnost našim kupcima.",
+    year: "2002",
+    title: "Vlastiti poslovni prostor",
+    desc: "Preseljenje u vlastiti poslovni prostor u Pleternici — novi uvjeti za rast asortimana i bolju uslugu kupcima.",
   },
   {
     year: "2013",
     title: "Kooperantska proizvodnja povrća",
-    desc: "Započeta kooperantska proizvodnja povrća u suradnji s lokalnim poljoprivrednicima.",
+    desc: "Pokrenuta kooperantska proizvodnja povrća u suradnji s lokalnim poljoprivrednicima Požeško-slavonske županije.",
   },
   {
     year: "2014",
-    title: "Otkup voća",
-    desc: "Proširena djelatnost na otkup voća, dodatno podržavajući lokalne voćare.",
+    title: "Poslovnica u Požegi i otkup voća",
+    desc: "Otvorena druga poslovnica u Požegi, a djelatnost proširena na otkup voća u suradnji s lokalnim voćarima.",
+  },
+  {
+    year: "2018",
+    title: "Poduzetnik godine — Pleternica",
+    desc: "Nagrada Grada Pleternice za poduzetnika godine — prepoznanje dugogodišnjeg doprinosa lokalnoj zajednici i gospodarstvu.",
+  },
+  {
+    year: "2023",
+    title: "Zlatna kuna",
+    desc: "Nagrada Zlatna kuna za najbolje malo poduzeće — potvrda kvalitete, pouzdanosti i predanosti poslu kroz cijelo poslovanje.",
   },
   {
     year: "Danas",
-    title: "Preko 12.000 artikala",
-    desc: "10 zaposlenih, tim poljoprivrednih inženjera i konstantan rast prometa iz godine u godinu.",
+    title: "Preko 15.000 artikala",
+    desc: "Tim od 10+ stručnjaka, dvije poslovnice i konstantan rast asortimana uz bok najboljim dobavljačima u regiji.",
   },
 ];
 
