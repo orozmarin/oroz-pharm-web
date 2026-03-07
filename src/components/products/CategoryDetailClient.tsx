@@ -4,6 +4,8 @@ import { useState, useMemo, useCallback } from "react";
 import type { ProductCategory, Product } from "@/types/views";
 import ProductCard from "./ProductCard";
 
+const PAGE_SIZE = 16; // 4 rows × 4 columns
+
 interface Props {
   category: ProductCategory;
   products: Product[];
@@ -12,6 +14,7 @@ interface Props {
 export default function CategoryDetailClient({ category, products }: Props) {
   const [activeSubs, setActiveSubs] = useState<Set<string>>(new Set());
   const [activeMfrs, setActiveMfrs] = useState<Set<string>>(new Set());
+  const [page, setPage] = useState(1);
 
   const toggleSub = useCallback((id: string) => {
     setActiveSubs((prev) => {
@@ -21,6 +24,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
       return next;
     });
     setActiveMfrs(new Set());
+    setPage(1);
   }, []);
 
   const toggleMfr = useCallback((name: string) => {
@@ -30,6 +34,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
       else next.add(name);
       return next;
     });
+    setPage(1);
   }, []);
 
   const filteredBySubcategory = useMemo(
@@ -61,13 +66,16 @@ export default function CategoryDetailClient({ category, products }: Props) {
     });
   }, [filteredBySubcategory, activeMfrs]);
 
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
       {/* Subcategory filter tabs */}
       {category.subcategories.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-6">
           <button
-            onClick={() => { setActiveSubs(new Set()); setActiveMfrs(new Set()); }}
+            onClick={() => { setActiveSubs(new Set()); setActiveMfrs(new Set()); setPage(1); }}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               activeSubs.size === 0
                 ? "bg-green-700 text-white"
@@ -96,7 +104,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
       {manufacturers.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-8 pb-8 border-b border-green-100">
           <button
-            onClick={() => setActiveMfrs(new Set())}
+            onClick={() => { setActiveMfrs(new Set()); setPage(1); }}
             className={`px-3 py-1.5 rounded-full text-sm font-semibold transition-colors ${
               activeMfrs.size === 0
                 ? "bg-earth-500 text-white"
@@ -123,11 +131,48 @@ export default function CategoryDetailClient({ category, products }: Props) {
 
       {/* Product grid */}
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-          {filtered.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            {paginated.map((product, i) => (
+              <ProductCard key={product.id} product={product} priority={i < 8} />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-10">
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page === 1}
+                className="px-4 py-2 rounded-lg text-sm font-medium border border-green-200 text-green-800 hover:bg-green-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                ← Prethodna
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
+                <button
+                  key={n}
+                  onClick={() => setPage(n)}
+                  className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors ${
+                    n === page
+                      ? "bg-green-700 text-white"
+                      : "border border-green-200 text-green-800 hover:bg-green-50"
+                  }`}
+                >
+                  {n}
+                </button>
+              ))}
+
+              <button
+                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                disabled={page === totalPages}
+                className="px-4 py-2 rounded-lg text-sm font-medium border border-green-200 text-green-800 hover:bg-green-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                Sljedeća →
+              </button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="py-20 text-center">
           <p className="text-gray-500 text-lg">Uskoro dostupno.</p>

@@ -12,6 +12,7 @@ export default function BlogCard({ post, featured }: Props) {
   const dateObj = new Date(post.date);
   const day = dateObj.getDate();
   const month = dateObj.toLocaleDateString("hr-HR", { month: "short" });
+  const year = dateObj.getFullYear();
 
   if (featured) {
     return (
@@ -32,9 +33,11 @@ export default function BlogCard({ post, featured }: Props) {
             </div>
             <div className="p-8 md:p-10 flex flex-col justify-center">
               <div className="flex items-center gap-3 mb-4">
-                <span className="w-10 h-10 rounded-full bg-green-700 text-white text-xs font-bold flex items-center justify-center leading-tight text-center">
-                  {day}<br/>{month}
-                </span>
+                <div className="w-12 h-12 rounded-full bg-green-700 text-white font-bold flex flex-col items-center justify-center shadow-lg">
+                  <span className="text-base leading-none">{day}</span>
+                  <span className="text-[10px] uppercase leading-none mt-0.5">{month}</span>
+                  <span className="text-[8px] leading-none mt-0.5 opacity-70">{year}</span>
+                </div>
                 <span className="text-gray-400 text-sm flex items-center gap-1">
                   <Clock size={14} /> {post.readingTime} min čitanja
                 </span>
@@ -79,9 +82,8 @@ export default function BlogCard({ post, featured }: Props) {
           {/* Wax seal date badge */}
           <div className="absolute top-4 left-4 w-12 h-12 rounded-full bg-green-700 text-white text-xs font-bold flex flex-col items-center justify-center shadow-lg">
             <span className="text-base leading-none">{day}</span>
-            <span className="text-[10px] uppercase leading-none mt-0.5">
-              {month}
-            </span>
+            <span className="text-[10px] uppercase leading-none mt-0.5">{month}</span>
+            <span className="text-[8px] leading-none mt-0.5 opacity-70">{year}</span>
           </div>
         </div>
         <div className="p-6">
