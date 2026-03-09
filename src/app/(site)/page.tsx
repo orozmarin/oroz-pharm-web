@@ -28,6 +28,7 @@ export default async function HomePage() {
       collection: "testimonials",
       sort: "order",
       limit: 100,
+      depth: 1,
     }),
   ]);
 
@@ -47,6 +48,7 @@ export default async function HomePage() {
     quote: doc.quote,
     author: doc.author,
     company: doc.company,
+    logo: typeof doc.logo === 'object' && doc.logo !== null ? doc.logo.url ?? null : null,
   }));
 
   return (
