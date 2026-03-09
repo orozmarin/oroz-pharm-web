@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Quote } from "lucide-react";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { useInView } from "@/lib/useInView";
@@ -9,6 +10,7 @@ type Testimonial = {
   quote: string;
   author: string;
   company?: string | null;
+  logo?: string | null;
 };
 
 interface Props {
@@ -54,10 +56,20 @@ export default function PartnersTestimonials({ testimonials }: Props) {
 
               {/* Partner info */}
               <div className="flex items-center gap-3 border-t border-white/10 pt-4">
-                <div className="w-10 h-10 rounded-full bg-green-700 flex items-center justify-center shrink-0">
-                  <span className="text-white text-sm font-semibold">
-                    {getInitials(t.author)}
-                  </span>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 overflow-hidden ${t.logo ? 'bg-white p-1' : 'bg-green-700'}`}>
+                  {t.logo ? (
+                    <Image
+                      src={t.logo}
+                      alt={t.company ?? t.author}
+                      width={40}
+                      height={40}
+                      className="object-contain w-full h-full"
+                    />
+                  ) : (
+                    <span className="text-white text-sm font-semibold">
+                      {getInitials(t.author)}
+                    </span>
+                  )}
                 </div>
                 <div className="min-w-0">
                   <p className="text-white font-semibold text-sm truncate">
