@@ -97,7 +97,7 @@ export default async function ProductPage({ params }: Props) {
   return (
     <>
       {/* Breadcrumb */}
-      <nav className="max-w-6xl mx-auto px-4 md:px-8 pt-28 pb-2">
+      <nav className="max-w-6xl mx-auto px-4 md:px-8 pt-4 pb-2">
         <ol className="flex items-center gap-1 text-sm flex-wrap">
           <li>
             <Link

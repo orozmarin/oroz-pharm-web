@@ -90,7 +90,7 @@ export default function ContactForm() {
       </div>
       <div className="absolute inset-0 bg-green-900/85" />
 
-      <div className="relative pt-32 pb-20 px-4 md:px-8">
+      <div className="relative pt-10 pb-20 px-4 md:px-8">
         <div className="max-w-2xl mx-auto">
           <div
             ref={ref}

@@ -18,7 +18,7 @@ export default function BlogListClient({ posts }: Props) {
   if (posts.length === 0) {
     return (
       <>
-        <div className="bg-green-900 pt-32 pb-16 px-4 md:px-8">
+        <div className="bg-green-900 pt-10 pb-16 px-4 md:px-8">
           <div className="max-w-7xl mx-auto text-center">
             <Leaf size={48} className="mx-auto text-green-400 mb-4" />
             <h1 className="text-4xl md:text-6xl font-bold text-white font-[family-name:var(--font-heading)] mb-3">
@@ -41,7 +41,7 @@ export default function BlogListClient({ posts }: Props) {
   return (
     <>
       {/* Hero */}
-      <div className="bg-green-900 pt-32 pb-16 px-4 md:px-8">
+      <div className="bg-green-900 pt-10 pb-16 px-4 md:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <Leaf size={48} className="mx-auto text-green-400 mb-4" />
           <h1 className="text-4xl md:text-6xl font-bold text-white font-[family-name:var(--font-heading)] mb-3">
