@@ -33,7 +33,7 @@ const brands: Brand[] = [
   { name: "Timac Agro",        logo: "/images/brands/timac-agro.svg",        w: 1358, h: 372 },
 ];
 
-const SPEED = 60; // px/s
+const SPEED = 20; // px/s
 
 export default function BrandMarquee() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -42,6 +42,7 @@ export default function BrandMarquee() {
   const startScroll = useRef(0);
   const lastTime = useRef<number | null>(null);
   const rafId = useRef<number>(0);
+  const position = useRef(0); // accumulates fractional pixels
 
   useEffect(() => {
     const track = trackRef.current;
@@ -51,14 +52,17 @@ export default function BrandMarquee() {
       if (!isDragging.current) {
         if (lastTime.current !== null) {
           const delta = (now - lastTime.current) / 1000; // seconds
-          track.scrollLeft += SPEED * delta;
+          position.current += SPEED * delta;
           // seamless loop — reset when first copy is fully scrolled past
           const half = track.scrollWidth / 2;
-          if (track.scrollLeft >= half) track.scrollLeft -= half;
+          if (position.current >= half) position.current -= half;
+          track.scrollLeft = position.current;
         }
         lastTime.current = now;
       } else {
-        lastTime.current = null; // reset so there's no jump when drag ends
+        // sync position ref with manual drag so resuming is seamless
+        position.current = track.scrollLeft;
+        lastTime.current = null;
       }
       rafId.current = requestAnimationFrame(tick);
     };
