@@ -17,29 +17,29 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-4">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-5">
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-3">
             <Image
               src="/images/logo-oroz.png"
               alt="Oroz PHARM - Poljoprivredne ljekarne"
-              width={112}
-              height={112}
-              className="h-14 w-14 object-contain"
+              width={176}
+              height={176}
+              className="h-22 w-22 object-contain"
               priority
             />
             <div className="flex flex-col leading-none">
-              <span className="text-2xl font-bold text-green-900 font-[family-name:var(--font-heading)] tracking-tight">
+              <span className="text-4xl font-bold text-green-900 font-[family-name:var(--font-heading)] tracking-tight">
                 Oroz <span className="text-green-600">PHARM</span>
               </span>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mt-0.5">
+              <span className="text-xs uppercase tracking-[0.2em] text-gray-400 mt-1">
                 Poljoprivredna ljekarna
               </span>
             </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => {
               const active = pathname === link.href;
               return (
@@ -47,7 +47,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "text-sm font-medium transition-colors relative py-1",
+                    "text-base font-medium transition-colors relative py-1",
                     active ? "text-green-700" : "text-gray-700 hover:text-green-700",
                     active && "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-green-500 after:rounded-full"
                   )}
