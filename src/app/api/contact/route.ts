@@ -13,7 +13,7 @@ const schema = z.object({
 });
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM_EMAIL = "noreply@orozpharm.hr";
+const FROM_EMAIL = "noreply@contact.orozpharm.hr";
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "perica@orozpharm.hr";
 
 export async function POST(req: NextRequest) {
