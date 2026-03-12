@@ -6,12 +6,12 @@ import SectionHeading from "@/components/shared/SectionHeading";
 import { Shield, FlaskConical, Sprout, Droplets, Wheat, PawPrint } from "lucide-react";
 
 const services = [
-  { icon: Shield, label: "Zaštita bilja", desc: "Fungicidi, herbicidi i insekticidi", href: "/proizvodi#zastita-bilja" },
-  { icon: FlaskConical, label: "Gnojiva", desc: "Mineralna, organska, biostimulatori", href: "/proizvodi#gnojiva" },
-  { icon: Sprout, label: "Sjemenski program", desc: "Ratarstvo, uljarice, hibridi povrća", href: "/proizvodi#sjemenski-program" },
-  { icon: Droplets, label: "Navodnjavanje", desc: "Sustavi kap po kap", href: "/proizvodi#navodnjavanje" },
-  { icon: Wheat, label: "Stočna hrana", desc: "Kompletna ishrana", href: "/proizvodi#stocna-hrana" },
-  { icon: PawPrint, label: "Kućni ljubimci", desc: "Hrana i oprema", href: "/proizvodi#kucni-ljubimci" },
+  { icon: Shield, label: "Zaštita bilja", desc: "Fungicidi, herbicidi i insekticidi", href: "/proizvodi/zastita-bilja" },
+  { icon: FlaskConical, label: "Gnojiva", desc: "Mineralna, organska, biostimulatori", href: "/proizvodi/gnojiva" },
+  { icon: Sprout, label: "Sjemenski program", desc: "Ratarstvo, uljarice, hibridi povrća", href: "/proizvodi/sjemenski-program" },
+  { icon: Droplets, label: "Navodnjavanje", desc: "Sustavi kap po kap", href: "/proizvodi/navodnjavanje" },
+  { icon: Wheat, label: "Stočna hrana", desc: "Kompletna ishrana", href: "/proizvodi/stocna-hrana" },
+  { icon: PawPrint, label: "Kućni ljubimci", desc: "Hrana i oprema", href: "/proizvodi/kucni-ljubimci" },
 ];
 
 export default function ServicesIntro() {
