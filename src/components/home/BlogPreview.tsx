@@ -33,7 +33,7 @@ export default function BlogPreview({ posts }: Props) {
               href={`/blog/${post.slug}`}
               className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-50"
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-52 overflow-hidden">
                 <Image
                   src={post.coverImage}
                   alt={post.title}
@@ -46,7 +46,7 @@ export default function BlogPreview({ posts }: Props) {
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-green-900 text-lg mb-2 font-[family-name:var(--font-heading)] line-clamp-2 group-hover:text-green-700 transition-colors">
+                <h3 className="font-bold text-green-900 text-lg mb-2 font-heading line-clamp-2 group-hover:text-green-700 transition-colors">
                   {post.title}
                 </h3>
                 <p className="text-gray-500 text-sm line-clamp-3 mb-4">

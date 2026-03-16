@@ -132,20 +132,13 @@ export default async function ProductPage({ params }: Props) {
         <div className="grid md:grid-cols-2 gap-10 md:gap-14 items-start">
           {/* Image */}
           <div className="md:sticky md:top-28">
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-gray-50 border border-green-100 shadow-sm">
-              <Image
-                src={image}
-                alt=""
-                fill
-                aria-hidden="true"
-                className="object-cover scale-110 blur-md opacity-40"
-              />
+            <div className="relative aspect-square rounded-2xl overflow-hidden bg-white border border-green-100 shadow-sm">
               <Image
                 src={image}
                 alt={doc.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain"
+                className="object-contain mix-blend-multiply"
                 priority
               />
             </div>

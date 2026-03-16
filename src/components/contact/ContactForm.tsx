@@ -99,7 +99,7 @@ export default function ContactForm() {
             {submitted ? (
               <div className="text-center py-12">
                 <CheckCircle size={64} className="mx-auto text-green-600 mb-4" />
-                <h2 className="text-2xl font-bold text-green-900 mb-2 font-[family-name:var(--font-heading)]">
+                <h2 className="text-2xl font-bold text-green-900 mb-2 font-heading">
                   Hvala vam!
                 </h2>
                 <p className="text-gray-600">
@@ -108,7 +108,7 @@ export default function ContactForm() {
               </div>
             ) : (
               <>
-                <h2 className="text-3xl font-bold text-green-900 mb-2 font-[family-name:var(--font-heading)]">
+                <h2 className="text-3xl font-bold text-green-900 mb-2 font-heading">
                   Kontaktirajte nas
                 </h2>
                 <p className="text-gray-500 mb-8">

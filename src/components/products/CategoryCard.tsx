@@ -39,7 +39,7 @@ export default function CategoryCard({ category, mobile }: Props) {
             ? "justify-center items-start text-left"
             : "justify-end"
         }`}>
-          <h3 className="text-white font-bold text-xl md:text-2xl mb-1 font-[family-name:var(--font-heading)]">
+          <h3 className="text-white font-bold text-xl md:text-2xl mb-1 font-heading">
             {category.name}
           </h3>
           <p className="text-white/70 text-sm line-clamp-2 mb-3 hidden md:block">

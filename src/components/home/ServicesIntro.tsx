@@ -37,7 +37,7 @@ export default function ServicesIntro() {
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-green-50 group-hover:bg-green-100 flex items-center justify-center mb-4 transition-colors">
                 <s.icon size={32} className="text-green-700" />
               </div>
-              <h3 className="font-bold text-green-900 text-lg mb-1 font-[family-name:var(--font-heading)]">
+              <h3 className="font-bold text-green-900 text-lg mb-1 font-heading">
                 {s.label}
               </h3>
               <p className="text-gray-500 text-sm">{s.desc}</p>

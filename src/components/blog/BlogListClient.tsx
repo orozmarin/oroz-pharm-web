@@ -21,7 +21,7 @@ export default function BlogListClient({ posts }: Props) {
         <div className="bg-green-900 pt-10 pb-16 px-4 md:px-8">
           <div className="max-w-7xl mx-auto text-center">
             <Leaf size={48} className="mx-auto text-green-400 mb-4" />
-            <h1 className="text-4xl md:text-6xl font-bold text-white font-[family-name:var(--font-heading)] mb-3">
+            <h1 className="text-4xl md:text-6xl font-bold text-white font-heading mb-3">
               Blog
             </h1>
             <p className="text-green-200 text-lg max-w-xl mx-auto">
@@ -44,7 +44,7 @@ export default function BlogListClient({ posts }: Props) {
       <div className="bg-green-900 pt-10 pb-16 px-4 md:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <Leaf size={48} className="mx-auto text-green-400 mb-4" />
-          <h1 className="text-4xl md:text-6xl font-bold text-white font-[family-name:var(--font-heading)] mb-3">
+          <h1 className="text-4xl md:text-6xl font-bold text-white font-heading mb-3">
             Blog
           </h1>
           <p className="text-green-200 text-lg max-w-xl mx-auto">

@@ -74,7 +74,7 @@ export default function HeroSlideshow() {
       <div className="absolute inset-0 flex items-end pb-32 md:pb-40 z-2">
         <div className="max-w-7xl mx-auto px-4 md:px-8 w-full">
           <div key={current} className="hero-text-enter">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-[family-name:var(--font-heading)] max-w-3xl">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 font-heading max-w-3xl">
               {slides[current].title}
             </h1>
             <p className="text-lg md:text-xl text-white/80 max-w-xl">

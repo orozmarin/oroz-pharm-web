@@ -108,7 +108,7 @@ export default function Timeline() {
               {/* Content */}
               <div className={`ml-16 md:ml-0 md:w-5/12 ${i % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
                 <span className="text-green-600 font-bold text-lg">{m.year}</span>
-                <h3 className="text-xl font-bold text-green-900 mt-1 font-[family-name:var(--font-heading)]">
+                <h3 className="text-xl font-bold text-green-900 mt-1 font-heading">
                   {m.title}
                 </h3>
                 <p className="text-gray-600 mt-2 text-sm leading-relaxed">{m.desc}</p>

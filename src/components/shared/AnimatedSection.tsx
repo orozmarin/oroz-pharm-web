@@ -29,7 +29,7 @@ export default function AnimatedSection({
       className={cn(
         "animate-on-scroll",
         animClasses[animation],
-        "px-4 md:px-8 lg:px-16",
+        "px-4 md:px-8",
         className,
       )}
     >

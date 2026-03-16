@@ -87,3 +87,14 @@ Allowed in `next.config.ts`: `images.unsplash.com`, `unpkg.com` (Leaflet assets)
 Check these files when working on the relevant areas:
 
 - [.claude/docs/architectural_patterns.md](.claude/docs/architectural_patterns.md) — Component structure conventions, scroll animation system, form pattern, dynamic route pattern, Payload CMS data fetching, shared component API
+
+## Memory System
+
+Project memory lives in `~/.claude/projects/-Users-marinoroz-Documents-OrozDigital-oroz-pharm/memory/`.
+
+**`MEMORY.md`** is always loaded — it's a short index of pointers to individual memory files.
+
+Rules for saving memory:
+- **Feedback** (`feedback_*.md`) — whenever something breaks in a non-obvious way or a workaround is needed. These are the most valuable — they prevent repeating the same mistakes.
+- **Project** (`project_*.md`) — server config, deploy state, integration status, DNS/infra progress. Update when state changes (e.g. DNS migrated, SSL obtained).
+- **Do NOT save** to memory: code patterns, file paths, architecture — those are derivable from the codebase. Git history belongs in commits. In-progress task state belongs in TodoWrite, not memory.

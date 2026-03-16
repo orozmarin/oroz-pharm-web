@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import Script from "next/script";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "../globals.css";
@@ -57,6 +58,12 @@ export default function SiteLayout({
         <Header />
         <main className="pt-32 min-h-screen">{children}</main>
         <Footer />
+        <Script
+          defer
+          src="https://analytics.orozpharm.hr/script.js"
+          data-website-id="dc479c6a-69ff-4835-b8ea-97096fabeb79"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

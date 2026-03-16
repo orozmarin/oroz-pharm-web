@@ -100,7 +100,7 @@ export default async function BlogPostPage({ params }: Props) {
             >
               <ArrowLeft size={16} /> Natrag na blog
             </Link>
-            <h1 className="text-3xl md:text-5xl font-bold text-white font-[family-name:var(--font-heading)] mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-white font-heading mb-4">
               {post.title}
             </h1>
             <div className="flex items-center gap-4 text-white/70 text-sm">
@@ -135,7 +135,7 @@ export default async function BlogPostPage({ params }: Props) {
       {related.length > 0 && (
         <section className="py-16 bg-earth-100/50 px-4 md:px-8">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl font-bold text-green-900 mb-8 font-[family-name:var(--font-heading)] text-center">
+            <h2 className="text-2xl font-bold text-green-900 mb-8 font-heading text-center">
               Povezani članci
             </h2>
             <BlogRelatedPosts posts={related} />
