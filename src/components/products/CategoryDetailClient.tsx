@@ -19,7 +19,10 @@ export default function CategoryDetailClient({ category, products }: Props) {
 
   const goToPage = useCallback((n: number) => {
     setPage(n);
-    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (gridRef.current) {
+      const top = gridRef.current.getBoundingClientRect().top + window.scrollY - 140;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
   }, []);
 
   const toggleSub = useCallback((id: string) => {
