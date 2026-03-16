@@ -27,15 +27,41 @@ export default function Footer() {
         <p className="text-green-200 text-sm leading-relaxed mt-4 text-center max-w-md">
           Vaš pouzdan partner u poljoprivredi od 1998. godine. Preko 15.000 artikala za sve vaše potrebe.
         </p>
+        <div className="flex items-center gap-3 mt-5">
+          <a
+            href="https://www.facebook.com/oroz.pharm/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full border border-green-700 text-green-300 hover:text-white hover:border-green-500 transition-colors text-sm"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+            </svg>
+            Facebook
+          </a>
+          <a
+            href="https://www.instagram.com/orozpharm/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full border border-green-700 text-green-300 hover:text-white hover:border-green-500 transition-colors text-sm"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+            </svg>
+            Instagram
+          </a>
+        </div>
       </div>
 
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Navigation */}
-          <div>
-            <h3 className="font-bold text-lg mb-4 font-[family-name:var(--font-heading)]">Navigacija</h3>
-            <nav className="flex flex-col gap-2">
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="font-bold text-lg mb-4 font-heading">Navigacija</h3>
+            <nav className="flex flex-col items-center md:items-start gap-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -49,18 +75,18 @@ export default function Footer() {
           </div>
 
           {/* Locations */}
-          <div>
-            <h3 className="font-bold text-lg mb-4 font-[family-name:var(--font-heading)]">Lokacije</h3>
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="font-bold text-lg mb-4 font-heading">Lokacije</h3>
             {locations.map((loc) => (
-              <div key={loc.id} className="mb-4">
-                <div className="flex items-start gap-2 text-sm">
+              <div key={loc.id} className="mb-4 w-full max-w-xs md:max-w-none">
+                <div className="flex items-start gap-2 text-sm justify-center md:justify-start">
                   <MapPin size={14} className="text-green-400 mt-0.5 shrink-0" />
                   <div>
                     <p className="font-medium">{loc.name}</p>
                     <p className="text-green-200">{loc.address}, {loc.city}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm mt-1 ml-5">
+                <div className="flex items-center gap-2 text-sm mt-1 ml-5 justify-center md:justify-start">
                   <Phone size={12} className="text-green-400" />
                   <span className="text-green-200">{loc.phone}</span>
                 </div>
@@ -69,8 +95,8 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
-            <h3 className="font-bold text-lg mb-4 font-[family-name:var(--font-heading)]">Kontakt</h3>
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="font-bold text-lg mb-4 font-heading">Kontakt</h3>
             <div className="space-y-3 text-sm">
               <div className="flex items-center gap-2">
                 <Mail size={14} className="text-green-400" />
@@ -96,7 +122,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-green-800">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-green-400">
-          <span>&copy; {new Date().getFullYear()} {legalData.companyName}. Sva prava pridržana.</span>
+          <span>&copy; {new Date().getFullYear()} {legalData.companyName} Sva prava pridržana.</span>
           <span>OIB: {legalData.oib} | MBS: {legalData.mbs}</span>
         </div>
       </div>

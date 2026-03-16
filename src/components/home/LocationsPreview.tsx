@@ -34,7 +34,7 @@ export default function LocationsPreview() {
               key={loc.id}
               className="bg-white rounded-2xl p-6 shadow-md border border-green-100"
             >
-              <h3 className="font-bold text-green-900 text-lg mb-3 font-[family-name:var(--font-heading)]">
+              <h3 className="font-bold text-green-900 text-lg mb-3 font-heading">
                 {loc.name}
               </h3>
               <div className="space-y-2 text-sm">

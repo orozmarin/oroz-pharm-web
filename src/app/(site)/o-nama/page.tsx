@@ -34,7 +34,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 flex items-end pb-16">
           <div className="max-w-7xl mx-auto px-4 md:px-8 w-full">
             <p className="text-green-300 text-lg mb-2 font-medium">Od 1998. uz vas</p>
-            <h1 className="text-4xl md:text-6xl font-bold text-white font-[family-name:var(--font-heading)] max-w-2xl">
+            <h1 className="text-4xl md:text-6xl font-bold text-white font-heading max-w-2xl">
               Vaš pouzdan partner u poljoprivredi
             </h1>
           </div>
@@ -47,7 +47,7 @@ export default function AboutPage() {
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <s.icon size={28} className="mx-auto text-green-300 mb-2" />
-              <div className="text-3xl font-bold text-white font-[family-name:var(--font-heading)]">
+              <div className="text-3xl font-bold text-white font-heading">
                 {s.value}
               </div>
               <div className="text-green-200 text-sm">{s.label}</div>
@@ -57,7 +57,7 @@ export default function AboutPage() {
       </div>
 
       {/* Intro text */}
-      <section className="py-16 md:py-20 px-4 md:px-8">
+      <section className="py-20 md:py-28 px-4 md:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <SectionHeading
             title="Naša priča"

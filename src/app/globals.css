@@ -5,26 +5,39 @@
 @import "tailwindcss/utilities";
 
 @theme inline {
+  /* ── Brand colour palette ── */
   --color-green-900: #1a3c1a;
   --color-green-800: #234d23;
-  --color-green-700: #2d6a2d;
-  --color-green-600: #3a8a3a;
+  --color-green-700: #2d6a2d;  /* Primary CTA / active state */
+  --color-green-600: #3a8a3a;  /* Accent / hover */
   --color-green-500: #4a9e4a;
   --color-green-400: #6bb96b;
   --color-green-300: #8fd38f;
   --color-green-200: #b8e6b8;
   --color-green-100: #e8f5e8;
-  --color-green-50: #f0faf0;
+  --color-green-50:  #f0faf0;
   --color-earth-700: #8B6914;
   --color-earth-600: #a47d1a;
-  --color-earth-500: #b8932e;
+  --color-earth-500: #b8932e;  /* Secondary CTA (manufacturer filters) */
   --color-earth-400: #d4ad4a;
   --color-earth-300: #e6ca7a;
   --color-earth-200: #f0dfa6;
   --color-earth-100: #faf5e8;
-  --color-cream: #fefcf5;
+  --color-cream: #fefcf5;      /* Site background */
+
+  /* ── Typography ──
+     font-heading → Playfair Display (all <h1-h6> via globals.css base rule)
+     font-body    → Inter (body text, UI labels)
+     Usage: use `font-heading` Tailwind class on non-heading elements that need
+     the display typeface (spans, divs). Heading elements get it automatically. */
   --font-heading: var(--font-playfair);
   --font-body: var(--font-inter);
+
+  /* ── Spacing design tokens ──
+     Standard section vertical rhythm: py-20 md:py-28  (5rem / 7rem)
+     Standard horizontal container:   px-4  md:px-8   (1rem / 2rem)
+     Standard content max-width:      max-w-6xl (72rem) or max-w-7xl (80rem)
+     These are enforced via Tailwind classes, not CSS vars, for responsive support. */
 }
 
 /* ── Essential Preflight resets scoped to site pages only ── */

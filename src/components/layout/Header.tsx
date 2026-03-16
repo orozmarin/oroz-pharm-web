@@ -33,7 +33,7 @@ export default function Header() {
                 Oroz <span className="text-green-600">PHARM</span>
               </span>
               <span className="text-xs uppercase tracking-[0.2em] text-gray-400 mt-1">
-                Poljoprivredna ljekarna
+                Poljoprivredne ljekarne
               </span>
             </div>
           </Link>

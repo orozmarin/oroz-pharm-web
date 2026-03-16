@@ -30,7 +30,7 @@ export default function PartnersTestimonials({ testimonials }: Props) {
 
   return (
     <section className="bg-green-900 py-20 md:py-28">
-      <div className="max-w-6xl mx-auto px-4 md:px-8 lg:px-16">
+      <div className="max-w-6xl mx-auto px-4 md:px-8">
         <SectionHeading
           title="Što kažu naši partneri"
           subtitle="Povjerenje koje gradimo godinama, svjedočanstvo onih koji to najbolje znaju."

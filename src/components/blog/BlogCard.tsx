@@ -42,7 +42,7 @@ export default function BlogCard({ post, featured }: Props) {
                   <Clock size={14} /> {post.readingTime} min čitanja
                 </span>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-green-900 mb-3 font-[family-name:var(--font-heading)] group-hover:text-green-700 transition-colors">
+              <h2 className="text-2xl md:text-3xl font-bold text-green-900 mb-3 font-heading group-hover:text-green-700 transition-colors">
                 {post.title}
               </h2>
               <p className="text-gray-500 leading-relaxed mb-6">
@@ -90,7 +90,7 @@ export default function BlogCard({ post, featured }: Props) {
           <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
             <Clock size={12} /> {post.readingTime} min čitanja
           </div>
-          <h3 className="font-bold text-green-900 text-lg mb-2 font-[family-name:var(--font-heading)] line-clamp-2 group-hover:text-green-700 transition-colors">
+          <h3 className="font-bold text-green-900 text-lg mb-2 font-heading line-clamp-2 group-hover:text-green-700 transition-colors">
             {post.title}
           </h3>
           <p className="text-gray-500 text-sm line-clamp-3 mb-4">

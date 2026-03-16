@@ -34,7 +34,7 @@ export default function StoreLocations() {
               key={loc.id}
               className="bg-white rounded-2xl p-8 shadow-md border border-green-100"
             >
-              <h3 className="text-xl font-bold text-green-900 mb-5 font-[family-name:var(--font-heading)]">
+              <h3 className="text-xl font-bold text-green-900 mb-5 font-heading">
                 {loc.name}
               </h3>
 

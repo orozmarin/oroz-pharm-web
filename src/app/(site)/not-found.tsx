@@ -6,7 +6,7 @@ export default function NotFound() {
     <div className="min-h-screen flex items-center justify-center px-4 bg-cream">
       <div className="text-center">
         <Leaf size={64} className="mx-auto text-green-300 mb-6" />
-        <h1 className="text-6xl md:text-8xl font-bold text-green-900 mb-4 font-[family-name:var(--font-heading)]">
+        <h1 className="text-6xl md:text-8xl font-bold text-green-900 mb-4 font-heading">
           404
         </h1>
         <p className="text-xl text-gray-600 mb-2">Stranica nije pronađena</p>

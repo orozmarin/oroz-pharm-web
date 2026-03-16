@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import type { ProductCategory, Product } from "@/types/views";
 import ProductCard from "./ProductCard";
 
@@ -15,6 +15,12 @@ export default function CategoryDetailClient({ category, products }: Props) {
   const [activeSubs, setActiveSubs] = useState<Set<string>>(new Set());
   const [activeMfrs, setActiveMfrs] = useState<Set<string>>(new Set());
   const [page, setPage] = useState(1);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  const goToPage = useCallback((n: number) => {
+    setPage(n);
+    gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   const toggleSub = useCallback((id: string) => {
     setActiveSubs((prev) => {
@@ -73,66 +79,70 @@ export default function CategoryDetailClient({ category, products }: Props) {
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
       {/* Subcategory filter tabs */}
       {category.subcategories.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-6">
-          <button
-            onClick={() => { setActiveSubs(new Set()); setActiveMfrs(new Set()); setPage(1); }}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              activeSubs.size === 0
-                ? "bg-green-700 text-white"
-                : "bg-white border border-green-200 text-green-800 hover:bg-green-50"
-            }`}
-          >
-            Sve
-          </button>
-          {category.subcategories.map((sub) => (
+        <div className="overflow-x-auto pb-1 mb-6 scrollbar-none">
+          <div className="flex gap-2">
             <button
-              key={sub.id}
-              onClick={() => toggleSub(sub.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                activeSubs.has(sub.id)
+              onClick={() => { setActiveSubs(new Set()); setActiveMfrs(new Set()); setPage(1); }}
+              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                activeSubs.size === 0
                   ? "bg-green-700 text-white"
                   : "bg-white border border-green-200 text-green-800 hover:bg-green-50"
               }`}
             >
-              {sub.name}
+              Sve
             </button>
-          ))}
+            {category.subcategories.map((sub) => (
+              <button
+                key={sub.id}
+                onClick={() => toggleSub(sub.id)}
+                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  activeSubs.has(sub.id)
+                    ? "bg-green-700 text-white"
+                    : "bg-white border border-green-200 text-green-800 hover:bg-green-50"
+                }`}
+              >
+                {sub.name}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
       {/* Manufacturer filter pills */}
       {manufacturers.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-8 pb-8 border-b border-green-100">
-          <button
-            onClick={() => { setActiveMfrs(new Set()); setPage(1); }}
-            className={`px-3 py-1.5 rounded-full text-sm font-semibold transition-colors ${
-              activeMfrs.size === 0
-                ? "bg-earth-500 text-white"
-                : "bg-earth-100 text-earth-700 hover:bg-earth-200"
-            }`}
-          >
-            Svi proizvođači
-          </button>
-          {manufacturers.map((mfr) => (
+        <div className="overflow-x-auto pb-3 mb-8 border-b border-green-100 scrollbar-none">
+          <div className="flex gap-2">
             <button
-              key={mfr}
-              onClick={() => toggleMfr(mfr)}
-              className={`px-3 py-1.5 rounded-full text-sm font-semibold transition-colors ${
-                activeMfrs.has(mfr)
+              onClick={() => { setActiveMfrs(new Set()); setPage(1); }}
+              className={`shrink-0 px-3 py-1.5 rounded-full text-sm font-semibold transition-colors ${
+                activeMfrs.size === 0
                   ? "bg-earth-500 text-white"
                   : "bg-earth-100 text-earth-700 hover:bg-earth-200"
               }`}
             >
-              {mfr}
+              Svi proizvođači
             </button>
-          ))}
+            {manufacturers.map((mfr) => (
+              <button
+                key={mfr}
+                onClick={() => toggleMfr(mfr)}
+                className={`shrink-0 px-3 py-1.5 rounded-full text-sm font-semibold transition-colors ${
+                  activeMfrs.has(mfr)
+                    ? "bg-earth-500 text-white"
+                    : "bg-earth-100 text-earth-700 hover:bg-earth-200"
+                }`}
+              >
+                {mfr}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
       {/* Product grid */}
       {filtered.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {paginated.map((product, i) => (
               <ProductCard key={product.id} product={product} priority={i < 8} />
             ))}
@@ -142,7 +152,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
           {totalPages > 1 && (
             <div className="flex items-center justify-center gap-2 mt-10">
               <button
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                onClick={() => goToPage(Math.max(1, page - 1))}
                 disabled={page === 1}
                 className="px-4 py-2 rounded-lg text-sm font-medium border border-green-200 text-green-800 hover:bg-green-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
@@ -152,7 +162,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
                 <button
                   key={n}
-                  onClick={() => setPage(n)}
+                  onClick={() => goToPage(n)}
                   className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors ${
                     n === page
                       ? "bg-green-700 text-white"
@@ -164,7 +174,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
               ))}
 
               <button
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() => goToPage(Math.min(totalPages, page + 1))}
                 disabled={page === totalPages}
                 className="px-4 py-2 rounded-lg text-sm font-medium border border-green-200 text-green-800 hover:bg-green-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
