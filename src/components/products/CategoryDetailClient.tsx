@@ -79,7 +79,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
+    <div ref={gridRef} className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
       {/* Subcategory filter tabs */}
       {category.subcategories.length > 0 && (
         <div className="overflow-x-auto pb-1 mb-6 scrollbar-none">
@@ -145,7 +145,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
       {/* Product grid */}
       {filtered.length > 0 ? (
         <>
-          <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
             {paginated.map((product, i) => (
               <ProductCard key={product.id} product={product} priority={i < 8} />
             ))}
