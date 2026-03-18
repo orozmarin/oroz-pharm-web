@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Image from "next/image";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { useInView } from "@/lib/useInView";
 import { cn } from "@/lib/utils";
 import Button from "@/components/shared/Button";
@@ -49,6 +50,8 @@ const categories = [
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
   const ref = useInView<HTMLDivElement>();
   const {
     register,
@@ -60,18 +63,26 @@ export default function ContactForm() {
 
   const onSubmit = async (data: FormData) => {
     setSubmitError(null);
+    if (!turnstileToken) {
+      setSubmitError("Molimo pričekajte provjeru sigurnosti.");
+      return;
+    }
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, turnstileToken }),
       });
       if (!res.ok) {
+        turnstileRef.current?.reset();
+        setTurnstileToken(null);
         setSubmitError(SUBMIT_ERROR);
         return;
       }
       setSubmitted(true);
     } catch {
+      turnstileRef.current?.reset();
+      setTurnstileToken(null);
       setSubmitError(SUBMIT_ERROR);
     }
   };
@@ -197,7 +208,15 @@ export default function ContactForm() {
                     )}
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full gap-2" disabled={isSubmitting}>
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                    onSuccess={setTurnstileToken}
+                    onExpire={() => setTurnstileToken(null)}
+                    options={{ theme: "light" }}
+                  />
+
+                  <Button type="submit" size="lg" className="w-full gap-2" disabled={isSubmitting || !turnstileToken}>
                     {isSubmitting ? (
                       "Slanje..."
                     ) : (

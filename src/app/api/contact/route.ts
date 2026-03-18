@@ -10,6 +10,7 @@ const schema = z.object({
   phone: z.string().optional(),
   category: z.string().min(1),
   message: z.string().min(10),
+  turnstileToken: z.string().min(1),
 });
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -32,7 +33,21 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { name, email, phone, category, message } = parsed.data;
+  const { name, email, phone, category, message, turnstileToken } = parsed.data;
+
+  // 0. Turnstile verifikacija
+  const tsRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      secret: process.env.TURNSTILE_SECRET_KEY,
+      response: turnstileToken,
+    }),
+  });
+  const tsData = await tsRes.json() as { success: boolean };
+  if (!tsData.success) {
+    return NextResponse.json({ error: "Bot provjera nije prošla." }, { status: 403 });
+  }
 
   // 1. Pohrana u Payload
   try {
