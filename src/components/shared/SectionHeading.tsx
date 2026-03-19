@@ -9,7 +9,7 @@ interface Props {
 
 export default function SectionHeading({ title, subtitle, className, light }: Props) {
   return (
-    <div className={cn("text-center mb-12", className)}>
+    <div className={cn("text-center mb-8 md:mb-12", className)}>
       <h2 className={cn(
         "text-3xl md:text-4xl lg:text-5xl font-bold mb-4",
         light ? "text-white" : "text-green-900"

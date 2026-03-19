@@ -17,7 +17,7 @@ export default function BlogPreview({ posts }: Props) {
   const ref = useInView<HTMLDivElement>();
 
   return (
-    <section className="py-20 md:py-28 px-4 md:px-8">
+    <section className="py-12 md:py-28 px-4 md:px-8">
       <SectionHeading
         title="Najnovije iz bloga"
         subtitle="Korisni savjeti i novosti iz svijeta poljoprivrede"

@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="bg-green-900 text-white">
       {/* Logo centerpiece */}
-      <div className="flex flex-col items-center justify-center py-12 border-b border-green-800">
+      <div className="flex flex-col items-center justify-center py-8 md:py-12 border-b border-green-800">
         <div className="flex items-center gap-2">
           <Image
             src="/images/logo-oroz.png"
@@ -56,8 +56,8 @@ export default function Footer() {
       </div>
 
       {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {/* Navigation */}
           <div className="flex flex-col items-center md:items-start">
             <h3 className="font-bold text-lg mb-4 font-heading">Navigacija</h3>

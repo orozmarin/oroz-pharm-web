@@ -18,7 +18,7 @@ export default function ServicesIntro() {
   const ref = useInView<HTMLDivElement>();
 
   return (
-    <section className="py-20 md:py-28 px-4 md:px-8">
+    <section className="py-12 md:py-28 px-4 md:px-8">
       <SectionHeading
         title="Što nudimo"
         subtitle="Sve što vam je potrebno za uspješnu poljoprivredu, vrt i vaše ljubimce - na jednom mjestu."
@@ -29,10 +29,10 @@ export default function ServicesIntro() {
         className="stagger-children max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8"
       >
         {services.map((s) => (
-          <div key={s.label} className="animate-on-scroll anim-scale-in">
+          <div key={s.label} className="animate-on-scroll anim-scale-in h-full">
             <Link
               href={s.href}
-              className="group flex flex-col items-center text-center p-6 md:p-8 rounded-2xl bg-white border border-green-100 hover:border-green-300 hover:shadow-xl transition-[border-color,box-shadow] duration-300"
+              className="group flex flex-col items-center text-center p-6 md:p-8 rounded-2xl bg-white border border-green-100 hover:border-green-300 hover:shadow-xl transition-[border-color,box-shadow] duration-300 h-full"
             >
               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-green-50 group-hover:bg-green-100 flex items-center justify-center mb-4 transition-colors">
                 <s.icon size={32} className="text-green-700" />

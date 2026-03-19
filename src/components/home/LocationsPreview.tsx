@@ -12,7 +12,7 @@ export default function LocationsPreview() {
   const ref = useInView<HTMLDivElement>();
 
   return (
-    <section className="py-20 md:py-28 bg-green-50 px-4 md:px-8">
+    <section className="py-12 md:py-28 bg-green-50 px-4 md:px-8">
       <SectionHeading
         title="Naše lokacije"
         subtitle="Posjetite nas u jednoj od naših poslovnica"

@@ -8,9 +8,19 @@ interface Props {
   categories: ProductCategory[];
 }
 
+const GRID_ORDER = [
+  "zastita","gnojivo","sjeme","stocna","sadni","substr",
+  "navod","pcelar","ulja","enolog","stroj","alati","stocar",
+  "kucni","kolinje","gume","vrt","roba","eko",
+];
+
 export default function CategoryGrid({ categories }: Props) {
   const desktopRef = useInView<HTMLDivElement>("-50px");
   const mobileRef = useInView<HTMLDivElement>("-50px");
+
+  const mobileCategories = [...categories].sort(
+    (a, b) => GRID_ORDER.indexOf(a.gridArea) - GRID_ORDER.indexOf(b.gridArea)
+  );
 
   return (
     <>
@@ -41,7 +51,7 @@ export default function CategoryGrid({ categories }: Props) {
         ref={mobileRef}
         className="stagger-children md:hidden px-4 grid grid-cols-1 gap-3"
       >
-        {categories.map((cat) => (
+        {mobileCategories.map((cat) => (
           <CategoryCard key={cat.id} category={cat} mobile />
         ))}
       </div>
