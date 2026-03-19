@@ -29,7 +29,7 @@ export default function PartnersTestimonials({ testimonials }: Props) {
   const ref = useInView<HTMLDivElement>();
 
   return (
-    <section className="bg-green-900 py-20 md:py-28">
+    <section className="bg-green-900 py-12 md:py-28">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <SectionHeading
           title="Što kažu naši partneri"

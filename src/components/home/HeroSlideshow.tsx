@@ -49,7 +49,7 @@ export default function HeroSlideshow() {
   }, [current, next]);
 
   return (
-    <div className="relative h-[calc(100vh-8rem)] w-full overflow-hidden">
+    <div className="relative h-[calc(100vh-5rem)] md:h-[calc(100vh-8rem)] w-full overflow-hidden">
       {/* All slides rendered, only current one visible via CSS opacity */}
       {slides.map((slide, i) => (
         <div

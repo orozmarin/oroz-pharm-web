@@ -56,7 +56,7 @@ export default function SiteLayout({
     <html lang="hr">
       <body className={`${playfair.variable} ${inter.variable} antialiased site-body`}>
         <Header />
-        <main className="pt-32 min-h-screen">{children}</main>
+        <main className="pt-20 md:pt-32 min-h-screen">{children}</main>
         <Footer />
         <Script
           defer
