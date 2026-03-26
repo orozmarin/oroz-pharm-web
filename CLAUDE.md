@@ -88,6 +88,19 @@ Check these files when working on the relevant areas:
 
 - [.claude/docs/architectural_patterns.md](.claude/docs/architectural_patterns.md) — Component structure conventions, scroll animation system, form pattern, dynamic route pattern, Payload CMS data fetching, shared component API
 
+## Sub-Agents
+
+Always invoke the relevant sub-agent immediately when a task maps to one of these domains — do not handle it inline first.
+
+| Agent | Domain |
+|---|---|
+| `cms-collections-agent` | Payload CMS v3 collection schemas, Lexical editor config, Cloudflare R2/storage plugin, seed scripts, `payload-types.ts` regeneration |
+| `product-catalogue-agent` | Product & category listing pages, subcategory filtering, product cards, manufacturer/brand display, related categories — view layer under `src/app/(site)/proizvodi/` and `src/components/products/` |
+| `blog-content-agent` | Blog list and detail pages, Lexical rich-text rendering, blog cards, related posts, Croatian date formatting — `src/app/(site)/blog/` and `src/components/blog/` |
+| `contact-forms-agent` | Contact form (React Hook Form + Zod), Cloudflare Turnstile bot protection, `/api/contact` route, Resend email integration, store locations map, legal data |
+| `ui-styling-agent` | Tailwind v4 theme tokens, global CSS, scroll animation system (`useInView`, `AnimatedSection`), shared component primitives, Header/Footer/MobileNav, responsive layout |
+| `infra-deploy-agent` | Hetzner server deploy, production build, PostgreSQL connection, Cloudflare R2 storage, DNS/SSL, environment variables, `next.config.ts` |
+
 ## Memory System
 
 Project memory lives in `~/.claude/projects/-Users-marinoroz-Documents-OrozDigital-oroz-pharm/memory/`.
