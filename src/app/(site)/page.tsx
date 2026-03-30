@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import HeroSlideshow from "@/components/home/HeroSlideshow";
@@ -9,7 +10,11 @@ import LeafDivider from "@/components/shared/LeafDivider";
 import type { BlogPost } from "@/types/views";
 import { getImageUrl } from "@/lib/utils";
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80";

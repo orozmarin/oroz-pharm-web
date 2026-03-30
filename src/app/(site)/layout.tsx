@@ -18,6 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.orozpharm.hr"),
   title: {
     default: "Oroz PHARM | Poljoprivredna ljekarna",
     template: "%s | Oroz PHARM",

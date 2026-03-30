@@ -10,11 +10,12 @@ import { getImageUrl } from "@/lib/utils";
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80";
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Proizvodi",
   description: "Pregledajte naš asortiman od preko 15.000 artikala - zaštita bilja, gnojiva, sjeme, navodnjavanje, stočna hrana i još mnogo toga.",
+  alternates: { canonical: "/proizvodi" },
 };
 
 export default async function ProductsPage() {

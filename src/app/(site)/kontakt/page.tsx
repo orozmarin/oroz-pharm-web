@@ -6,6 +6,7 @@ import LegalData from "@/components/contact/LegalData";
 export const metadata: Metadata = {
   title: "Kontakt",
   description: "Kontaktirajte Oroz PHARM d.o.o. - Pleternica i Pozega. Telefon, email, adrese i radno vrijeme nasih poslovnica.",
+  alternates: { canonical: "/kontakt" },
 };
 
 export default function ContactPage() {

@@ -10,7 +10,8 @@ import BlogRelatedPosts from "@/components/blog/BlogRelatedPosts";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
 import type { BlogPost } from "@/types/views";
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600;
+export const dynamicParams = true;
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80";
@@ -32,6 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `/blog/${slug}` },
   };
 }
 
