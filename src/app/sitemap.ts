@@ -7,9 +7,10 @@ const BASE_URL = "https://www.orozpharm.hr";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const payload = await getPayload({ config });
 
-  const [{ docs: categories }, { docs: blogs }] = await Promise.all([
+  const [{ docs: categories }, { docs: blogs }, { docs: products }] = await Promise.all([
     payload.find({ collection: "categories", limit: 200, depth: 0 }),
     payload.find({ collection: "blogs", limit: 200, depth: 0 }),
+    payload.find({ collection: "products", limit: 2000, depth: 1 }),
   ]);
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -34,5 +35,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...blogRoutes];
+  const productRoutes: MetadataRoute.Sitemap = products.flatMap((product) => {
+    const categorySlug =
+      typeof product.category === "object" && product.category !== null
+        ? product.category.slug
+        : null;
+    if (!categorySlug) return [];
+    return [{
+      url: `${BASE_URL}/proizvodi/${categorySlug}/${product.slug}`,
+      lastModified: new Date(product.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }];
+  });
+
+  return [...staticRoutes, ...categoryRoutes, ...blogRoutes, ...productRoutes];
 }

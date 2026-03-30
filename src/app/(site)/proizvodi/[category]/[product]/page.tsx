@@ -23,7 +23,7 @@ export const revalidate = 60;
 export const dynamicParams = true;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { product: slug } = await params;
+  const { category, product: slug } = await params;
   const payload = await getPayload({ config });
   const { docs } = await payload.find({
     collection: "products",
@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: doc.name,
     description: doc.description ?? undefined,
+    alternates: { canonical: `/proizvodi/${category}/${slug}` },
   };
 }
 

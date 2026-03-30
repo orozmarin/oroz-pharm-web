@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/admin/", "/api/"],
+      disallow: ["/admin/", "/api/", "/proizvodi/dokumenti/"],
     },
     sitemap: "https://www.orozpharm.hr/sitemap.xml",
   };
