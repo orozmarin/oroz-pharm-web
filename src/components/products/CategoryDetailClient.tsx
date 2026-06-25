@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useMemo, useCallback, useRef } from "react";
-import type { ProductCategory, Product } from "@/types/views";
+import Image from "next/image";
+import type { ProductCategory, Product, Subcategory } from "@/types/views";
 import ProductCard from "./ProductCard";
+import Button from "@/components/shared/Button";
 
 const PAGE_SIZE = 16; // 4 rows × 4 columns
 
@@ -11,7 +13,53 @@ interface Props {
   products: Product[];
 }
 
+// ─── Showcase block for "izlog asortimana" subcategories ─────────────────────
+
+interface ShowcaseBlockProps {
+  sub: Subcategory;
+}
+
+function ShowcaseBlock({ sub }: ShowcaseBlockProps) {
+  return (
+    <div className="rounded-2xl overflow-hidden border border-green-100 bg-green-50 shadow-sm">
+      {sub.image && (
+        <div className="relative h-48 w-full">
+          <Image
+            src={sub.image}
+            alt={sub.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-green-900/60 to-transparent" />
+        </div>
+      )}
+      <div className="p-6">
+        <h3 className="text-xl font-bold text-green-900 font-heading mb-2">{sub.name}</h3>
+        {sub.description && (
+          <p className="text-gray-600 text-sm leading-relaxed mb-5">{sub.description}</p>
+        )}
+        <Button href="/kontakt" variant="primary" size="sm">
+          Zatražite ponudu
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main client component ───────────────────────────────────────────────────
+
 export default function CategoryDetailClient({ category, products }: Props) {
+  // Split subcategories into regular (filterable) and showcase
+  const regularSubs = useMemo(
+    () => category.subcategories.filter((s) => !s.isShowcase),
+    [category.subcategories]
+  );
+  const showcaseSubs = useMemo(
+    () => category.subcategories.filter((s) => s.isShowcase === true),
+    [category.subcategories]
+  );
+
   const [activeSubs, setActiveSubs] = useState<Set<string>>(new Set());
   const [activeMfrs, setActiveMfrs] = useState<Set<string>>(new Set());
   const [page, setPage] = useState(1);
@@ -80,8 +128,23 @@ export default function CategoryDetailClient({ category, products }: Props) {
 
   return (
     <div ref={gridRef} className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
-      {/* Subcategory filter tabs */}
-      {category.subcategories.length > 0 && (
+
+      {/* ── Showcase blocks (izlog asortimana) ── */}
+      {showcaseSubs.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-green-900 font-heading mb-6">
+            Izlog asortimana
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {showcaseSubs.map((sub) => (
+              <ShowcaseBlock key={sub.id} sub={sub} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── Regular subcategory filter tabs ── */}
+      {regularSubs.length > 0 && (
         <div className="overflow-x-auto pb-1 mb-6 scrollbar-none">
           <div className="flex gap-2">
             <button
@@ -94,7 +157,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
             >
               Sve
             </button>
-            {category.subcategories.map((sub) => (
+            {regularSubs.map((sub) => (
               <button
                 key={sub.id}
                 onClick={() => toggleSub(sub.id)}
@@ -111,7 +174,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
         </div>
       )}
 
-      {/* Manufacturer filter pills */}
+      {/* ── Manufacturer filter pills ── */}
       {manufacturers.length > 0 && (
         <div className="overflow-x-auto pb-3 mb-8 border-b border-green-100 scrollbar-none">
           <div className="flex gap-2">
@@ -142,7 +205,7 @@ export default function CategoryDetailClient({ category, products }: Props) {
         </div>
       )}
 
-      {/* Product grid */}
+      {/* ── Product grid ── */}
       {filtered.length > 0 ? (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -187,18 +250,22 @@ export default function CategoryDetailClient({ category, products }: Props) {
           )}
         </>
       ) : (
-        <div className="py-20 text-center">
-          <p className="text-gray-500 text-lg">Uskoro dostupno.</p>
-          <p className="text-gray-400 text-sm mt-2">
-            Posjetite nas u poslovnici za detaljan pregled ponude i stručno savjetovanje.
-          </p>
-          <a
-            href="/kontakt"
-            className="inline-block mt-6 text-green-700 font-medium text-sm hover:underline"
-          >
-            Kontaktirajte nas →
-          </a>
-        </div>
+        /* Only show the empty-state when there are also no showcase subs,
+           or when a filter is active (user explicitly narrowed down to nothing). */
+        (activeSubs.size > 0 || activeMfrs.size > 0 || showcaseSubs.length === 0) && (
+          <div className="py-20 text-center">
+            <p className="text-gray-500 text-lg">Uskoro dostupno.</p>
+            <p className="text-gray-400 text-sm mt-2">
+              Posjetite nas u poslovnici za detaljan pregled ponude i stručno savjetovanje.
+            </p>
+            <a
+              href="/kontakt"
+              className="inline-block mt-6 text-green-700 font-medium text-sm hover:underline"
+            >
+              Kontaktirajte nas →
+            </a>
+          </div>
+        )
       )}
     </div>
   );

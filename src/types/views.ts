@@ -35,6 +35,8 @@ export interface Subcategory {
   id: string;
   name: string;
   description?: string;
+  isShowcase?: boolean;
+  image?: string;
 }
 
 export interface Brand {

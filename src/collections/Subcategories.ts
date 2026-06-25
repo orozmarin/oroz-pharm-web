@@ -40,5 +40,20 @@ export const Subcategories: CollectionConfig = {
       relationTo: 'media',
       label: 'Slika podkategorije',
     },
+    {
+      name: 'description',
+      type: 'textarea',
+      label: 'Opis (prikazuje se na izlogu asortimana)',
+    },
+    {
+      name: 'isShowcase',
+      type: 'checkbox',
+      label: 'Prikaži kao izlog asortimana (bez pojedinačnih proizvoda)',
+      defaultValue: false,
+      admin: {
+        description:
+          'Kada je označeno, stranica podkategorije prikazuje opisni blok s CTA gumbom umjesto liste pojedinačnih proizvoda. Koristiti za asortiman koji nije objavljivan artikl-po-artikl (npr. sitni spojni materijal, vezni pribor).',
+      },
+    },
   ],
 }

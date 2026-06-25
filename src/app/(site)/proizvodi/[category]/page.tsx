@@ -17,7 +17,7 @@ const FALLBACK_IMAGE =
 
 function normalizeCategory(
   doc: Category,
-  subcategories: { id: string; name: string }[] = []
+  subcategories: Subcategory[] = []
 ): ProductCategory {
   return {
     id: String(doc.id),
@@ -80,7 +80,7 @@ export default async function CategoryPage({ params }: Props) {
     }),
     payload.find({
       collection: "subcategories",
-      depth: 0,
+      depth: 1,
       sort: "name",
       limit: 1000,
     }),
@@ -97,11 +97,17 @@ export default async function CategoryPage({ params }: Props) {
   if (!rawCat) notFound();
 
   // Group all subcategories by their parent category ID
-  const subsByCategoryId = new Map<string, { id: string; name: string }[]>();
+  const subsByCategoryId = new Map<string, Subcategory[]>();
   for (const sub of subcategoryDocs) {
     const catId = String(typeof sub.category === "object" ? sub.category.id : sub.category);
     if (!subsByCategoryId.has(catId)) subsByCategoryId.set(catId, []);
-    subsByCategoryId.get(catId)!.push({ id: String(sub.id), name: sub.name });
+    subsByCategoryId.get(catId)!.push({
+      id: String(sub.id),
+      name: sub.name,
+      description: sub.description ?? undefined,
+      isShowcase: sub.isShowcase ?? undefined,
+      image: getImageUrl(sub.image, ""),
+    });
   }
 
   const subcategories: Subcategory[] = subsByCategoryId.get(String(rawCat.id)) ?? [];
