@@ -31,6 +31,13 @@ const brands: Brand[] = [
   { name: "Rijk Zwaan",        logo: "/images/brands/rijk-zwaan.png",        w: 560, h: 600 },
   { name: "SANO",              logo: "/images/brands/sano.png",              w: 416, h: 121 },
   { name: "Timac Agro",        logo: "/images/brands/timac-agro.svg",        w: 1358, h: 372 },
+  { name: "Claber",            logo: "/images/brands/claber.png",            w: 1134, h: 249 },
+  { name: "Fitokol",           logo: "/images/brands/fitokol.png",           w: 850,  h: 476 },
+  { name: "Leon",              logo: "/images/brands/leon.png",              w: 390,  h: 91  },
+  { name: "RI-TAPE",           logo: "/images/brands/ri-tape.png",           w: 423,  h: 135 },
+  { name: "Ratino",            logo: "/images/brands/ratino.png",            w: 539,  h: 131 },
+  { name: "Terarossa",         logo: "/images/brands/terarossa.png",         w: 525,  h: 186 },
+  { name: "Fiammina",          logo: "/images/brands/fiammina.png",          w: 842,  h: 595 },
 ];
 
 const SPEED = 20; // px/s
