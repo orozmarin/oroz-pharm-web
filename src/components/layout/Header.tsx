@@ -7,19 +7,22 @@ import { useState, useCallback } from "react";
 import { navLinks } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import MobileNav from "./MobileNav";
-import { Menu } from "lucide-react";
+import SearchBar from "@/components/products/SearchBar";
+import { Menu, Search, X } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const closeMobile = useCallback(() => setMobileOpen(false), []);
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-3 md:py-5">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 md:gap-3">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-2 md:gap-3 shrink-0">
             <Image
               src="/images/logo-oroz.png"
               alt="Oroz PHARM - Poljoprivredne ljekarne"
@@ -58,16 +61,48 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="lg:hidden p-2 rounded-lg transition-colors text-green-900 hover:bg-green-50"
-            aria-label="Otvori izbornik"
-          >
-            <Menu size={24} />
-          </button>
+          {/* Desktop search */}
+          <div className="hidden lg:block w-64 xl:w-72">
+            <SearchBar />
+          </div>
+
+          {/* Mobile actions */}
+          <div className="flex items-center gap-1 lg:hidden">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="p-2 rounded-lg transition-colors text-green-900 hover:bg-green-50"
+              aria-label="Pretraži proizvode"
+            >
+              <Search size={24} />
+            </button>
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="p-2 rounded-lg transition-colors text-green-900 hover:bg-green-50"
+              aria-label="Otvori izbornik"
+            >
+              <Menu size={24} />
+            </button>
+          </div>
         </div>
       </header>
+
+      {/* Mobile search overlay */}
+      {searchOpen && (
+        <div className="fixed inset-0 z-70 bg-white lg:hidden">
+          <div className="flex items-center gap-2 px-4 py-4 border-b border-green-100">
+            <div className="flex-1">
+              <SearchBar autoFocus onNavigate={closeSearch} />
+            </div>
+            <button
+              onClick={closeSearch}
+              className="p-2 rounded-lg text-green-900 hover:bg-green-50"
+              aria-label="Zatvori pretragu"
+            >
+              <X size={24} />
+            </button>
+          </div>
+        </div>
+      )}
 
       <MobileNav open={mobileOpen} onClose={closeMobile} />
     </>
