@@ -31,7 +31,7 @@ export default async function SearchPage({ searchParams }: Props) {
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-28 md:pt-36 pb-16 min-h-[60vh]">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8 md:pt-12 pb-16 min-h-[60vh]">
       <Link
         href="/proizvodi"
         className="inline-flex items-center gap-1 text-green-700 text-sm mb-6 hover:text-green-900 transition-colors"
