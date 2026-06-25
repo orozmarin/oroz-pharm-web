@@ -20,6 +20,7 @@ const MATCH_SQL = `
   WHERE p.name ILIKE '%' || $1 || '%'
      OR m.name ILIKE '%' || $1 || '%'
      OR similarity(p.name, $1) > $2
+     OR similarity(m.name, $1) > $2
   ORDER BY GREATEST(similarity(p.name, $1), COALESCE(similarity(m.name, $1), 0)) DESC, p.name ASC
   LIMIT $3 OFFSET $4
 `;
@@ -31,6 +32,7 @@ const COUNT_SQL = `
   WHERE p.name ILIKE '%' || $1 || '%'
      OR m.name ILIKE '%' || $1 || '%'
      OR similarity(p.name, $1) > $2
+     OR similarity(m.name, $1) > $2
 `;
 
 export async function searchProducts(
