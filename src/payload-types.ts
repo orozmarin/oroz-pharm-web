@@ -127,6 +127,8 @@ export interface Subcategory {
   slug: string;
   category: number | Category;
   image?: number | Media | null;
+  description?: string | null;
+  isShowcase?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
