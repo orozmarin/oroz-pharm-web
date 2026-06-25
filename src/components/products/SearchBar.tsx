@@ -49,7 +49,10 @@ export default function SearchBar({
         setOpen(true);
         setHighlight(-1);
       } catch (e) {
-        if ((e as Error).name !== "AbortError") setResults([]);
+        if ((e as Error).name !== "AbortError") {
+          setResults([]);
+          setOpen(false);
+        }
       } finally {
         setLoading(false);
       }
