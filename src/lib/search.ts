@@ -37,7 +37,7 @@ const COUNT_SQL = `
 
 export async function searchProducts(
   rawQuery: string,
-  { limit = 8, offset = 0 }: { limit?: number; offset?: number } = {}
+  { limit = 8, offset = 0, countTotal = true }: { limit?: number; offset?: number; countTotal?: boolean } = {}
 ): Promise<SearchResult> {
   const q = rawQuery.trim();
   if (q.length < 2) return { products: [], total: 0 };
@@ -45,13 +45,18 @@ export async function searchProducts(
   const payload = await getPayload({ config });
   const pool = (payload.db as unknown as { pool: Pool }).pool;
 
-  const [matchRes, countRes] = await Promise.all([
-    pool.query<{ id: number }>(MATCH_SQL, [q, SIMILARITY_THRESHOLD, limit, offset]),
-    pool.query<{ total: number }>(COUNT_SQL, [q, SIMILARITY_THRESHOLD]),
-  ]);
+  // WHERE uses bare similarity() (NULL is falsy, so unmatched manufacturers are excluded correctly);
+  // ORDER BY coalesces NULL to 0 so unmatched manufacturers sort last rather than erroring.
+  const matchRes = await pool.query<{ id: number }>(MATCH_SQL, [q, SIMILARITY_THRESHOLD, limit, offset]);
+
+  let total = 0;
+  if (countTotal) {
+    const countRes = await pool.query<{ total: number }>(COUNT_SQL, [q, SIMILARITY_THRESHOLD]);
+    total = countRes.rows[0]?.total ?? 0;
+  }
 
   const ids = matchRes.rows.map((r) => r.id);
-  const total = countRes.rows[0]?.total ?? 0;
+  if (!countTotal) total = ids.length;
   if (ids.length === 0) return { products: [], total };
 
   // Hidracija kroz Payload radi reuse-a media/URL logike (R2) i relacija.

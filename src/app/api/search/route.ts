@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const q = searchParams.get("q") ?? "";
   try {
-    const { products } = await searchProducts(q, { limit: 8 });
+    const { products } = await searchProducts(q, { limit: 8, countTotal: false });
     return NextResponse.json({ products });
   } catch (err) {
     console.error("[/api/search]", err);
