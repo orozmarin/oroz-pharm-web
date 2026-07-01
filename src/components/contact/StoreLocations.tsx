@@ -15,7 +15,10 @@ export default function StoreLocations() {
   // Smooth-scroll do sekcije kad se dođe s /kontakt#poslovnice (npr. iz brand spotlighta)
   useEffect(() => {
     if (window.location.hash !== "#poslovnice") return;
-    const el = document.getElementById("poslovnice");
+    // Ciljamo grid lokacija (malo niže) da kartice poslovnica budu u kadru, ne samo karta
+    const el =
+      document.getElementById("poslovnice-lokacije") ||
+      document.getElementById("poslovnice");
     if (!el) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const t = window.setTimeout(() => {
@@ -41,7 +44,7 @@ export default function StoreLocations() {
         </div>
 
         {/* Store cards */}
-        <div className="animate-on-scroll anim-fade-in-up grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div id="poslovnice-lokacije" className="scroll-mt-40 animate-on-scroll anim-fade-in-up grid grid-cols-1 md:grid-cols-2 gap-8">
           {locations.map((loc) => (
             <div
               key={loc.id}
