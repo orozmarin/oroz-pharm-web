@@ -16,9 +16,7 @@ export default function StoreLocations() {
   useEffect(() => {
     if (window.location.hash !== "#poslovnice") return;
     // Ciljamo kartu (block:start) — karta na vrhu, kartice poslovnica ispod u kadru.
-    const el =
-      document.getElementById("poslovnice-karta") ||
-      document.getElementById("poslovnice");
+    const el = document.getElementById("poslovnice-karta");
     if (!el) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // Duža odgoda: iznad je kontakt forma s Turnstile widgetom koji se učita async
