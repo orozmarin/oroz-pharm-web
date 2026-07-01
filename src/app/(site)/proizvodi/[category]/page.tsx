@@ -184,7 +184,7 @@ export default async function CategoryPage({ params }: Props) {
             text="Cijeli asortiman pčelarske opreme Medin san, od košnica i alata do zaštite pčelara i sredstava za zdravlje zajednica."
             primaryHref="/kontakt"
             primaryLabel="Zatražite ponudu"
-            secondaryHref="/kontakt"
+            secondaryHref="/kontakt#poslovnice"
             secondaryLabel="Posjetite trgovinu"
           />
         </div>

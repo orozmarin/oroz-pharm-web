@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useInView } from "@/lib/useInView";
 import { locations, contactInfo } from "@/data/locations";
@@ -11,8 +12,20 @@ const MapComponent = dynamic(() => import("@/components/shared/Map"), { ssr: fal
 export default function StoreLocations() {
   const ref = useInView<HTMLDivElement>();
 
+  // Smooth-scroll do sekcije kad se dođe s /kontakt#poslovnice (npr. iz brand spotlighta)
+  useEffect(() => {
+    if (window.location.hash !== "#poslovnice") return;
+    const el = document.getElementById("poslovnice");
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const t = window.setTimeout(() => {
+      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }, 120);
+    return () => window.clearTimeout(t);
+  }, []);
+
   return (
-    <section className="py-20 md:py-28 px-4 md:px-8">
+    <section id="poslovnice" className="scroll-mt-24 py-20 md:py-28 px-4 md:px-8">
       <SectionHeading
         title="Naše poslovnice"
         subtitle="Posjetite nas ili nas nazovite za sve informacije"

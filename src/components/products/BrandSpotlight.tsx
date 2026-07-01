@@ -84,6 +84,7 @@ export default function BrandSpotlight({
             {secondaryHref && secondaryLabel && (
               <Link
                 href={secondaryHref}
+                scroll={secondaryHref.includes("#") ? false : undefined}
                 className="inline-flex items-center justify-center font-semibold rounded-xl px-5 py-2.5 text-sm border border-white/40 text-white/90 hover:bg-white/10 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/50"
               >
                 {secondaryLabel}
