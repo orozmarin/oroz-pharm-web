@@ -6,6 +6,7 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import Button from "@/components/shared/Button";
 import CategoryDetailClient from "@/components/products/CategoryDetailClient";
+import BrandSpotlight from "@/components/products/BrandSpotlight";
 import RelatedCategoriesGrid from "@/components/products/RelatedCategoriesGrid";
 import { ArrowLeft } from "lucide-react";
 import type { ProductCategory, Product, Subcategory } from "@/types/views";
@@ -172,6 +173,22 @@ export default async function CategoryPage({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {category.slug === "oprema-za-pcelarstvo" && (
+        <div className="max-w-7xl mx-auto px-4 md:px-8 w-full mt-10">
+          <BrandSpotlight
+            logoSrc="/images/brands/medin-san.png"
+            logoAlt="Medin san"
+            eyebrow="Pčelarstvo"
+            title="Pčelarska oprema Medin san"
+            text="Cijeli asortiman pčelarske opreme Medin san, od košnica i alata do zaštite pčelara i sredstava za zdravlje zajednica."
+            primaryHref="/kontakt"
+            primaryLabel="Zatražite ponudu"
+            secondaryHref="/kontakt"
+            secondaryLabel="Posjetite trgovinu"
+          />
+        </div>
+      )}
 
       <CategoryDetailClient category={category} products={products} />
 
