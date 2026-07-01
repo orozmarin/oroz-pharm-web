@@ -15,12 +15,17 @@ export default function StoreLocations() {
   // Smooth-scroll do sekcije kad se dođe s /kontakt#poslovnice (npr. iz brand spotlighta)
   useEffect(() => {
     if (window.location.hash !== "#poslovnice") return;
-    const el = document.getElementById("poslovnice");
+    // Ciljamo kartu (block:start) — karta na vrhu, kartice poslovnica ispod u kadru.
+    const el =
+      document.getElementById("poslovnice-karta") ||
+      document.getElementById("poslovnice");
     if (!el) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Duža odgoda: iznad je kontakt forma s Turnstile widgetom koji se učita async
+    // i pomakne sekciju; čekamo da layout sjedne prije scrolla.
     const t = window.setTimeout(() => {
       el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-    }, 120);
+    }, 450);
     return () => window.clearTimeout(t);
   }, []);
 
@@ -36,7 +41,7 @@ export default function StoreLocations() {
         className="stagger-children max-w-6xl mx-auto"
       >
         {/* Map */}
-        <div className="animate-on-scroll anim-fade-in-up h-72 md:h-80 rounded-2xl overflow-hidden shadow-lg mb-10">
+        <div id="poslovnice-karta" className="scroll-mt-24 animate-on-scroll anim-fade-in-up h-72 md:h-80 rounded-2xl overflow-hidden shadow-lg mb-10">
           <MapComponent />
         </div>
 
