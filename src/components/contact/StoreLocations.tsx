@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useInView } from "@/lib/useInView";
 import { locations, contactInfo } from "@/data/locations";
@@ -11,8 +12,23 @@ const MapComponent = dynamic(() => import("@/components/shared/Map"), { ssr: fal
 export default function StoreLocations() {
   const ref = useInView<HTMLDivElement>();
 
+  // Smooth-scroll do sekcije kad se dođe s /kontakt#poslovnice (npr. iz brand spotlighta)
+  useEffect(() => {
+    if (window.location.hash !== "#poslovnice") return;
+    // Ciljamo kartu (block:start) — karta na vrhu, kartice poslovnica ispod u kadru.
+    const el = document.getElementById("poslovnice-karta");
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Duža odgoda: iznad je kontakt forma s Turnstile widgetom koji se učita async
+    // i pomakne sekciju; čekamo da layout sjedne prije scrolla.
+    const t = window.setTimeout(() => {
+      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }, 450);
+    return () => window.clearTimeout(t);
+  }, []);
+
   return (
-    <section className="py-20 md:py-28 px-4 md:px-8">
+    <section id="poslovnice" className="scroll-mt-24 py-20 md:py-28 px-4 md:px-8">
       <SectionHeading
         title="Naše poslovnice"
         subtitle="Posjetite nas ili nas nazovite za sve informacije"
@@ -23,7 +39,7 @@ export default function StoreLocations() {
         className="stagger-children max-w-6xl mx-auto"
       >
         {/* Map */}
-        <div className="animate-on-scroll anim-fade-in-up h-72 md:h-80 rounded-2xl overflow-hidden shadow-lg mb-10">
+        <div id="poslovnice-karta" className="scroll-mt-24 animate-on-scroll anim-fade-in-up h-72 md:h-80 rounded-2xl overflow-hidden shadow-lg mb-10">
           <MapComponent />
         </div>
 
