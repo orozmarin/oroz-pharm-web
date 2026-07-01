@@ -21,7 +21,7 @@ interface ShowcaseBlockProps {
 
 function ShowcaseBlock({ sub }: ShowcaseBlockProps) {
   return (
-    <div className="rounded-2xl overflow-hidden border border-green-100 bg-green-50 shadow-sm">
+    <div className="flex flex-col h-full rounded-2xl overflow-hidden border border-green-100 bg-green-50 shadow-sm">
       {sub.image && (
         <div className="relative h-48 w-full">
           <Image
@@ -34,14 +34,16 @@ function ShowcaseBlock({ sub }: ShowcaseBlockProps) {
           <div className="absolute inset-0 bg-linear-to-t from-green-900/60 to-transparent" />
         </div>
       )}
-      <div className="p-6">
+      <div className="flex flex-col flex-1 p-6">
         <h3 className="text-xl font-bold text-green-900 font-heading mb-2">{sub.name}</h3>
         {sub.description && (
           <p className="text-gray-600 text-sm leading-relaxed mb-5">{sub.description}</p>
         )}
-        <Button href="/kontakt" variant="primary" size="sm">
-          Zatražite ponudu
-        </Button>
+        <div className="mt-auto">
+          <Button href="/kontakt" variant="primary" size="sm">
+            Zatražite ponudu
+          </Button>
+        </div>
       </div>
     </div>
   );
