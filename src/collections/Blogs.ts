@@ -1,4 +1,29 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, CollectionConfig } from 'payload'
+import { revalidatePath } from 'next/cache'
+
+const revalidateBlog: CollectionAfterChangeHook = ({ doc, previousDoc }) => {
+  revalidatePath('/blog')
+
+  if (doc?.slug) {
+    revalidatePath(`/blog/${doc.slug}`)
+  }
+
+  if (previousDoc?.slug && previousDoc.slug !== doc?.slug) {
+    revalidatePath(`/blog/${previousDoc.slug}`)
+  }
+
+  return doc
+}
+
+const revalidateBlogDelete: CollectionAfterDeleteHook = ({ doc }) => {
+  revalidatePath('/blog')
+
+  if (doc?.slug) {
+    revalidatePath(`/blog/${doc.slug}`)
+  }
+
+  return doc
+}
 
 export const Blogs: CollectionConfig = {
   slug: 'blogs',
@@ -9,6 +34,10 @@ export const Blogs: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [revalidateBlog],
+    afterDelete: [revalidateBlogDelete],
   },
   fields: [
     {
