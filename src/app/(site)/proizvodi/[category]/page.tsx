@@ -146,10 +146,10 @@ export default async function CategoryPage({ params }: Props) {
     age: doc.age ?? undefined,
     purpose: doc.purpose ?? undefined,
     instructions: doc.instructions,
-    // Nema globalnog fallbacka na razini stranice: ProductCard (standardni grid)
-    // ima svoj fallback na wheat-field fotku, a PoultryGrid svoj placeholder
-    // za proizvode bez fotke. Ovdje se šalje prazan string ako fotke nema.
-    image: getImageUrl(doc.image, ""),
+    // Za perad se šalje prazan string kad fotke nema, jer PoultryGrid ima
+    // vlastiti placeholder za taj slučaj. Za sve ostale kategorije ostaje
+    // stari wheat-field fallback (ProductCard nema kontrolu nad tim).
+    image: getImageUrl(doc.image, slug === "perad" ? "" : FALLBACK_IMAGE),
   }));
 
   return (
