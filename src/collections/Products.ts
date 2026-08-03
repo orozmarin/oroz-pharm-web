@@ -56,6 +56,22 @@ export const Products: CollectionConfig = {
       label: 'Kratki opis',
     },
     {
+      name: 'age',
+      type: 'text',
+      label: 'Uzrast',
+      admin: {
+        description: 'Koristi se za kategoriju Perad. Npr. 1 dan, 3 tjedna, 18 tjedana.',
+      },
+    },
+    {
+      name: 'purpose',
+      type: 'text',
+      label: 'Namjena',
+      admin: {
+        description: 'Koristi se za kategoriju Perad. Upisati tov ili jaja.',
+      },
+    },
+    {
       name: 'instructions',
       type: 'richText',
       label: 'Upute za primjenu',

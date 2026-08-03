@@ -33,6 +33,7 @@ export interface ProductCategory {
 
 export interface Subcategory {
   id: string;
+  slug?: string;
   name: string;
   description?: string;
   isShowcase?: boolean;
@@ -55,6 +56,8 @@ export interface Product {
   name: string;
   manufacturer: string;
   description: string;
+  age?: string;
+  purpose?: string;
   instructions: unknown; // Lexical SerializedEditorState from Payload
   image: string;
 }
