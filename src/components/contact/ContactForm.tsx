@@ -29,6 +29,7 @@ const categories = [
   "Gnojiva",
   "Zaštita bilja",
   "Stočna hrana",
+  "Perad",
   "Sadni materijal",
   "Oprema za povrtlarstvo i cvjećarstvo",
   "Navodnjavanje",
