@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Bird } from "lucide-react";
 import type { Product } from "@/types/views";
 
 interface Props {
@@ -16,6 +17,11 @@ export default function ProductCard({ product, priority = false }: Props) {
   // stranicu detalja koja za perad ne postoji u navigaciji. Ista je razlika i
   // razlog zašto fotografije žive robe idu s cover umjesto contain + multiply.
   const isPoultry = product.categorySlug === "perad";
+  // Dvije šifre peradi (jednodnevni-purici, osmotjedna-nesilica) trenutno
+  // nemaju fotku. Umjesto žitnog polja (FALLBACK_IMAGE, netočno za živu
+  // robu), prikazuje se isti placeholder kao u PoultryGrid.tsx na
+  // kategorijskoj stranici, samo skaliran za manju karticu iz pretrage.
+  const showPoultryPlaceholder = isPoultry && !product.image;
 
   return (
     <Link
@@ -27,16 +33,25 @@ export default function ProductCard({ product, priority = false }: Props) {
       className="group flex flex-col h-full bg-white rounded-xl border border-green-100 overflow-hidden hover:shadow-lg hover:border-green-200 transition-all duration-300"
     >
       <div className="relative aspect-4/3 overflow-hidden bg-white">
-        <Image
-          src={product.image || FALLBACK_IMAGE}
-          alt={product.name}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          priority={priority}
-          className={`${
-            isPoultry ? "object-cover" : "object-contain mix-blend-multiply"
-          } group-hover:scale-105 transition-transform duration-300`}
-        />
+        {showPoultryPlaceholder ? (
+          <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 bg-green-50">
+            <Bird className="text-green-700/40" size={32} strokeWidth={1.5} />
+            <span className="text-xs font-medium text-green-700/60">
+              Fotografija u pripremi
+            </span>
+          </div>
+        ) : (
+          <Image
+            src={product.image || FALLBACK_IMAGE}
+            alt={product.name}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            priority={priority}
+            className={`${
+              isPoultry ? "object-cover" : "object-contain mix-blend-multiply"
+            } group-hover:scale-105 transition-transform duration-300`}
+          />
+        )}
       </div>
       <div className="flex flex-col gap-2 p-4 flex-1">
         {product.manufacturer && (

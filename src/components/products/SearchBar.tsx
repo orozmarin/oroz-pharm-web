@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Search, Loader2 } from "lucide-react";
+import { Search, Loader2, Bird } from "lucide-react";
 import type { Product } from "@/types/views";
 
 interface Props {
@@ -156,15 +156,25 @@ export default function SearchBar({
                       }`}
                     >
                       <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded bg-white">
-                        <Image
-                          src={p.image}
-                          alt={p.name}
-                          fill
-                          sizes="40px"
-                          className={
-                            isPoultry ? "object-cover" : "object-contain mix-blend-multiply"
-                          }
-                        />
+                        {isPoultry && !p.image ? (
+                          // Isti placeholder kao ProductCard/PoultryGrid, ali
+                          // bez natpisa "Fotografija u pripremi" - u 40px
+                          // kutiji tekst nije čitljiv, ostaje samo ikona na
+                          // tonirenoj podlozi.
+                          <span className="flex h-full w-full items-center justify-center bg-green-50">
+                            <Bird className="text-green-700/40" size={18} strokeWidth={1.5} />
+                          </span>
+                        ) : (
+                          <Image
+                            src={p.image}
+                            alt={p.name}
+                            fill
+                            sizes="40px"
+                            className={
+                              isPoultry ? "object-cover" : "object-contain mix-blend-multiply"
+                            }
+                          />
+                        )}
                       </span>
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-sm font-medium text-green-900">
