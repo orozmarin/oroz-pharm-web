@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Bird } from "lucide-react";
 import Button from "@/components/shared/Button";
 import type { Product, Subcategory } from "@/types/views";
@@ -35,10 +34,7 @@ function PoultryCard({
     : undefined;
 
   return (
-    <Link
-      href={`/proizvodi/${product.categorySlug}/${product.slug}`}
-      className="group flex flex-col h-full bg-white rounded-2xl border border-green-100 overflow-hidden hover:shadow-lg hover:border-green-200 transition-all duration-300"
-    >
+    <div className="flex flex-col h-full bg-white rounded-2xl border border-green-100 overflow-hidden shadow-sm">
       <div className="relative aspect-4/3 overflow-hidden">
         {product.image ? (
           <>
@@ -48,7 +44,7 @@ function PoultryCard({
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               priority={priority}
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-linear-to-t from-green-900/50 to-transparent" />
           </>
@@ -73,7 +69,7 @@ function PoultryCard({
             {purpose}
           </span>
         )}
-        <h3 className="font-bold text-green-900 text-lg leading-snug font-heading group-hover:text-green-700 transition-colors">
+        <h3 className="font-bold text-green-900 text-lg leading-snug font-heading">
           {product.name}
         </h3>
         {product.description && (
@@ -81,9 +77,13 @@ function PoultryCard({
             {product.description}
           </p>
         )}
-        <span className="text-green-700 text-sm font-medium mt-1">Detalji →</span>
+        <div className="mt-auto pt-1">
+          <Button href="/kontakt" variant="primary" size="sm">
+            Zatražite ponudu
+          </Button>
+        </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
@@ -152,9 +152,6 @@ export default function PoultryGrid({ subcategories, products }: Props) {
           količine.
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
-          <Button href="/kontakt" variant="primary">
-            Zatražite ponudu
-          </Button>
           <Button href="/kontakt#poslovnice" variant="outline">
             Posjetite poslovnicu
           </Button>
