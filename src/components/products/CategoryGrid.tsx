@@ -9,7 +9,7 @@ interface Props {
 }
 
 const GRID_ORDER = [
-  "zastita","gnojivo","sjeme","stocna","sadni","substr",
+  "zastita","gnojivo","sjeme","stocna","perad","sadni","substr",
   "navod","pcelar","ulja","enolog","stroj","alati","stocar",
   "kucni","kolinje","gume","vrt","roba","eko",
 ];
@@ -33,6 +33,7 @@ export default function CategoryGrid({ categories }: Props) {
           gridTemplateAreas: `
             "zastita zastita gnojivo gnojivo"
             "sjeme sjeme stocna stocna"
+            "perad perad perad perad"
             "sadni sadni substr substr"
             "navod pcelar ulja enolog"
             "stroj stroj alati stocar"
