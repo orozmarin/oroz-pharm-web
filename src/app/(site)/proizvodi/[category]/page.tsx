@@ -6,6 +6,7 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import Button from "@/components/shared/Button";
 import CategoryDetailClient from "@/components/products/CategoryDetailClient";
+import PoultryGrid from "@/components/products/PoultryGrid";
 import BrandSpotlight from "@/components/products/BrandSpotlight";
 import RelatedCategoriesGrid from "@/components/products/RelatedCategoriesGrid";
 import { ArrowLeft } from "lucide-react";
@@ -104,6 +105,7 @@ export default async function CategoryPage({ params }: Props) {
     if (!subsByCategoryId.has(catId)) subsByCategoryId.set(catId, []);
     subsByCategoryId.get(catId)!.push({
       id: String(sub.id),
+      slug: sub.slug,
       name: sub.name,
       description: sub.description ?? undefined,
       isShowcase: sub.isShowcase ?? undefined,
@@ -141,8 +143,13 @@ export default async function CategoryPage({ params }: Props) {
         ? doc.manufacturer.name
         : "",
     description: doc.description ?? "",
+    age: doc.age ?? undefined,
+    purpose: doc.purpose ?? undefined,
     instructions: doc.instructions,
-    image: getImageUrl(doc.image, FALLBACK_IMAGE),
+    // Za perad se šalje prazan string kad fotke nema, jer PoultryGrid ima
+    // vlastiti placeholder za taj slučaj. Za sve ostale kategorije ostaje
+    // stari wheat-field fallback (ProductCard nema kontrolu nad tim).
+    image: getImageUrl(doc.image, slug === "perad" ? "" : FALLBACK_IMAGE),
   }));
 
   return (
@@ -190,7 +197,11 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       )}
 
-      <CategoryDetailClient category={category} products={products} />
+      {category.slug === "perad" ? (
+        <PoultryGrid subcategories={category.subcategories} products={products} />
+      ) : (
+        <CategoryDetailClient category={category} products={products} />
+      )}
 
       {/* Related categories */}
       <section className="py-16 bg-green-50 px-4 md:px-8">

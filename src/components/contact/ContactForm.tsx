@@ -24,30 +24,11 @@ type FormData = z.infer<typeof schema>;
 const FIELD_CLASS = "w-full border-b-2 border-gray-200 focus:border-green-600 bg-transparent py-2 px-1 outline-none transition-colors text-sm text-gray-900";
 const SUBMIT_ERROR = "Greška pri slanju poruke. Molimo pokušajte ponovo ili nas kontaktirajte telefonom.";
 
-const categories = [
-  "Sjemenski program",
-  "Gnojiva",
-  "Zaštita bilja",
-  "Stočna hrana",
-  "Sadni materijal",
-  "Oprema za povrtlarstvo i cvjećarstvo",
-  "Navodnjavanje",
-  "Enologija",
-  "Oprema za pčelarstvo",
-  "Poljoprivredni strojevi",
-  "Alati",
-  "Oprema za stočarstvo",
-  "Ulja i maziva",
-  "Kućni ljubimci",
-  "Pribor za kolinje",
-  "Gume i zračnice",
-  "Vrt i okućnica",
-  "Roba široke potrošnje",
-  "Ekološki proizvodi",
-  "Ostalo",
-];
+interface Props {
+  categories: string[];
+}
 
-export default function ContactForm() {
+export default function ContactForm({ categories }: Props) {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);

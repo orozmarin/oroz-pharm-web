@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Bird } from "lucide-react";
 import type { Product } from "@/types/views";
 
 interface Props {
@@ -11,20 +12,46 @@ const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&q=80";
 
 export default function ProductCard({ product, priority = false }: Props) {
+  // Perad se prodaje na upit, ne preko detalja artikla (PoultryGrid vodi na
+  // /kontakt), pa i kartica iz pretrage mora voditi na kategoriju umjesto na
+  // stranicu detalja koja za perad ne postoji u navigaciji. Ista je razlika i
+  // razlog zašto fotografije žive robe idu s cover umjesto contain + multiply.
+  const isPoultry = product.categorySlug === "perad";
+  // Dvije šifre peradi (jednodnevni-purici, osmotjedna-nesilica) trenutno
+  // nemaju fotku. Umjesto žitnog polja (FALLBACK_IMAGE, netočno za živu
+  // robu), prikazuje se isti placeholder kao u PoultryGrid.tsx na
+  // kategorijskoj stranici, samo skaliran za manju karticu iz pretrage.
+  const showPoultryPlaceholder = isPoultry && !product.image;
+
   return (
     <Link
-      href={`/proizvodi/${product.categorySlug}/${product.slug}`}
+      href={
+        isPoultry
+          ? "/proizvodi/perad"
+          : `/proizvodi/${product.categorySlug}/${product.slug}`
+      }
       className="group flex flex-col h-full bg-white rounded-xl border border-green-100 overflow-hidden hover:shadow-lg hover:border-green-200 transition-all duration-300"
     >
       <div className="relative aspect-4/3 overflow-hidden bg-white">
-        <Image
-          src={product.image || FALLBACK_IMAGE}
-          alt={product.name}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          priority={priority}
-          className="object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
-        />
+        {showPoultryPlaceholder ? (
+          <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 bg-green-50">
+            <Bird className="text-green-700/40" size={32} strokeWidth={1.5} />
+            <span className="text-xs font-medium text-green-700/60">
+              Fotografija u pripremi
+            </span>
+          </div>
+        ) : (
+          <Image
+            src={product.image || FALLBACK_IMAGE}
+            alt={product.name}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            priority={priority}
+            className={`${
+              isPoultry ? "object-cover" : "object-contain mix-blend-multiply"
+            } group-hover:scale-105 transition-transform duration-300`}
+          />
+        )}
       </div>
       <div className="flex flex-col gap-2 p-4 flex-1">
         {product.manufacturer && (
@@ -41,7 +68,7 @@ export default function ProductCard({ product, priority = false }: Props) {
           </p>
         )}
         <span className="text-green-700 text-sm font-medium mt-1">
-          Detalji →
+          {isPoultry ? "Pogledaj ponudu" : "Detalji →"}
         </span>
       </div>
     </Link>

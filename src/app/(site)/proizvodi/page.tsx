@@ -10,6 +10,15 @@ import { getImageUrl } from "@/lib/utils";
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80";
 
+function pluralizeKategorija(n: number): string {
+  const last2 = n % 100;
+  const last = n % 10;
+  if (last2 >= 11 && last2 <= 14) return "kategorija";
+  if (last === 1) return "kategoriju";
+  if (last >= 2 && last <= 4) return "kategorije";
+  return "kategorija";
+}
+
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
@@ -64,7 +73,10 @@ export default async function ProductsPage() {
             </h1>
             <p className="text-white/80 text-lg max-w-xl">
               Preko 15.000 artikala za sve vaše poljoprivredne potrebe, organizirano u{" "}
-              <span className="text-green-300 font-semibold">13 kategorija</span> s vodećim svjetskim brandovima.
+              <span className="text-green-300 font-semibold">
+                {categories.length} {pluralizeKategorija(categories.length)}
+              </span>{" "}
+              s vodećim svjetskim brandovima.
             </p>
           </div>
         </div>

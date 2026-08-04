@@ -41,6 +41,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ? product.category.slug
         : null;
     if (!categorySlug) return [];
+    // Perad se prodaje na upit i nema detail stranice (vidi ProductCard),
+    // pa se te rute ne smiju oglašavati tražilicama. Kategorija /proizvodi/perad
+    // ostaje u sitemapu preko categoryRoutes.
+    if (categorySlug === "perad") return [];
     return [{
       url: `${BASE_URL}/proizvodi/${categorySlug}/${product.slug}`,
       lastModified: new Date(product.updatedAt),

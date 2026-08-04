@@ -143,6 +143,8 @@ export interface Product {
   subcategory?: number | Subcategory | null;
   manufacturer?: number | Manufacturer | null;
   description?: string | null;
+  age?: string | null;
+  purpose?: string | null;
   instructions?: {
     root: {
       type: string;
