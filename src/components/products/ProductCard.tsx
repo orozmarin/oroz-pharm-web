@@ -11,13 +11,19 @@ const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&q=80";
 
 export default function ProductCard({ product, priority = false }: Props) {
-  // Perad su fotografije žive robe, a ne snimke pakiranja na bijeloj podlozi.
-  // contain + mix-blend-multiply ih odreže i ispere, pa za njih ide cover.
-  const isLivePhoto = product.categorySlug === "perad";
+  // Perad se prodaje na upit, ne preko detalja artikla (PoultryGrid vodi na
+  // /kontakt), pa i kartica iz pretrage mora voditi na kategoriju umjesto na
+  // stranicu detalja koja za perad ne postoji u navigaciji. Ista je razlika i
+  // razlog zašto fotografije žive robe idu s cover umjesto contain + multiply.
+  const isPoultry = product.categorySlug === "perad";
 
   return (
     <Link
-      href={`/proizvodi/${product.categorySlug}/${product.slug}`}
+      href={
+        isPoultry
+          ? "/proizvodi/perad"
+          : `/proizvodi/${product.categorySlug}/${product.slug}`
+      }
       className="group flex flex-col h-full bg-white rounded-xl border border-green-100 overflow-hidden hover:shadow-lg hover:border-green-200 transition-all duration-300"
     >
       <div className="relative aspect-4/3 overflow-hidden bg-white">
@@ -28,7 +34,7 @@ export default function ProductCard({ product, priority = false }: Props) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           priority={priority}
           className={`${
-            isLivePhoto ? "object-cover" : "object-contain mix-blend-multiply"
+            isPoultry ? "object-cover" : "object-contain mix-blend-multiply"
           } group-hover:scale-105 transition-transform duration-300`}
         />
       </div>
@@ -47,7 +53,7 @@ export default function ProductCard({ product, priority = false }: Props) {
           </p>
         )}
         <span className="text-green-700 text-sm font-medium mt-1">
-          Detalji →
+          {isPoultry ? "Pogledaj ponudu" : "Detalji →"}
         </span>
       </div>
     </Link>
