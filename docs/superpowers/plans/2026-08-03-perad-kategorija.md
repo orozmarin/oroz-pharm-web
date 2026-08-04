@@ -993,11 +993,23 @@ Bez `API_BASE`, default je `https://orozpharm.hr`. Fotke se uploadaju u produkci
 
 Expected: isti izlaz kao u Tasku 3 Step 3, s `kreiran` za sve zapise.
 
-- [ ] **Step 7: Postavi srodne kategorije na produkciji**
+- [ ] **Step 7: Rebuild da sitemap uključi Perad**
+
+`/sitemap.xml` (`src/app/sitemap.ts`) je statička ruta bez `revalidate` exporta
+(`initialRevalidateSeconds: false`), i nigdje u `src/` ne postoji poziv
+`revalidatePath` koji bi je osvježio. Build u Stepu 5 se izvodi **prije**
+seeda iz Stepa 6, pa je sitemap zapečen bez URL-ova za proizvode i kategoriju
+Perad. Ta ruta se sama ne liječi - treba novi build da uzme svježe podatke.
+
+```bash
+npm run build && pm2 restart orozpharm
+```
+
+- [ ] **Step 8: Postavi srodne kategorije na produkciji**
 
 Skripta ne dira `relatedCategories`. Otvori `https://orozpharm.hr/admin/collections/categories`, zapis "Perad", i u "Srodne kategorije" odaberi Stočnu hranu i Stočarstvo, pa snimi.
 
-- [ ] **Step 8: Provjeri produkciju**
+- [ ] **Step 9: Provjeri produkciju**
 
 `/proizvodi` ima `revalidate = 3600`, a `/proizvodi/[category]` i detail ruta `revalidate = 60`. Kako se seed vrti **nakon** builda, bento grid može do sat vremena prikazivati stanje bez Peradi. Ako Perad tile ne vidiš odmah, to nije bug. Da ne čekaš, `pm2 restart orozpharm` izbaci ISR cache iz memorije.
 
@@ -1018,7 +1030,7 @@ pm2 flush && curl -s https://orozpharm.hr/proizvodi/perad -o /dev/null && pm2 lo
 
 Expected: bez greški.
 
-- [ ] **Step 9: Obriši granu**
+- [ ] **Step 10: Obriši granu**
 
 ```bash
 git branch -d feat/perad-kategorija

@@ -83,7 +83,13 @@ export default function SearchBar({
     (p: Product) => {
       setOpen(false);
       onNavigate?.();
-      router.push(`/proizvodi/${p.categorySlug}/${p.slug}`);
+      // Perad se prodaje na upit, ne preko detalja artikla (vidi ProductCard),
+      // pa i typeahead mora voditi na kategoriju umjesto na stranicu detalja
+      // koja za perad ne postoji u navigaciji.
+      const isPoultry = p.categorySlug === "perad";
+      router.push(
+        isPoultry ? "/proizvodi/perad" : `/proizvodi/${p.categorySlug}/${p.slug}`
+      );
     },
     [router, onNavigate]
   );
@@ -137,7 +143,9 @@ export default function SearchBar({
           {results.length > 0 ? (
             <>
               <ul>
-                {results.map((p, i) => (
+                {results.map((p, i) => {
+                  const isPoultry = p.categorySlug === "perad";
+                  return (
                   <li key={p.id}>
                     <button
                       type="button"
@@ -153,7 +161,9 @@ export default function SearchBar({
                           alt={p.name}
                           fill
                           sizes="40px"
-                          className="object-contain mix-blend-multiply"
+                          className={
+                            isPoultry ? "object-cover" : "object-contain mix-blend-multiply"
+                          }
                         />
                       </span>
                       <span className="min-w-0 flex-1">
@@ -168,7 +178,8 @@ export default function SearchBar({
                       </span>
                     </button>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
               <button
                 type="button"

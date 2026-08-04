@@ -90,7 +90,20 @@ export async function searchProducts(
           : "",
       description: doc.description ?? "",
       instructions: doc.instructions,
-      image: getImageUrl(doc.image, FALLBACK_IMAGE),
+      // Za perad se šalje prazan string kad fotke nema (dvije šifre trenutno
+      // nemaju fotku), isti obrazac kao src/app/(site)/proizvodi/[category]/page.tsx:152.
+      // Napomena: ProductCard.tsx (renderira /proizvodi/pretraga) ima svoj
+      // `product.image || FALLBACK_IMAGE`, pa prazan string tu ipak završi
+      // na istoj wheat-field slici - to je izvan opsega ovog fixa. Ostaje
+      // ovako da podaci budu dosljedni s kategorijskom stranicom.
+      image: getImageUrl(
+        doc.image,
+        (typeof doc.category === "object" && doc.category !== null
+          ? doc.category.slug
+          : "") === "perad"
+          ? ""
+          : FALLBACK_IMAGE
+      ),
     }));
 
   return { products, total };

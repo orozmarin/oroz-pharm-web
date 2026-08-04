@@ -14,7 +14,7 @@ function pluralizeKategorija(n: number): string {
   const last2 = n % 100;
   const last = n % 10;
   if (last2 >= 11 && last2 <= 14) return "kategorija";
-  if (last === 1) return "kategorija";
+  if (last === 1) return "kategoriju";
   if (last >= 2 && last <= 4) return "kategorije";
   return "kategorija";
 }
