@@ -11,6 +11,10 @@ const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&q=80";
 
 export default function ProductCard({ product, priority = false }: Props) {
+  // Perad su fotografije žive robe, a ne snimke pakiranja na bijeloj podlozi.
+  // contain + mix-blend-multiply ih odreže i ispere, pa za njih ide cover.
+  const isLivePhoto = product.categorySlug === "perad";
+
   return (
     <Link
       href={`/proizvodi/${product.categorySlug}/${product.slug}`}
@@ -23,7 +27,9 @@ export default function ProductCard({ product, priority = false }: Props) {
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           priority={priority}
-          className="object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
+          className={`${
+            isLivePhoto ? "object-cover" : "object-contain mix-blend-multiply"
+          } group-hover:scale-105 transition-transform duration-300`}
         />
       </div>
       <div className="flex flex-col gap-2 p-4 flex-1">
