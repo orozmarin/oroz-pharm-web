@@ -3,6 +3,7 @@
 import csv
 import os
 import shutil
+import stat
 import subprocess
 import sys
 
@@ -48,6 +49,11 @@ def provjeri_sudare() -> None:
         if mode == "file":
             odredista.setdefault(dst, []).append(src)
         elif mode == "dir":
+            # Provjeravamo samo čitljivost — izvor ne treba biti zapisiv (dozvole
+            # dobavljača su njegova stvar); nedostatak w na odredištu se rješava
+            # naknadnom normalizacijom u kopiraj(), ne odbijanjem ovdje.
+            if not os.access(src, os.R_OK | os.X_OK):
+                sys.exit(f"PREKID: izvor nije čitljiv: {src}")
             for dirpath, _dirnames, filenames in os.walk(src):
                 rel = os.path.relpath(dirpath, src)
                 segmenti = [] if rel == "." else rel.split(os.sep)
@@ -77,6 +83,26 @@ def provjeri_sudare() -> None:
         )
 
 
+def _normaliziraj_dozvole(korijen: str) -> None:
+    """Dodaje vlasniku pravo pisanja (i x na mapama) na cijelom stablu ispod
+    `korijen`, nakon što ga je rsync -a upravo napunio.
+
+    Dozvole izvora su artefakt isporuke dobavljača (npr. mapa raspakirana iz
+    zipa bez w bita za vlasnika) — rsync -a ih vjerno prenosi na odredište, ali
+    ciljno stablo MORA ostati zapisivo: korisnik u njega kasnije dodaje nove
+    materijale, a slugificiraj() treba w na svakoj mapi da bi preimenovao njen
+    sadržaj. Koristimo st_mode | S_IWUSR (i S_IRUSR|S_IXUSR za mape) — dodajemo,
+    nikad ne oduzimamo, i diramo samo vlasnika, ne grupu ni ostale.
+    """
+    for dp, dn, fn in os.walk(korijen):
+        st = os.stat(dp)
+        os.chmod(dp, st.st_mode | stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
+        for ime in fn:
+            p = os.path.join(dp, ime)
+            st = os.stat(p)
+            os.chmod(p, st.st_mode | stat.S_IRUSR | stat.S_IWUSR)
+
+
 def kopiraj(suho: bool) -> None:
     with open(MAPIRANJE) as f:
         redci = [r for r in csv.reader(f, delimiter="\t") if r and not r[0].startswith("#")]
@@ -98,6 +124,7 @@ def kopiraj(suho: bool) -> None:
                  f"{src}/", f"{dst}/"],
                 check=True,
             )
+            _normaliziraj_dozvole(dst)
         elif mode == "file":
             if os.path.exists(dst) and not suho:
                 sys.exit(f"PREKID: odredište već postoji: {dst}")
