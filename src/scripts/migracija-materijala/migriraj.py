@@ -13,6 +13,69 @@ CILJ = "/Users/marinoroz/Documents/OrozDigital/materijali"
 MAPIRANJE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "mapiranje.tsv")
 LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "preimenovanja.log")
 
+# Isto što rsync isključuje kod stvarnog kopiranja (vidi komentar u kopiraj()) —
+# pred-let mora modelirati iste izuzetke da ne prijavi sudar za datoteku koja se
+# ionako nikad neće kopirati.
+_IGNORIRANE_DATOTEKE = {".DS_Store"}
+
+
+def _ignorirano(ime: str) -> bool:
+    return ime in _IGNORIRANE_DATOTEKE or ime.startswith("._")
+
+
+def ucitaj_redke() -> list:
+    with open(MAPIRANJE) as f:
+        return [r for r in csv.reader(f, delimiter="\t") if r and not r[0].startswith("#")]
+
+
+def provjeri_sudare() -> None:
+    """Pred-let prije ijednog kopiranja (i u suhom i u stvarnom prolazu).
+
+    Za svaki redak izračuna konačnu odredišnu putanju svake datoteke onakvu
+    kakva će biti NAKON slugifikacije: za `file` retke to je zadano odredište;
+    za `dir` retke prošeće izvor i za svaku datoteku sastavi odredište
+    slugificirajući svaki segment relativne putanje unutar mape (isto što bi
+    slugificiraj() naknadno napravio, samo unaprijed i bez side-effecta).
+
+    Prekida ako dvije različite izvorne datoteke planiraju istu konačnu
+    putanju, ili ako slugify() ne može obraditi neko ime.
+    """
+    odredista: dict[str, list[str]] = {}
+
+    for mode, izvor, odrediste in ucitaj_redke():
+        src = os.path.join(IZVOR_KORIJEN, izvor)
+        dst = os.path.join(CILJ, odrediste)
+        if mode == "file":
+            odredista.setdefault(dst, []).append(src)
+        elif mode == "dir":
+            for dirpath, _dirnames, filenames in os.walk(src):
+                rel = os.path.relpath(dirpath, src)
+                segmenti = [] if rel == "." else rel.split(os.sep)
+                for ime in filenames:
+                    if _ignorirano(ime):
+                        continue
+                    puni_izvor = os.path.join(dirpath, ime)
+                    try:
+                        segmenti_slug = [slugify(s) for s in segmenti]
+                        ime_slug = slugify(ime)
+                    except ValueError as e:
+                        sys.exit(f"PREKID: slugify ne uspijeva za {puni_izvor}: {e}")
+                    konacna = os.path.join(dst, *segmenti_slug, ime_slug)
+                    odredista.setdefault(konacna, []).append(puni_izvor)
+        # nepoznat mode: kopiraj() će ga prijaviti; pred-let ga ovdje preskače.
+
+    sudari = {k: v for k, v in odredista.items() if len(v) > 1}
+    if sudari:
+        redovi = []
+        for konacna, izvori in sorted(sudari.items()):
+            redovi.append(f"  {konacna}")
+            for i in sorted(izvori):
+                redovi.append(f"    <- {i}")
+        sys.exit(
+            "PREKID: sudar(i) pri planiranju odredišta (prije ijednog kopiranja):\n"
+            + "\n".join(redovi)
+        )
+
 
 def kopiraj(suho: bool) -> None:
     with open(MAPIRANJE) as f:
@@ -48,32 +111,48 @@ def kopiraj(suho: bool) -> None:
 
 
 def slugificiraj() -> None:
-    """Preimenuje sve u materijali/ odozdo prema gore. Prekida na sudaru."""
-    preimenovanja = []
-    for dp, dn, fn in os.walk(CILJ, topdown=False):
-        for ime in fn + dn:
-            novo = slugify(ime)
-            if novo == ime:
-                continue
-            staro_p = os.path.join(dp, ime)
-            novo_p = os.path.join(dp, novo)
-            # APFS je case-insensitive: "Label" i "label" su ista stavka, pa os.path.exists
-            # javlja True i za preimenovanje koje mijenja samo veličinu slova. samefile to
-            # razlikuje od stvarnog sudara s drugom datotekom.
-            if os.path.exists(novo_p) and not os.path.samefile(staro_p, novo_p):
-                sys.exit(f"PREKID: sudar pri preimenovanju {staro_p} -> {novo_p}")
-            os.rename(staro_p, novo_p)
-            preimenovanja.append((staro_p, novo_p))
+    """Preimenuje sve u materijali/ odozdo prema gore. Prekida na sudaru.
+
+    LOG se otvara PRIJE petlje i svaki par se piše (uz flush) čim se
+    preimenovanje dogodi — ako skripta pukne na pola, log ipak sadrži sve što
+    je do tada stvarno preimenovano, umjesto da nestane zajedno s prekidom.
+    """
+    broj = 0
     with open(LOG, "w") as f:
         w = csv.writer(f, delimiter="\t")
-        w.writerows(preimenovanja)
-    print(f"preimenovano: {len(preimenovanja)}, zapisano u {LOG}")
+        for dp, dn, fn in os.walk(CILJ, topdown=False):
+            for ime in fn + dn:
+                try:
+                    novo = slugify(ime)
+                except ValueError as e:
+                    sys.exit(f"PREKID: slugify ne uspijeva za {os.path.join(dp, ime)}: {e}")
+                if novo == ime:
+                    continue
+                staro_p = os.path.join(dp, ime)
+                novo_p = os.path.join(dp, novo)
+                # APFS je case-insensitive: "Label" i "label" su ista stavka, pa os.path.exists
+                # javlja True i za preimenovanje koje mijenja samo veličinu slova. samefile to
+                # razlikuje od stvarnog sudara s drugom datotekom.
+                if os.path.exists(novo_p) and not os.path.samefile(staro_p, novo_p):
+                    sys.exit(f"PREKID: sudar pri preimenovanju {staro_p} -> {novo_p}")
+                os.rename(staro_p, novo_p)
+                w.writerow((staro_p, novo_p))
+                f.flush()
+                broj += 1
+    print(f"preimenovano: {broj}, zapisano u {LOG}")
 
 
 if __name__ == "__main__":
     suho = "--suho" in sys.argv
     if not suho and os.path.exists(CILJ) and os.listdir(CILJ):
-        sys.exit(f"PREKID: {CILJ} postoji i nije prazan. Obriši ga pa ponovi.")
+        sys.exit(
+            f"PREKID: {CILJ} postoji i nije prazan.\n"
+            "Kopiranje je idempotentno samo iz praznog stanja — jedini siguran oporavak je "
+            f"obrisati cijeli {CILJ} i pokrenuti skriptu ispočetka. Izvorna stabla "
+            "(Oroz-web, Oroz-marketing) nisu dirana i ostaju netaknuta bez obzira na to "
+            "gdje je prethodni pokušaj stao."
+        )
+    provjeri_sudare()
     kopiraj(suho)
     if not suho:
         slugificiraj()
