@@ -150,8 +150,8 @@ git commit -m "feat(perad): polja uzrast i namjena na proizvodima"
 Pribavlja 10 fotografija (1 hero + 9 po vrsti). **Sadrži gate na kojem se čeka odobrenje naručitelja**, ne nastavljati bez njega.
 
 **Files:**
-- Create: `/Users/marinoroz/Documents/Oroz-web/perad/` (folder izvan repozitorija, prati konvenciju postojećih materijala dobavljača)
-- Create: `/Users/marinoroz/Documents/Oroz-web/perad/perad-fotke.md` (kontakt-lista za odobrenje)
+- Create: `/Users/marinoroz/Documents/OrozDigital/materijali/vlastito/asortiman/perad/` (folder izvan repozitorija, prati konvenciju postojećih materijala dobavljača)
+- Create: `/Users/marinoroz/Documents/OrozDigital/materijali/vlastito/asortiman/perad/perad-fotke.md` (kontakt-lista za odobrenje)
 
 **Interfaces:**
 - Consumes: ništa
@@ -161,7 +161,7 @@ Pribavlja 10 fotografija (1 hero + 9 po vrsti). **Sadrži gate na kojem se čeka
 - [ ] **Step 1: Napravi folder**
 
 ```bash
-mkdir -p /Users/marinoroz/Documents/Oroz-web/perad
+mkdir -p /Users/marinoroz/Documents/OrozDigital/materijali/vlastito/asortiman/perad
 ```
 
 - [ ] **Step 2: Pronađi kandidate**
@@ -188,7 +188,7 @@ Zahtjevi na odabir:
 
 - [ ] **Step 3: Napiši kontakt-listu**
 
-`/Users/marinoroz/Documents/Oroz-web/perad/perad-fotke.md`, po jedan blok za svaku poziciju:
+`/Users/marinoroz/Documents/OrozDigital/materijali/vlastito/asortiman/perad/perad-fotke.md`, po jedan blok za svaku poziciju:
 
 ```markdown
 ## jednodnevno-pile
@@ -205,12 +205,12 @@ Pokaži naručitelju kontakt-listu i pitaj koje verzije odabire. **Ne skidati fo
 
 - [ ] **Step 5: Skini odobrene fotke**
 
-Skini svaku odobrenu fotku u `/Users/marinoroz/Documents/Oroz-web/perad/` pod **točnim** imenom iz bloka Interfaces gore. Preimenovanje je obavezno, Task 3 traži ta imena.
+Skini svaku odobrenu fotku u `/Users/marinoroz/Documents/OrozDigital/materijali/vlastito/asortiman/perad/` pod **točnim** imenom iz bloka Interfaces gore. Preimenovanje je obavezno, Task 3 traži ta imena.
 
 - [ ] **Step 6: Provjeri da su sve tu i da su landscape**
 
 ```bash
-cd /Users/marinoroz/Documents/Oroz-web/perad
+cd /Users/marinoroz/Documents/OrozDigital/materijali/vlastito/asortiman/perad
 for f in hero jednodnevno-pile jednodnevna-crvena-nesilica jednodnevno-grahorasto-pile \
          jednodnevna-patka jednodnevni-purici trotjedno-pile osmotjedna-nesilica \
          osamnaesttjedna-nesilica petotjedni-purani; do
@@ -265,7 +265,7 @@ import path from 'path'
 const API_BASE = process.env.API_BASE ?? 'https://orozpharm.hr'
 const EMAIL = process.env.ADMIN_EMAIL
 const PASSWORD = process.env.ADMIN_PASSWORD
-const IMG_DIR = '/Users/marinoroz/Documents/Oroz-web/perad'
+const IMG_DIR = '/Users/marinoroz/Documents/OrozDigital/materijali/vlastito/asortiman/perad'
 
 const CATEGORY = {
   slug: 'perad',

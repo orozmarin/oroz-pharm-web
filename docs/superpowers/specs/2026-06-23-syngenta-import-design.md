@@ -11,7 +11,7 @@ podkategorijom, proizvođačem Syngenta i kratkim hrvatskim opisom + aktivnim tv
 primjenom verificiranim iz službenih izvora (FIS registar, Syngenta HR).
 
 Folder slika:
-`/Users/marinoroz/Documents/Oroz-web/partneri/Syngenta/slike_ proizvoda_Syngenta_za Oroz Pharm_26/slike_ proizvoda_Syngenta_za Oroz Pharm_26`
+`/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike`
 
 ## Pristup
 

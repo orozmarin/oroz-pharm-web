@@ -18,7 +18,7 @@
 - Podaci o pesticidima moraju biti verificirani iz službenog izvora; nesigurno se označava, ne izmišlja.
 - Nema test runnera u projektu — provjera je `--dry-run` izlaz i Payload `/admin` + REST API.
 - Manifest i artefakti spremaju se u `src/scripts/syngenta-manifest.json`.
-- Slike: `/Users/marinoroz/Documents/Oroz-web/partneri/Syngenta/slike_ proizvoda_Syngenta_za Oroz Pharm_26/slike_ proizvoda_Syngenta_za Oroz Pharm_26`
+- Slike: `/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike`
 
 ---
 
@@ -116,7 +116,7 @@ git commit -m "feat(seed): per-product category override u manifest uploaderu"
 
 ```bash
 node src/scripts/make-manifest.mjs \
-  --dir "/Users/marinoroz/Documents/Oroz-web/partneri/Syngenta/slike_ proizvoda_Syngenta_za Oroz Pharm_26/slike_ proizvoda_Syngenta_za Oroz Pharm_26" \
+  --dir "/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike" \
   --manufacturer "Syngenta" \
   --out src/scripts/syngenta-manifest.json
 ```
@@ -340,7 +340,7 @@ git commit -m "data(seed): popunjeni biostimulatori → Gnojiva (Syngenta)"
 - [ ] **Step 1: Pokušati konverziju psd→png (macOS `sips`)**
 
 ```bash
-sips -s format png "/Users/marinoroz/Documents/Oroz-web/partneri/Syngenta/slike_ proizvoda_Syngenta_za Oroz Pharm_26/slike_ proizvoda_Syngenta_za Oroz Pharm_26/5_Elumis Banvel_pakiranje.psd" --out "/Users/marinoroz/Documents/Oroz-web/partneri/Syngenta/slike_ proizvoda_Syngenta_za Oroz Pharm_26/slike_ proizvoda_Syngenta_za Oroz Pharm_26/5_Elumis Banvel_pakiranje.png"
+sips -s format png "/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike/5_Elumis Banvel_pakiranje.psd" --out "/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike/5_Elumis Banvel_pakiranje.png"
 ```
 
 Expected: kreiran `.png`. Ako `sips` ne uspije, probati `magick` (ImageMagick); ako ni to, označiti Elumis Banvel `skipUpload: true` i javiti korisniku da treba zamjenska slika.
@@ -351,7 +351,7 @@ Promijeniti `filename` Elumis Banvel unosa na `"5_Elumis Banvel_pakiranje.png"`.
 
 - [ ] **Step 3: Provjeriti da je slika čitljiva**
 
-Run: `node -e "import('sharp').then(s=>s.default('/Users/marinoroz/Documents/Oroz-web/partneri/Syngenta/slike_ proizvoda_Syngenta_za Oroz Pharm_26/slike_ proizvoda_Syngenta_za Oroz Pharm_26/5_Elumis Banvel_pakiranje.png').metadata().then(m=>console.log(m.width+'x'+m.height)))"`
+Run: `node -e "import('sharp').then(s=>s.default('/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike/5_Elumis Banvel_pakiranje.png').metadata().then(m=>console.log(m.width+'x'+m.height)))"`
 Expected: ispis dimenzija (ili poruka da je preskočeno).
 
 - [ ] **Step 4: Commit**
@@ -381,7 +381,7 @@ Expected: `OK`.
 ```bash
 node src/scripts/seed-from-manifest.mjs \
   --manifest src/scripts/syngenta-manifest.json \
-  --images-dir "/Users/marinoroz/Documents/Oroz-web/partneri/Syngenta/slike_ proizvoda_Syngenta_za Oroz Pharm_26/slike_ proizvoda_Syngenta_za Oroz Pharm_26" \
+  --images-dir "/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike" \
   --category-id 3 \
   --dry-run
 ```
@@ -397,7 +397,7 @@ Predati korisniku sažetak (naziv → kategorija → podkategorija → aktivna t
 ```bash
 ADMIN_EMAIL='<email>' ADMIN_PASSWORD='<lozinka>' node src/scripts/seed-from-manifest.mjs \
   --manifest src/scripts/syngenta-manifest.json \
-  --images-dir "/Users/marinoroz/Documents/Oroz-web/partneri/Syngenta/slike_ proizvoda_Syngenta_za Oroz Pharm_26/slike_ proizvoda_Syngenta_za Oroz Pharm_26" \
+  --images-dir "/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike" \
   --category-id 3
 ```
 
