@@ -39,7 +39,7 @@ potpisan UNICHEM AGRO d.o.o. → `dobavljaci/unichem-agro/slike/effect-banner-ak
 | Pitanje | Odluka | Posljedica |
 |---|---|---|
 | Plantella i Unichem Agro | **Dva odvojena dobavljača** | `dobavljaci/plantella/` i `dobavljaci/unichem-agro/` |
-| TORA | **Brand AgroChem Maksa** | Mapa `tora/` se ne stvara. `tora.png` → `dobavljaci/agrochem-maks/logo.png`. Napomena: datoteka je znak branda TORA, ali je to logotip pod kojim taj partner stoji u traci na webu, pa zadržava ime `logo.png` da traka `dobavljaci/*/logo.*` i dalje radi. |
+| TORA | **Brand AgroChem Maksa** | Mapa `tora/` se ne stvara. `tora.png` → `dobavljaci/agrochem-maks/logo.png`. Napomena: `tora.png` je bio jedan od 24 logotipa u `Oroz-marketing/partneri/`. Zadržava ime `logo.png` radi dosljednosti imenovanja u registru (fiksni naziv logotipa u mapi dobavljača), a ne zbog neke web trake koja bi ga dohvaćala — traka logotipa na webu (`BrandMarquee.tsx`) koristi tvrdo kodiran niz koji pokazuje na `public/images/brands/`, neovisno o ovom stablu. |
 | Elixir | **Brand Žita** | Mapa `elixir/` se ne stvara. `ELIXIR.txt` → `dobavljaci/zito/biljeske.txt`. |
 
 ## Učinak na broj mapa dobavljača

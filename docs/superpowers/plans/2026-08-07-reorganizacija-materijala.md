@@ -754,7 +754,8 @@ ako je na njoj proizvod dobavljača. Materijal koji je dobavljač isporučio ide
 ## Struktura
 
 - `dobavljaci/<slug>/` — registar. Jedna mapa po partneru, i kad sadrži samo `logo.png`.
-  Traka logotipa na webu dohvaća se s `dobavljaci/*/logo.*`.
+  Napomena: web traku logotipa (`BrandMarquee.tsx`) poslužuje tvrdo kodiran niz koji pokazuje
+  na `public/images/brands/`, neovisno o ovom stablu — ovo je arhiva, ne izvor za build.
 - `vlastito/asortiman/<kategorija>/` — vlastite fotografije po kategoriji.
 - `vlastito/poslovnice/<mjesto>/` — fotografije poslovnica.
 - `vlastito/objave/{posts,reels,story,blog,oglasi}/` — objavljeno i pripremljeno za objavu.

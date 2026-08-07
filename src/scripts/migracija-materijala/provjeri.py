@@ -8,7 +8,11 @@ import sys
 
 CILJ = "/Users/marinoroz/Documents/OrozDigital/materijali"
 OCEKIVANO = 833
-NEPRENESENO = "/Users/marinoroz/Documents/Oroz-web/.claude/settings.local.json"
+# Sažetak /Users/marinoroz/Documents/Oroz-web/.claude/settings.local.json — jedine namjerno
+# neprenesene datoteke iz `prije-sha.txt`. Hardkodiran, ne izračunat: izvorno stablo
+# (Oroz-web) se briše nakon migracije, pa `sha()` nad njim ne bi imao što otvoriti, a ova
+# provjera mora ostati ponovljiva i nakon brisanja.
+NEPRENESENO_SHA = "39a3723441892ce1cf987508fb448b6a656b65c8d194d1640c1915cd9098d3c6"
 OSNOVICA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "prije-sha.txt")
 # `fullmatch`, ne `match`: u Pythonu `$` znači kraj stringa ILI neposredno prije završnog
 # `\n`, pa bi `re.match(..., "foo.jpg\n")` prošao. Ime datoteke s newlineom je na POSIX-u
@@ -45,7 +49,7 @@ def provjera_sadrzaja():
     """Svaki sha256 iz izvora mora postojati na odredištu. Hvata i tihi gubitak i izmjenu."""
     with open(OSNOVICA) as f:
         prije = sorted(x.strip() for x in f if x.strip())
-    prije.remove(sha(NEPRENESENO))
+    prije.remove(NEPRENESENO_SHA)
     poslije = sorted(sha(p) for p in sve_datoteke())
     ok = prije == poslije
     print(f"[{'OK' if ok else 'PAD'}] sadržaj: {len(prije)} izvornih sažetaka prema {len(poslije)}")

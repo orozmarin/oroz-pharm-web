@@ -113,6 +113,11 @@ kad heuristika ne odlučuje, materijal ide na popis za ručnu provjeru (odjeljak
 
 ## Registar dobavljača
 
+> **Napomena:** brojke niže su ispravljene odlukama donesenim u Tasku 1 — vidi
+> `src/scripts/migracija-materijala/odluke.md`. Stvarno stanje registra: **40 mapa, 24 s
+> logotipom** (ne 41 / 17 kako stoji ispod — `tora` i `elixir` nisu zasebni dobavljači, brand su
+> `agrochem-maks` i `zito`; dodan je `unichem-agro`, koji ovaj popis ne navodi).
+
 41 mapa. Skupine po tome što se u njih slijeva.
 
 ### Iz mape s materijalima (14)
@@ -153,8 +158,9 @@ Izvor: `Oroz-web/partneri/<Ime>/`. Sedam ih usput dobiva logotip iz `Oroz-market
 Svaka sadrži samo `logo.png` (`timac-agro` → `logo.svg`, `vindija.svg.png` → `logo.png`).
 Iznimka: `dekalb` dodatno dobiva `Oroz-marketing/kukuruz/Dekalb/DKC4943.png` → `slike/`.
 
-Prazne-ali-postojeće mape su namjerne: registar je popis **svih** partnera, a traka logotipa
-na webu dohvaća se s `dobavljaci/*/logo.*`.
+Prazne-ali-postojeće mape su namjerne: registar je popis **svih** partnera. (Traka logotipa
+na webu, `BrandMarquee.tsx`, poslužuje se iz tvrdo kodiranog niza u `public/images/brands/` —
+neovisno o ovom stablu; vidi napomenu na vrhu odjeljka „Registar dobavljača".)
 
 ### Novi, iz materijala u `Oroz-marketing` (3)
 
