@@ -331,27 +331,27 @@ git commit -m "data(seed): popunjeni biostimulatori → Gnojiva (Syngenta)"
 ### Task 7: Riješiti sliku Elumis Banvel (.psd)
 
 **Files:**
-- Create: konvertirana slika (npr. `5_Elumis Banvel_pakiranje.png`) u istom folderu ILI ažuriranje `filename` u manifestu.
+- Create: konvertirana slika (npr. `5-elumis-banvel-pakiranje.png`) u istom folderu ILI ažuriranje `filename` u manifestu.
 
 **Interfaces:**
-- Consumes: `5_Elumis Banvel_pakiranje.psd`.
+- Consumes: `5-elumis-banvel-pakiranje.psd`.
 - Produces: rasterska slika koju `sharp` može pročitati, te ažuriran `filename` za Elumis Banvel unos.
 
 - [ ] **Step 1: Pokušati konverziju psd→png (macOS `sips`)**
 
 ```bash
-sips -s format png "/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike/5_Elumis Banvel_pakiranje.psd" --out "/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike/5_Elumis Banvel_pakiranje.png"
+sips -s format png "/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike/5-elumis-banvel-pakiranje.psd" --out "/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike/5-elumis-banvel-pakiranje.png"
 ```
 
 Expected: kreiran `.png`. Ako `sips` ne uspije, probati `magick` (ImageMagick); ako ni to, označiti Elumis Banvel `skipUpload: true` i javiti korisniku da treba zamjenska slika.
 
 - [ ] **Step 2: Ažurirati `filename` u manifestu**
 
-Promijeniti `filename` Elumis Banvel unosa na `"5_Elumis Banvel_pakiranje.png"`.
+Promijeniti `filename` Elumis Banvel unosa na `"5-elumis-banvel-pakiranje.png"`.
 
 - [ ] **Step 3: Provjeriti da je slika čitljiva**
 
-Run: `node -e "import('sharp').then(s=>s.default('/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike/5_Elumis Banvel_pakiranje.png').metadata().then(m=>console.log(m.width+'x'+m.height)))"`
+Run: `node -e "import('sharp').then(s=>s.default('/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/syngenta/slike/5-elumis-banvel-pakiranje.png').metadata().then(m=>console.log(m.width+'x'+m.height)))"`
 Expected: ispis dimenzija (ili poruka da je preskočeno).
 
 - [ ] **Step 4: Commit**
