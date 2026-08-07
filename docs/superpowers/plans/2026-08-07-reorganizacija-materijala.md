@@ -629,7 +629,10 @@ CILJ = "/Users/marinoroz/Documents/OrozDigital/materijali"
 OCEKIVANO = 833
 NEPRENESENO = "/Users/marinoroz/Documents/Oroz-web/.claude/settings.local.json"
 OSNOVICA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "prije-sha.txt")
-DOPUSTENO = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+)?$")
+# `fullmatch`, ne `match`: u Pythonu `$` znači kraj stringa ILI neposredno prije završnog
+# `\n`, pa bi `re.match(..., "foo.jpg\n")` prošao. Ime datoteke s newlineom je na POSIX-u
+# dopušteno, a provjera koja ga propusti je gora od nikakve.
+DOPUSTENO = re.compile(r"[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+)?")
 
 
 def sha(p):
@@ -680,7 +683,7 @@ def provjera_imena():
         for x in dn + fn:
             if dp == CILJ and x in ("CLAUDE.md", ".gitignore"):
                 continue
-            if not DOPUSTENO.match(x):
+            if not DOPUSTENO.fullmatch(x):
                 lose.append(os.path.join(dp, x))
     ok = not lose
     print(f"[{'OK' if ok else 'PAD'}] imena: {len(lose)} problematičnih")
