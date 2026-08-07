@@ -31,5 +31,17 @@ class TestSlugify(unittest.TestCase):
         self.assertEqual(slugify("Dani lubenica Soljani 2026."),
                          "dani-lubenica-soljani-2026")
 
+    def test_visestruke_tocke(self):
+        # Datoteke sa 2+ točke — ekstenzija se detektuje od zadnje točke
+        self.assertEqual(slugify("test.jpg.webp"), "test-jpg.webp")
+        self.assertEqual(
+            slugify("WhatsApp Image 2024-04-02 at 08.28.26.jpeg"),
+            "whatsapp-image-2024-04-02-at-08-28-26.jpeg"
+        )
+        self.assertEqual(
+            slugify("oroz pharm pleternica render 2.2.mp4"),
+            "oroz-pharm-pleternica-render-2-2.mp4"
+        )
+
 if __name__ == "__main__":
     unittest.main()
