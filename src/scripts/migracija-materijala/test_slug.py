@@ -60,5 +60,11 @@ class TestSlugify(unittest.TestCase):
         self.assertEqual(slugify("Dani lubenica Soljani 2026."),
                          "dani-lubenica-soljani-2026")
 
+    def test_newline_u_imenu_puca(self):
+        # Newline u imenu trebaju baciti ValueError
+        for ime in ("file.a\n", "file.jpg\n", "\nfile.jpg"):
+            with self.assertRaises(ValueError):
+                slugify(ime)
+
 if __name__ == "__main__":
     unittest.main()
