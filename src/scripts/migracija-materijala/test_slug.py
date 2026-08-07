@@ -43,5 +43,22 @@ class TestSlugify(unittest.TestCase):
             "oroz-pharm-pleternica-render-2-2.mp4"
         )
 
+    def test_vodeca_tocka_puca(self):
+        # Imena koja počinju s točkom trebaju baciti ValueError
+        for ime in ("._photo.jpg", ".DS_Store", ".gitignore"):
+            with self.assertRaises(ValueError):
+                slugify(ime)
+
+    def test_neispravna_ekstenzija_puca(self):
+        # Ekstenzije koje nisu [a-z0-9]+ trebaju baciti ValueError
+        for ime in ("file.abc_def", "file.___", "video.MP_4"):
+            with self.assertRaises(ValueError):
+                slugify(ime)
+
+    def test_ime_koje_zavrsava_tockom(self):
+        # Imena koja se završavaju s točkom trebaju imati praznu ekstenziju
+        self.assertEqual(slugify("Dani lubenica Soljani 2026."),
+                         "dani-lubenica-soljani-2026")
+
 if __name__ == "__main__":
     unittest.main()
