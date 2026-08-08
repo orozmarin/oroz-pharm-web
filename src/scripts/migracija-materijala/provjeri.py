@@ -29,11 +29,19 @@ def sha(p):
 
 
 def sve_datoteke():
-    """Materijali, bez metapodataka stabla. CLAUDE.md i .gitignore dodaje Task 7, pa bi
-    inače pomaknuli broj i sažetke kad Task 8 ponovno pokrene provjeru."""
+    """Materijali, bez metapodataka stabla.
+
+    Izuzeto:
+    - `CLAUDE.md` i `.gitignore` u korijenu — dokumentacija stabla, dodana nakon migracije.
+    - `.DS_Store` i `._*` bilo gdje — macOS ih posije čim se mapa otvori u Finderu.
+      Migracija ih je isključivala iz kopiranja, pa ih i provjera mora ignorirati; inače
+      bi padala svaki put kad netko pogleda mapu, i prestala bi se čitati.
+    """
     for dp, dn, fn in os.walk(CILJ):
         for x in fn:
             if dp == CILJ and x in ("CLAUDE.md", ".gitignore"):
+                continue
+            if x == ".DS_Store" or x.startswith("._"):
                 continue
             yield os.path.join(dp, x)
 
@@ -67,6 +75,9 @@ def provjera_imena():
     for dp, dn, fn in os.walk(CILJ):
         for x in dn + fn:
             if dp == CILJ and x in ("CLAUDE.md", ".gitignore"):
+                continue
+            # Ista izuzeća kao u sve_datoteke() — macOS ih posije čim se mapa otvori.
+            if x == ".DS_Store" or x.startswith("._"):
                 continue
             if not DOPUSTENO.fullmatch(x):
                 lose.append(os.path.join(dp, x))
