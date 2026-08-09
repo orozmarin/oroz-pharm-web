@@ -72,9 +72,12 @@ npm run build     # Production build
 npm run start     # Serve production build
 npm run lint      # ESLint (next/core-web-vitals config)
 npx tsx src/scripts/seed.ts   # Seed database from static data (run once after fresh DB)
+./deploy.sh v1.3.0            # Deploy to production + tag the release
 ```
 
 No test runner is configured. `next build` is the primary correctness check.
+
+`deploy.sh` runs locally and drives the Hetzner server over SSH: preflight checks (clean tree, `main` in sync with origin, tag unused) → pull, build, `pm2 restart`, smoke test → annotated tag pushed to origin. The tag is created only after the smoke test passes, so every tag corresponds to a release that actually went live. Every deploy takes a version argument (`vX.Y.Z`); there is no untagged deploy path.
 
 Payload admin UI is at `http://localhost:3000/admin`. Database connection is configured via `DATABASE_URI` env var (PostgreSQL).
 
