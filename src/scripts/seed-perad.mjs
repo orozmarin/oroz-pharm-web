@@ -29,7 +29,7 @@ const CATEGORY = {
   slug: 'perad',
   name: 'Perad',
   description:
-    'Živa perad za tov i proizvodnju jaja, od jednodnevnih pilića i purića do podraslih nesilica. Prodaja po narudžbi.',
+    'Živa perad za tov i proizvodnju jaja, od jednodnevnih pilića i purića do odraslih nesilica. Prodaja po narudžbi.',
   icon: 'Bird',
   gridArea: 'perad',
   image: 'hero.jpg',
@@ -37,7 +37,7 @@ const CATEGORY = {
 
 const GROUPS = [
   { slug: 'jednodnevna-perad', name: 'Jednodnevna perad' },
-  { slug: 'podrasla-perad', name: 'Podrasla perad' },
+  { slug: 'podrasla-perad', name: 'Ostala perad' },
 ]
 
 const PRODUCTS = [
@@ -100,7 +100,7 @@ const PRODUCTS = [
     age: '8 tjedana',
     purpose: 'jaja',
     description:
-      'Podrasla nesilica, više ne traži grijanje. Do nesenja joj ostaje oko deset tjedana.',
+      'Odrasla nesilica, više ne traži grijanje. Do nesenja joj ostaje oko deset tjedana.',
   },
   {
     slug: 'osamnaesttjedna-nesilica',
@@ -117,7 +117,7 @@ const PRODUCTS = [
     age: '5 tjedana',
     purpose: 'tov',
     description:
-      'Podrasli purani, prošli najzahtjevniju fazu uzgoja. Prikladni za domaći tov.',
+      'Odrasli purani, prošli najzahtjevniju fazu uzgoja. Prikladni za domaći tov.',
   },
 ]
 
