@@ -76,6 +76,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: FROM_EMAIL,
       to: TO_EMAIL,
+      replyTo: email,
       subject: `Novi upit — ${category} — ${name}`,
       html: adminEmailHtml({ name, email, phone, category, message }),
     });
@@ -89,6 +90,7 @@ export async function POST(req: NextRequest) {
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
+      replyTo: TO_EMAIL,
       subject: "Vaš upit je primljen — Oroz PHARM",
       html: autoReplyHtml({ name, category, message }),
     });
