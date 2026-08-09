@@ -66,12 +66,12 @@ export default function BlogCard({ post, featured }: Props) {
   }
 
   return (
-    <div className="animate-on-scroll anim-fade-in-up">
+    <div className="animate-on-scroll anim-fade-in-up h-full">
       <Link
         href={`/blog/${post.slug}`}
-        className="group block rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-50 h-full"
+        className="group flex h-full flex-col rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-50"
       >
-        <div className="relative h-52 overflow-hidden">
+        <div className="relative h-52 shrink-0 overflow-hidden">
           <Image
             src={post.coverImage}
             alt={post.title}
@@ -86,7 +86,7 @@ export default function BlogCard({ post, featured }: Props) {
             <span className="text-[8px] leading-none mt-0.5 opacity-70">{year}</span>
           </div>
         </div>
-        <div className="p-6">
+        <div className="p-6 flex flex-1 flex-col">
           <div className="flex items-center gap-2 text-xs text-gray-400 mb-2">
             <Clock size={12} /> {post.readingTime} min čitanja
           </div>
@@ -96,7 +96,7 @@ export default function BlogCard({ post, featured }: Props) {
           <p className="text-gray-500 text-sm line-clamp-3 mb-4">
             {post.excerpt}
           </p>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="mt-auto flex flex-wrap gap-1.5">
             {post.tags.slice(0, 2).map((tag) => (
               <span key={tag} className="text-xs bg-green-50 text-green-700 px-2.5 py-1 rounded-full">
                 {tag}

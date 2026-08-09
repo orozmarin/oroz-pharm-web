@@ -28,12 +28,12 @@ export default function BlogPreview({ posts }: Props) {
         className="stagger-children max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8"
       >
         {posts.map((post) => (
-          <div key={post.slug} className="animate-on-scroll anim-fade-in-up">
+          <div key={post.slug} className="animate-on-scroll anim-fade-in-up h-full">
             <Link
               href={`/blog/${post.slug}`}
-              className="group block bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-50"
+              className="group flex h-full flex-col bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-green-50"
             >
-              <div className="relative h-52 overflow-hidden">
+              <div className="relative h-52 shrink-0 overflow-hidden">
                 <Image
                   src={post.coverImage}
                   alt={post.title}
@@ -45,14 +45,14 @@ export default function BlogPreview({ posts }: Props) {
                   {formatDate(post.date)}
                 </div>
               </div>
-              <div className="p-6">
+              <div className="p-6 flex flex-1 flex-col">
                 <h3 className="font-bold text-green-900 text-lg mb-2 font-heading line-clamp-2 group-hover:text-green-700 transition-colors">
                   {post.title}
                 </h3>
                 <p className="text-gray-500 text-sm line-clamp-3 mb-4">
                   {post.excerpt}
                 </p>
-                <span className="text-green-700 text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-[gap] duration-200">
+                <span className="mt-auto text-green-700 text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-[gap] duration-200">
                   Čitaj više <ArrowRight size={14} />
                 </span>
               </div>
