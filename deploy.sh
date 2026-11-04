@@ -26,6 +26,8 @@ SMOKE_URLS=(
   "https://orozpharm.hr/blog"
   "https://orozpharm.hr/proizvodi"
   "https://orozpharm.hr/kontakt"
+  "https://orozpharm.hr/robots.txt"
+  "https://orozpharm.hr/sitemap.xml"
 )
 
 step()  { printf "\n\033[1;32m▶ %s\033[0m\n" "$*"; }

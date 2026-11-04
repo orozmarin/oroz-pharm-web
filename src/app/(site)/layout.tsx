@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import Script from "next/script";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
 import "../globals.css";
 
 const playfair = Playfair_Display({
@@ -56,6 +57,7 @@ export default function SiteLayout({
   return (
     <html lang="hr">
       <body className={`${playfair.variable} ${inter.variable} antialiased site-body`}>
+        <LocalBusinessJsonLd />
         <Header />
         <main className="pt-20 md:pt-32 min-h-screen">{children}</main>
         <Footer />
