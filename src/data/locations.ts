@@ -8,8 +8,12 @@ export interface StoreLocation {
   lng: number;
   gmapsUrl: string;
   hours: { days: string; time: string }[];
+  /** Strojno čitljivo radno vrijeme za schema.org (JSON-LD). Drži usklađeno s `hours`. */
+  openingHours: { days: string[]; opens: string; closes: string }[];
   seasonal?: boolean;
 }
+
+const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 export const locations: StoreLocation[] = [
   {
@@ -25,6 +29,10 @@ export const locations: StoreLocation[] = [
       { days: "Pon - Pet", time: "7:00 - 19:00" },
       { days: "Sub", time: "7:00 - 15:00" },
     ],
+    openingHours: [
+      { days: WEEKDAYS, opens: "07:00", closes: "19:00" },
+      { days: ["Saturday"], opens: "07:00", closes: "15:00" },
+    ],
   },
   {
     id: "pozega",
@@ -38,6 +46,10 @@ export const locations: StoreLocation[] = [
     hours: [
       { days: "Pon - Pet", time: "7:00 - 19:00" },
       { days: "Sub", time: "8:00 - 13:00" },
+    ],
+    openingHours: [
+      { days: WEEKDAYS, opens: "07:00", closes: "19:00" },
+      { days: ["Saturday"], opens: "08:00", closes: "13:00" },
     ],
   },
 ];

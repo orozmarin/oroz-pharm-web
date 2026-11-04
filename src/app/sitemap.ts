@@ -4,6 +4,12 @@ import config from "@payload-config";
 
 const BASE_URL = "https://www.orozpharm.hr";
 
+// Generira se na svaki zahtjev, a ne samo u buildu. Tako novi blogovi i proizvodi
+// odmah ulaze u sitemap, a ruta ne ovisi o Next.js ISR cacheu koji se na
+// produkciji već jednom pokvario na robots.txt (Invariant: app-route received
+// invalid cache entry APP_PAGE). Tražilice ga dohvaćaju rijetko, pa je trošak mali.
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const payload = await getPayload({ config });
 

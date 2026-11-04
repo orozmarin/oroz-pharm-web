@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /proizvodi/dokumenti/
+
+Sitemap: https://www.orozpharm.hr/sitemap.xml
