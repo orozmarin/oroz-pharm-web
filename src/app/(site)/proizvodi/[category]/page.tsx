@@ -13,6 +13,8 @@ import { ArrowLeft } from "lucide-react";
 import type { ProductCategory, Product, Subcategory } from "@/types/views";
 import type { Category } from "@/payload-types";
 import { getImageUrl } from "@/lib/utils";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, metaDescription, openGraph } from "@/lib/seo";
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80";
@@ -50,11 +52,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     limit: 1,
   });
   const cat = docs[0];
-  if (!cat) return {};
+  // notFound() ovdje (a ne samo u stranici) daje pravi HTTP 404 umjesto 200.
+  if (!cat) notFound();
+  const description = metaDescription(cat.description);
   return {
     title: cat.name,
-    description: cat.description ?? undefined,
+    description,
     alternates: { canonical: `/proizvodi/${slug}` },
+    openGraph: openGraph({
+      title: cat.name,
+      description,
+      url: `/proizvodi/${slug}`,
+      images: getImageUrl(cat.image, ""),
+    }),
   };
 }
 
@@ -154,6 +164,13 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Početna", path: "/" },
+          { name: "Proizvodi", path: "/proizvodi" },
+          { name: category.name, path: `/proizvodi/${slug}` },
+        ])}
+      />
       {/* Hero */}
       <div className="relative h-[40vh] min-h-80 overflow-hidden">
         <Image

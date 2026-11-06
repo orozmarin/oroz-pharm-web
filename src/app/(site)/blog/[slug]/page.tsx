@@ -9,6 +9,8 @@ import BlogPostContent from "@/components/blog/BlogPostContent";
 import BlogRelatedPosts from "@/components/blog/BlogRelatedPosts";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
 import type { BlogPost } from "@/types/views";
+import JsonLd from "@/components/seo/JsonLd";
+import { SITE_URL, breadcrumbJsonLd, metaDescription, openGraph } from "@/lib/seo";
 
 export const revalidate = 3600;
 export const dynamicParams = true;
@@ -29,11 +31,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     limit: 1,
   });
   const post = docs[0];
-  if (!post) return {};
+  // notFound() ovdje (a ne samo u stranici) daje pravi HTTP 404 umjesto 200.
+  if (!post) notFound();
+  const description = metaDescription(post.excerpt);
   return {
     title: post.title,
-    description: post.excerpt,
+    description,
     alternates: { canonical: `/blog/${slug}` },
+    openGraph: openGraph({
+      type: "article",
+      title: post.title,
+      description,
+      url: `/blog/${slug}`,
+      publishedTime: post.date,
+      modifiedTime: post.updatedAt,
+      images: getImageUrl(post.coverImage, ""),
+    }),
   };
 }
 
@@ -84,6 +97,28 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            image: [post.coverImage],
+            datePublished: post.date,
+            dateModified: rawPost.updatedAt,
+            inLanguage: "hr-HR",
+            mainEntityOfPage: `${SITE_URL}/blog/${slug}`,
+            author: { "@type": "Organization", name: "Oroz PHARM", url: SITE_URL },
+            publisher: { "@id": `${SITE_URL}/#organization` },
+          },
+          breadcrumbJsonLd([
+            { name: "Početna", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${slug}` },
+          ]),
+        ]}
+      />
       {/* Hero */}
       <div className="relative h-[50vh] min-h-[400px] overflow-hidden">
         <Image

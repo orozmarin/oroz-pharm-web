@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -10,6 +10,9 @@ import type { SerializedEditorState } from "lexical";
 import { getImageUrl } from "@/lib/utils";
 import type { Product } from "@/types/views";
 import RelatedProductsSlider from "@/components/products/RelatedProductsSlider";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd, metaDescription, openGraph } from "@/lib/seo";
+import type { Product as PayloadProduct } from "@/payload-types";
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80";
@@ -22,20 +25,35 @@ interface Props {
 export const revalidate = 60;
 export const dynamicParams = true;
 
+/** Slug kategorije kojoj proizvod stvarno pripada (null ako nije povezan). */
+function productCategorySlug(doc: PayloadProduct): string | null {
+  return typeof doc.category === "object" && doc.category !== null ? doc.category.slug : null;
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category, product: slug } = await params;
   const payload = await getPayload({ config });
   const { docs } = await payload.find({
     collection: "products",
     where: { slug: { equals: slug } },
+    depth: 1,
     limit: 1,
   });
   const doc = docs[0];
-  if (!doc) return {};
+  // notFound() ovdje (a ne samo u stranici) daje pravi HTTP 404 umjesto 200.
+  if (!doc) notFound();
+  const canonicalPath = `/proizvodi/${productCategorySlug(doc) ?? category}/${slug}`;
+  const description = metaDescription(doc.description);
   return {
     title: doc.name,
-    description: doc.description ?? undefined,
-    alternates: { canonical: `/proizvodi/${category}/${slug}` },
+    description,
+    alternates: { canonical: canonicalPath },
+    openGraph: openGraph({
+      title: doc.name,
+      description,
+      url: canonicalPath,
+      images: getImageUrl(doc.image, ""),
+    }),
   };
 }
 
@@ -67,6 +85,13 @@ export default async function ProductPage({ params }: Props) {
   const doc = docs[0];
   if (!doc) notFound();
 
+  // Proizvod se prije otvarao pod bilo kojom kategorijom u adresi, pa je Google
+  // vidio više adresa za istu stranicu. Kriva kategorija sad trajno preusmjerava.
+  const realCategorySlug = productCategorySlug(doc);
+  if (realCategorySlug && realCategorySlug !== categorySlug) {
+    permanentRedirect(`/proizvodi/${realCategorySlug}/${productSlug}`);
+  }
+
   const image = getImageUrl(doc.image, FALLBACK_IMAGE);
   const categoryName =
     typeof doc.category === "object" && doc.category !== null
@@ -97,6 +122,14 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Početna", path: "/" },
+          { name: "Proizvodi", path: "/proizvodi" },
+          { name: categoryName, path: `/proizvodi/${categorySlug}` },
+          { name: doc.name, path: `/proizvodi/${categorySlug}/${productSlug}` },
+        ])}
+      />
       {/* Breadcrumb */}
       <nav className="max-w-6xl mx-auto px-4 md:px-8 pt-4 pb-2">
         <ol className="flex items-center gap-1 text-sm flex-wrap">

@@ -4,6 +4,7 @@ import Script from "next/script";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import LocalBusinessJsonLd from "@/components/seo/LocalBusinessJsonLd";
+import { openGraph } from "@/lib/seo";
 import "../globals.css";
 
 const playfair = Playfair_Display({
@@ -41,12 +42,10 @@ export const metadata: Metadata = {
     icon: "/images/logo-oroz.png",
     apple: "/images/logo-oroz.png",
   },
-  openGraph: {
-    title: "Oroz PHARM d.o.o.",
-    description: "Poljoprivredna ljekarna - Vaš partner od 1998.",
-    locale: "hr_HR",
-    type: "website",
-  },
+  openGraph: openGraph({
+    title: "Oroz PHARM | Poljoprivredna ljekarna",
+    description: "Poljoprivredna ljekarna u Pleternici i Požegi. Vaš partner od 1998.",
+  }),
 };
 
 export default function SiteLayout({

@@ -8,7 +8,7 @@ import { Users, Package, TrendingUp, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "O nama",
-  description: "Oroz PHARM d.o.o. - privatno poduzece osnovano 1998. godine u Pleternici. 10+ zaposlenih, preko 15.000 artikala.",
+  description: "Oroz PHARM d.o.o. je obiteljska tvrtka osnovana 1998. u Pleternici. Poljoprivredne ljekarne u Pleternici i Požegi s više od 15.000 artikala.",
   alternates: { canonical: "/o-nama" },
 };
 

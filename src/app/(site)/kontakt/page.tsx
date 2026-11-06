@@ -9,7 +9,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Kontakt",
-  description: "Kontaktirajte Oroz PHARM d.o.o. - Pleternica i Pozega. Telefon, email, adrese i radno vrijeme nasih poslovnica.",
+  description: "Poljoprivredne ljekarne Oroz PHARM u Pleternici i Požegi. Adrese, telefoni, e-mail i radno vrijeme naših poslovnica.",
   alternates: { canonical: "/kontakt" },
 };
 
