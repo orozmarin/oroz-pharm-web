@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Agricultural pharmacy (poljoprivredna ljekarna) website for Oroz PHARM, operating since 1998 in Pleternica and Požega, Croatia. Provides 12,000+ products: seeds, fertilisers, plant protection, livestock feed, irrigation equipment, and more. The site serves as a product catalogue, educational blog, and storefront locator — no e-commerce checkout.
+Agricultural pharmacy (poljoprivredna ljekarna) website for Oroz PHARM, operating since 1998 in Pleternica and Požega, Croatia. Provides 15,000+ products: seeds, fertilisers, plant protection, livestock feed, irrigation equipment, and more. The site serves as a product catalogue, educational blog, and storefront locator — no e-commerce checkout.
 
 UI copy is in Croatian.
 
