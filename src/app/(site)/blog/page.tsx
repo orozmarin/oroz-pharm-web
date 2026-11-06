@@ -12,7 +12,7 @@ const FALLBACK_IMAGE =
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Korisni savjeti i novosti iz svijeta poljoprivrede - proljetna gnojidba, zastita bilja, navodnjavanje i jos mnogo toga.",
+  description: "Korisni savjeti i novosti iz svijeta poljoprivrede. Gnojidba, zaštita bilja, navodnjavanje i još mnogo toga.",
   alternates: { canonical: "/blog" },
 };
 
