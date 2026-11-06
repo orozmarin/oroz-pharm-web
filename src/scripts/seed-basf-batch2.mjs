@@ -18,7 +18,7 @@ import sharp from 'sharp'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const API_BASE = process.env.API_BASE ?? 'https://orozpharm.hr'
+const API_BASE = process.env.API_BASE ?? 'https://www.orozpharm.hr'
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD
 const IMAGES_DIR =

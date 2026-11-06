@@ -22,12 +22,12 @@ BRANCH="main"
 GH_PUSH_USER="orozmarin"
 
 SMOKE_URLS=(
-  "https://orozpharm.hr/"
-  "https://orozpharm.hr/blog"
-  "https://orozpharm.hr/proizvodi"
-  "https://orozpharm.hr/kontakt"
-  "https://orozpharm.hr/robots.txt"
-  "https://orozpharm.hr/sitemap.xml"
+  "https://www.orozpharm.hr/"
+  "https://www.orozpharm.hr/blog"
+  "https://www.orozpharm.hr/proizvodi"
+  "https://www.orozpharm.hr/kontakt"
+  "https://www.orozpharm.hr/robots.txt"
+  "https://www.orozpharm.hr/sitemap.xml"
 )
 
 step()  { printf "\n\033[1;32m▶ %s\033[0m\n" "$*"; }
@@ -96,7 +96,7 @@ sleep 3
 FAILED=0
 for url in "${SMOKE_URLS[@]}"; do
   code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$url" || echo 000)"
-  printf "  %-40s %s\n" "$url" "$code"
+  printf "  %-44s %s\n" "$url" "$code"
   [[ "$code" == "200" ]] || FAILED=1
 done
 [[ "$FAILED" -eq 0 ]] || die "Smoke test pao — tag NIJE napravljen. Provjeri: ssh -i $SSH_KEY $SERVER 'pm2 logs $PM2_APP --lines 40 --nostream'"

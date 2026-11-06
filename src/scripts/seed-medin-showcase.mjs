@@ -6,7 +6,7 @@
 import fs from 'fs'
 import path from 'path'
 
-const API_BASE = process.env.API_BASE ?? 'https://orozpharm.hr'
+const API_BASE = process.env.API_BASE ?? 'https://www.orozpharm.hr'
 const EMAIL = process.env.ADMIN_EMAIL
 const PASSWORD = process.env.ADMIN_PASSWORD
 const IMG_DIR = '/Users/marinoroz/Documents/OrozDigital/materijali/dobavljaci/medin-san/slike'
