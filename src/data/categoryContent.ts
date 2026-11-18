@@ -1,7 +1,8 @@
 /**
  * Duži opisi kategorija za SEO, prikazuju se ispod proizvoda na /proizvodi/[category].
  * Kratki opis za zaglavlje i meta description ostaje u Payloadu (Categories.description).
- * Pišu se samo činjenice: potkategorije i proizvođači koji su stvarno u katalogu,
+ * Pišu se samo činjenice: potkategorije i proizvođači koji su stvarno u katalogu.
+ * Proizvođače navodimo kao primjere ("između ostalih"), jer na webu nije cijela ponuda,
  * bez cijena, akcija i obećanja o zalihama.
  */
 export interface CategoryContent {
@@ -14,7 +15,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     heading: "Sredstva za zaštitu bilja u Pleternici i Požegi",
     paragraphs: [
       "U poslovnicama Oroz PHARM-a u Pleternici i Požegi nabavit ćete herbicide, fungicide i insekticide za ratarske kulture, voćnjake, vinograde i povrće. Uz njih imamo limacide protiv puževa, rodenticide i druge biocide te okvašivače koji poboljšavaju djelovanje škropiva.",
-      "Asortiman se temelji na sredstvima proizvođača Bayer, Syngenta i BASF. Kod svakog proizvoda na webu stoje opis, namjena i upute za primjenu, a u poslovnici vam pomažemo odabrati sredstvo prema kulturi, problemu i roku primjene.",
+      "Surađujemo s velikim brojem proizvođača, između ostalih s Bayerom, Syngentom i BASF-om. Na webu je za sada samo dio ponude, pa ako ne nađete sredstvo koje tražite, pitajte nas. U poslovnici vam pomažemo odabrati sredstvo prema kulturi, problemu i roku primjene.",
       "Sredstva za zaštitu bilja ne prodajemo preko interneta. Svratite u poslovnicu ili nas nazovite pa provjerite što trenutno imamo i što je najbolje za vašu situaciju.",
     ],
   },
@@ -22,7 +23,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     heading: "Gnojiva i poboljšivači tla",
     paragraphs: [
       "Za jesensku i proljetnu gnojidbu, prihranu i folijarnu primjenu kod nas ćete naći mineralna i organska gnojiva, biostimulatore i poboljšivače tla. Imamo gnojiva za ratarske kulture, voćnjake, vinograde, povrtnjake i cvijeće.",
-      "U ponudi su proizvodi Petrokemije Kutina, Italpollina, Syngenta, Agrochem Maks i Zeleni hit. Krupnija pakiranja i palete gnojiva drže se u skladištu uz poslovnicu u Pleternici, pa se i veće količine mogu odmah utovariti.",
+      "Među proizvođačima čija gnojiva imamo su Petrokemija Kutina, Italpollina, Syngenta, Agrochem Maks i Zeleni hit, a u poslovnici je izbor veći nego na webu. Krupnija pakiranja i palete gnojiva drže se u skladištu uz poslovnicu u Pleternici, pa se i veće količine mogu odmah utovariti.",
       "Ako niste sigurni koje gnojivo i koliko vam treba, recite nam kulturu i površinu pa ćemo zajedno složiti plan gnojidbe.",
     ],
   },
@@ -30,7 +31,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     heading: "Sjeme ratarskih kultura i povrća",
     paragraphs: [
       "U sjemenskom programu su hibridi kukuruza, uljarice, sjeme trava i djetelina te hibridi povrća, uključujući F1 hibride. Sjeme povrća i cvijeća imamo i u malim vrećicama za kućne vrtove.",
-      "Ratarsko sjeme dolazi od sjemenarskih kuća DEKALB i KWS, a sjeme povrća i cvijeća od proizvođača Zeleni hit i Agrochem Maks. Pri izboru hibrida pitajte nas za vegetacijsku skupinu i namjenu, da sjeme odgovara vašem tlu i roku sjetve.",
+      "Imamo sjeme više sjemenarskih kuća, između ostalih DEKALB i KWS za ratarske kulture te Zeleni hit i Agrochem Maks za povrće i cvijeće. Pri izboru hibrida pitajte nas za vegetacijsku skupinu i namjenu, da sjeme odgovara vašem tlu i roku sjetve.",
       "Za veće količine sjemena nazovite poslovnicu unaprijed.",
     ],
   },
@@ -45,7 +46,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     heading: "Stočna hrana za sve domaće životinje",
     paragraphs: [
       "Kod nas ćete naći kompletne krmne smjese, koncentrate i dodatke za svinje, goveda, perad i druge domaće životinje, za različite faze uzgoja.",
-      "Prodajemo hranu proizvođača Sano, TSH Čakovec, Patent, Genera, Valpovka i Lek. Ako mijenjate hranu ili niste sigurni koja smjesa odgovara dobi i namjeni životinja, pitajte nas u poslovnici.",
+      "Prodajemo hranu više proizvođača, između ostalih Sano, TSH Čakovec, Patent, Genera, Valpovka i Lek. Ako mijenjate hranu ili niste sigurni koja smjesa odgovara dobi i namjeni životinja, pitajte nas u poslovnici.",
       "Stočnu hranu imamo u obje poslovnice, a veća pakiranja se mogu utovariti izravno u vozilo.",
     ],
   },
@@ -59,7 +60,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   "kucni-ljubimci": {
     heading: "Hrana i oprema za kućne ljubimce",
     paragraphs: [
-      "Za pse i mačke imamo hranu, ogrlice, povodce i ostalu opremu, a za ptice, ribe i golubove hranu i dodatke. Dio asortimana je od proizvođača Kony.",
+      "Za pse i mačke imamo hranu, ogrlice, povodce i ostalu opremu, a za ptice, ribe i golubove hranu i dodatke.",
       "Hranu za kućne ljubimce možete kupiti u obje poslovnice, zajedno s ostalim stvarima za dom i dvorište.",
     ],
   },
@@ -67,27 +68,27 @@ export const categoryContent: Record<string, CategoryContent> = {
     heading: "Oprema za vrt i okućnicu",
     paragraphs: [
       "U kategoriji vrt i okućnica su tačke, prskalice, nit za košnju, mreže i cerade, vezni materijal, radne rukavice, čizme i radna zaštita. Pred blagdane imamo i lampione.",
-      "Proizvodi su od proizvođača BR Garden, Salva, Brati Ritoša, Claber, Quadra i FARMER. Sve što vam treba za uređenje dvorišta i rad u vrtu nabavite na jednom mjestu, u Pleternici ili u Požegi.",
+      "Među proizvođačima su BR Garden, Salva, Brati Ritoša, Claber i Quadra, a izbor u poslovnici je veći nego na webu. Sve što vam treba za uređenje dvorišta i rad u vrtu nabavite na jednom mjestu, u Pleternici ili u Požegi.",
     ],
   },
   alati: {
     heading: "Alat za vrt, voćnjak i vinograd",
     paragraphs: [
       "Za rezidbu voćaka i loze imamo škare i pile, a za obradu vrta alatke i držala. Alat je namijenjen i profesionalnom i hobi radu.",
-      "U ponudi su alati proizvođača BR Garden, Tick, Brati Ritoša i Leon. Ako niste sigurni koje škare ili pila vam trebaju za vaš voćnjak ili vinograd, pitajte nas u poslovnici.",
+      "Imamo alate više proizvođača, između ostalih BR Garden, Tick, Brati Ritoša i Leon. Ako niste sigurni koje škare ili pila vam trebaju za vaš voćnjak ili vinograd, pitajte nas u poslovnici.",
     ],
   },
   navodnjavanje: {
     heading: "Oprema za navodnjavanje",
     paragraphs: [
       "Za navodnjavanje vrta, plastenika i polja kod nas ćete naći pumpe, crijeva i cijevi, crijeva kap po kap, rasprskivače te spojnice i ventile.",
-      "Asortiman je od proizvođača Brati Ritoša, Leon, BR Garden i RI-TAPE. Ako postavljate novi sustav, donesite nam skicu i mjere parcele pa ćemo zajedno složiti popis dijelova.",
+      "Među proizvođačima su Brati Ritoša, Leon, BR Garden i RI-TAPE. Ako postavljate novi sustav, donesite nam skicu i mjere parcele pa ćemo zajedno složiti popis dijelova.",
     ],
   },
   "oprema-za-povrtlarstvo": {
     heading: "Supstrati, folija i oprema za povrtlarstvo",
     paragraphs: [
-      "Za uzgoj presadnica i povrća imamo profesionalne supstrate Klasmann, Brill, Florabella, Hawita i Plantella, plasteničku foliju te mreže za zasjenu i zaštitu.",
+      "Za uzgoj presadnica i povrća imamo profesionalne supstrate, između ostalih Klasmann, Brill, Florabella, Hawita i Plantella, plasteničku foliju te mreže za zasjenu i zaštitu.",
       "Kategorija je namijenjena povrtlarima i cvjećarima koji rade u plasteniku ili na otvorenom. Uz supstrate i foliju kod nas nabavite i sjeme, gnojiva i sredstva za zaštitu povrća.",
     ],
   },
@@ -102,7 +103,7 @@ export const categoryContent: Record<string, CategoryContent> = {
     heading: "Pčelarska oprema i prihrana",
     paragraphs: [
       "Za pčelare imamo košnice, pčelarski alat, opremu za vrcanje i cijeđenje meda te zaštitnu opremu. U ponudi su i pogače i druga prihrana za pčele te sredstva za zdravlje pčelinjih zajednica.",
-      "Prodajemo pčelarsku opremu Medin san te proizvode Bondex, Anel, Nozevit i BeeVital. Za veće narudžbe opreme zatražite ponudu u poslovnici ili preko kontakt obrasca.",
+      "Prodajemo pčelarsku opremu Medin san, a od ostalih proizvođača imamo između ostalih Bondex, Anel, Nozevit i BeeVital. Za veće narudžbe opreme zatražite ponudu u poslovnici ili preko kontakt obrasca.",
     ],
   },
   enologija: {
@@ -122,7 +123,7 @@ export const categoryContent: Record<string, CategoryContent> = {
   "poljoprivredni-strojevi": {
     heading: "Kosilice, motorne pile i trimeri",
     paragraphs: [
-      "Za održavanje okućnice, voćnjaka i šume imamo kosilice, motorne pile, trimere i drugu manju mehanizaciju. Dio ponude je od proizvođača Vinkoprom.",
+      "Za održavanje okućnice, voćnjaka i šume imamo kosilice, motorne pile, trimere i drugu manju mehanizaciju.",
       "Uz strojeve kod nas ćete naći i nit za košnju, ulja, maziva i ostali potrošni materijal. Za dostupnost pojedinih modela nazovite poslovnicu.",
     ],
   },
