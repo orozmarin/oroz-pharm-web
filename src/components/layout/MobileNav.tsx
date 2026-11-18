@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { navLinks } from "@/data/navigation";
+import { navLinks, isNavActive } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 
@@ -36,7 +36,7 @@ export default function MobileNav({ open, onClose }: Props) {
 
           <nav className="flex flex-col items-center gap-6 mt-12">
             {navLinks.map((link, i) => {
-              const active = pathname === link.href;
+              const active = isNavActive(pathname, link.href);
               return (
                 <motion.div
                   key={link.href}

@@ -13,6 +13,8 @@ import { ArrowLeft } from "lucide-react";
 import type { ProductCategory, Product, Subcategory } from "@/types/views";
 import type { Category } from "@/payload-types";
 import { getImageUrl } from "@/lib/utils";
+import { categoryContent } from "@/data/categoryContent";
+import { locations } from "@/data/locations";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd, metaDescription, openGraph } from "@/lib/seo";
 
@@ -126,6 +128,7 @@ export default async function CategoryPage({ params }: Props) {
   const subcategories: Subcategory[] = subsByCategoryId.get(String(rawCat.id)) ?? [];
 
   const category: ProductCategory = normalizeCategory(rawCat, subcategories);
+  const content = categoryContent[slug];
 
   // Use manually curated related categories if set; otherwise fall back to auto-generated
   const relatedCategoryDocs: Category[] =
@@ -218,6 +221,56 @@ export default async function CategoryPage({ params }: Props) {
         <PoultryGrid subcategories={category.subcategories} products={products} />
       ) : (
         <CategoryDetailClient category={category} products={products} />
+      )}
+
+      {content && (
+        <section className="border-t border-green-100 px-4 md:px-8 py-16 md:py-20">
+          {/* Mobitel: naslov, tekst, poslovnice. Desktop: naslov i poslovnice lijevo, tekst desno. */}
+          <div className="max-w-6xl mx-auto grid gap-8 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-8">
+            <h2 className="lg:col-span-5 font-heading text-3xl md:text-4xl leading-tight font-bold text-green-900 text-balance">
+              {content.heading}
+            </h2>
+
+            <div className="lg:col-span-7 lg:row-span-2 max-w-[62ch] space-y-5 lg:pt-2">
+              {content.paragraphs.map((p, i) => (
+                <p
+                  key={i}
+                  className={
+                    i === 0
+                      ? "text-xl leading-relaxed text-gray-800"
+                      : "text-lg leading-relaxed text-gray-600"
+                  }
+                >
+                  {p}
+                </p>
+              ))}
+            </div>
+
+            {/* Nema web shopa, pa je poziv na akciju poslovnica */}
+            <div className="lg:col-span-5 self-start rounded-2xl bg-earth-100 p-6">
+              <h3 className="text-lg font-bold text-green-900">Kupite u poslovnici</h3>
+              <ul className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-1">
+                {locations.map((loc) => (
+                  <li key={loc.id} className="text-sm leading-snug">
+                    <Link
+                      href={`/poslovnice/${loc.slug}`}
+                      className="font-semibold text-green-800 underline decoration-earth-400 decoration-2 underline-offset-4 hover:text-green-600 hover:decoration-green-600"
+                    >
+                      {loc.cityName}
+                    </Link>
+                    <span className="block text-gray-600 mt-1">{loc.address}</span>
+                    <a
+                      href={`tel:${loc.phone.replace(/\s/g, "")}`}
+                      className="text-gray-600 tabular-nums hover:text-green-700"
+                    >
+                      {loc.phone}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
       )}
 
       {/* Related categories */}
