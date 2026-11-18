@@ -5,7 +5,6 @@ import { locations, contactInfo, legalData } from "@/data/locations";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 /** Strip postal code prefix: "HR-34310 Pleternica" -> "Pleternica". */
-const cityName = (city: string) => city.replace(/^HR-\d+\s*/, "");
 
 /**
  * Group hours by day label across locations. Identical times collapse to
@@ -16,7 +15,7 @@ function buildHoursLines(): string[] {
   for (const loc of locations) {
     for (const h of loc.hours) {
       const list = byDays.get(h.days) ?? [];
-      list.push({ city: cityName(loc.city), time: h.time });
+      list.push({ city: loc.cityName, time: h.time });
       byDays.set(h.days, list);
     }
   }
