@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useInView } from "@/lib/useInView";
 import { locations, contactInfo } from "@/data/locations";
@@ -90,6 +91,12 @@ export default function StoreLocations() {
                   </div>
                 </div>
               </div>
+              <Link
+                href={`/poslovnice/${loc.slug}`}
+                className="inline-block mt-5 text-sm font-semibold text-green-700 hover:text-green-900 transition-colors"
+              >
+                Više o poslovnici &rarr;
+              </Link>
             </div>
           ))}
         </div>

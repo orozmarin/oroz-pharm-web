@@ -93,7 +93,11 @@ export default function Footer() {
                 <div className="flex items-start gap-2 text-sm justify-center md:justify-start">
                   <MapPin size={14} className="text-green-400 mt-0.5 shrink-0" />
                   <div>
-                    <p className="font-medium">{loc.name}</p>
+                    <p className="font-medium">
+                      <Link href={`/poslovnice/${loc.slug}`} className="hover:text-green-300 transition-colors">
+                        {loc.name}
+                      </Link>
+                    </p>
                     <p className="text-green-200">{loc.address}, {loc.city}</p>
                   </div>
                 </div>
