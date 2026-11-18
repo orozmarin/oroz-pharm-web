@@ -92,7 +92,7 @@ export default async function StorePage({ params }: Props) {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Početna", path: "/" },
-          { name: "Kontakt", path: "/kontakt" },
+          { name: "Poslovnice", path: "/poslovnice" },
           { name: loc.cityName, path: `/poslovnice/${loc.slug}` },
         ])}
       />
@@ -114,8 +114,8 @@ export default async function StorePage({ params }: Props) {
             <nav aria-label="Breadcrumb" className="mb-3">
               <ol className="flex items-center gap-1 text-sm text-white/75 flex-wrap">
                 <li>
-                  <Link href="/kontakt" className="hover:text-white transition-colors">
-                    Kontakt
+                  <Link href="/poslovnice" className="hover:text-white transition-colors">
+                    Poslovnice
                   </Link>
                 </li>
                 <li className="flex items-center" aria-hidden="true">
