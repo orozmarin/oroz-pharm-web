@@ -53,6 +53,26 @@ function shortTime(t: string) {
   return t.replace(/^0/, "");
 }
 
+function CardLabel({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-green-700 mb-2">
+      {icon}
+      {children}
+    </p>
+  );
+}
+
+function HoursRow({ label, value, closed }: { label: React.ReactNode; value: string; closed?: boolean }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4">
+      <dt className="text-gray-600">{label}</dt>
+      <dd className={closed ? "text-gray-400 whitespace-nowrap" : "font-medium text-gray-900 tabular-nums whitespace-nowrap"}>
+        {value}
+      </dd>
+    </div>
+  );
+}
+
 export default async function StorePage({ params }: Props) {
   const { slug } = await params;
   const loc = locations.find((l) => l.slug === slug);
@@ -61,7 +81,11 @@ export default async function StorePage({ params }: Props) {
 
   // Današnji datum u Europe/Zagreb (en-CA daje YYYY-MM-DD)
   const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Zagreb" }).format(new Date());
-  const upcoming = specialHours.filter((h) => h.date >= today);
+  // Blagdani se prikazuju 60 dana unaprijed, pa ljeti kartica ne pokazuje Božić
+  const until = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Zagreb" }).format(
+    new Date(Date.now() + 60 * 24 * 60 * 60 * 1000)
+  );
+  const upcoming = specialHours.filter((h) => h.date >= today && h.date <= until);
 
   return (
     <>
@@ -147,67 +171,72 @@ export default async function StorePage({ params }: Props) {
           </ul>
         </div>
 
-        <aside className="lg:sticky lg:top-36 bg-white rounded-2xl p-6 md:p-8 shadow-md border border-green-100 space-y-6">
-          <div>
-            <div className="flex items-start gap-3">
-              <MapPin size={18} className="text-green-600 mt-1 shrink-0" />
-              <div>
-                <p className="font-medium text-gray-700">{loc.address}</p>
-                <p className="text-gray-600 text-sm">{loc.city}</p>
-              </div>
+        <aside className="lg:sticky lg:top-36 bg-white rounded-2xl shadow-md border border-green-100 overflow-hidden">
+          <div className="p-6 md:p-7 divide-y divide-green-100 [&>*]:py-5 [&>*:first-child]:pt-0">
+            <div>
+              <CardLabel icon={<MapPin size={14} />}>Adresa</CardLabel>
+              <p className="text-gray-800">{loc.address}</p>
+              <p className="text-gray-500 text-sm">{loc.city}</p>
             </div>
+
+            <div>
+              <CardLabel icon={<Phone size={14} />}>Telefon</CardLabel>
+              <a
+                href={`tel:${loc.phone.replace(/\s/g, "")}`}
+                className="text-lg font-semibold text-green-800 hover:text-green-600 transition-colors tabular-nums"
+              >
+                {loc.phone}
+              </a>
+            </div>
+
+            <div>
+              <CardLabel icon={<Clock size={14} />}>Radno vrijeme</CardLabel>
+              <dl className="text-sm space-y-1.5">
+                {loc.hours.map((h) => (
+                  <HoursRow key={h.days} label={h.days} value={h.time.replace(/\s*-\s*/, " – ")} />
+                ))}
+                <HoursRow label="Ned" value="zatvoreno" closed />
+              </dl>
+            </div>
+
+            {upcoming.length > 0 && (
+              <div>
+                <CardLabel icon={<CalendarDays size={14} />}>Blagdani</CardLabel>
+                <dl className="text-sm space-y-1.5">
+                  {upcoming.map((h) => (
+                    <HoursRow
+                      key={h.date}
+                      label={
+                        <>
+                          <span className="tabular-nums inline-block w-12">{formatSpecialDate(h.date)}</span>
+                          {h.label}
+                        </>
+                      }
+                      value={h.opens && h.closes ? `${shortTime(h.opens)} – ${shortTime(h.closes)}` : "zatvoreno"}
+                      closed={!h.opens}
+                    />
+                  ))}
+                </dl>
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 px-6 md:px-7 pb-6 md:pb-7">
+            <a
+              href={`tel:${loc.phone.replace(/\s/g, "")}`}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-700 hover:bg-green-600 text-white text-sm font-semibold py-3 transition-colors"
+            >
+              <Phone size={16} /> Nazovi
+            </a>
             <a
               href={loc.gmapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-green-100 hover:bg-green-200 text-green-700 hover:text-green-900 transition-colors text-sm font-semibold"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white text-sm font-semibold py-2.5 transition-colors"
             >
-              <Navigation size={14} /> Navigacija
+              <Navigation size={16} /> Navigacija
             </a>
           </div>
-
-          <div className="flex items-center gap-3">
-            <Phone size={18} className="text-green-600 shrink-0" />
-            <a
-              href={`tel:${loc.phone.replace(/\s/g, "")}`}
-              className="text-2xl font-bold text-green-900 hover:text-green-600 transition-colors"
-            >
-              {loc.phone}
-            </a>
-          </div>
-
-          <div className="flex items-start gap-3">
-            <Clock size={18} className="text-green-600 mt-0.5 shrink-0" />
-            <div>
-              <p className="font-medium text-gray-700 mb-1">Radno vrijeme</p>
-              {loc.hours.map((h, i) => (
-                <p key={i} className="text-gray-600 text-sm">
-                  {h.days}: <span className="font-medium">{h.time}</span>
-                </p>
-              ))}
-            </div>
-          </div>
-
-          {upcoming.length > 0 && (
-            <div className="flex items-start gap-3 border-t border-green-100 pt-6">
-              <CalendarDays size={18} className="text-green-600 mt-0.5 shrink-0" />
-              <div className="flex-1">
-                <p className="font-medium text-gray-700 mb-2">Blagdansko radno vrijeme</p>
-                <dl className="text-sm space-y-1">
-                  {upcoming.map((h) => (
-                    <div key={h.date} className="flex justify-between gap-3">
-                      <dt className="text-gray-600">
-                        <span className="tabular-nums">{formatSpecialDate(h.date)}</span> {h.label}
-                      </dt>
-                      <dd className={h.opens ? "font-medium text-gray-800 tabular-nums whitespace-nowrap" : "text-red-700 whitespace-nowrap"}>
-                        {h.opens && h.closes ? `${shortTime(h.opens)} - ${shortTime(h.closes)}` : "zatvoreno"}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            </div>
-          )}
         </aside>
       </section>
 
