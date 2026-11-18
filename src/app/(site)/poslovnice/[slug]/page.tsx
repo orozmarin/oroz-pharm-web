@@ -73,21 +73,6 @@ export default async function StorePage({ params }: Props) {
         ])}
       />
 
-      {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="max-w-6xl mx-auto px-4 md:px-8 pt-4 pb-2">
-        <ol className="flex items-center gap-1 text-sm flex-wrap">
-          <li>
-            <Link href="/kontakt" className="text-green-600 hover:text-green-800 transition-colors">
-              Kontakt
-            </Link>
-          </li>
-          <li className="flex items-center text-gray-400">
-            <ChevronRight size={14} />
-          </li>
-          <li className="text-gray-500">{loc.cityName}</li>
-        </ol>
-      </nav>
-
       {/* Hero */}
       <div className="relative h-[45vh] min-h-[320px] overflow-hidden">
         <Image
@@ -101,6 +86,20 @@ export default async function StorePage({ params }: Props) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="absolute inset-0 flex items-end pb-10">
           <div className="max-w-6xl mx-auto px-4 md:px-8 w-full">
+            {/* Breadcrumb na slici, da nema zasebne trake između zaglavlja i fotke */}
+            <nav aria-label="Breadcrumb" className="mb-3">
+              <ol className="flex items-center gap-1 text-sm text-white/75 flex-wrap">
+                <li>
+                  <Link href="/kontakt" className="hover:text-white transition-colors">
+                    Kontakt
+                  </Link>
+                </li>
+                <li className="flex items-center" aria-hidden="true">
+                  <ChevronRight size={14} />
+                </li>
+                <li className="text-white" aria-current="page">{loc.cityName}</li>
+              </ol>
+            </nav>
             <h1 className="text-3xl md:text-5xl font-bold text-white font-heading mb-3">
               Poljoprivredna ljekarna {loc.cityName}
             </h1>
