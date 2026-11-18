@@ -4,6 +4,31 @@ import { navLinks } from "@/data/navigation";
 import { locations, contactInfo, legalData } from "@/data/locations";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
+/** Strip postal code prefix: "HR-34310 Pleternica" -> "Pleternica". */
+const cityName = (city: string) => city.replace(/^HR-\d+\s*/, "");
+
+/**
+ * Group hours by day label across locations. Identical times collapse to
+ * "Pon - Pet 7:00 - 19:00"; differing times list per city.
+ */
+function buildHoursLines(): string[] {
+  const byDays = new Map<string, { city: string; time: string }[]>();
+  for (const loc of locations) {
+    for (const h of loc.hours) {
+      const list = byDays.get(h.days) ?? [];
+      list.push({ city: cityName(loc.city), time: h.time });
+      byDays.set(h.days, list);
+    }
+  }
+  return Array.from(byDays, ([days, entries]) =>
+    entries.every((e) => e.time === entries[0].time)
+      ? `${days} ${entries[0].time}`
+      : `${days}: ${entries.map((e) => `${e.city} ${e.time}`).join(", ")}`
+  );
+}
+
+const hoursLines = buildHoursLines();
+
 export default function Footer() {
   return (
     <footer className="bg-green-900 text-white">
@@ -125,9 +150,14 @@ export default function Footer() {
                   {contactInfo.directorPhone}
                 </a>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock size={14} className="text-green-400" />
-                <span className="text-green-200">Pon-Pet: 7:00-19:00</span>
+              <div className="flex items-start gap-2">
+                <Clock size={14} className="text-green-400 mt-0.5 shrink-0" />
+                <div className="text-green-200 space-y-0.5">
+                  {hoursLines.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                  <p>Ned: zatvoreno</p>
+                </div>
               </div>
             </div>
           </div>

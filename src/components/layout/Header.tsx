@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useCallback } from "react";
-import { navLinks } from "@/data/navigation";
+import { navLinks, isNavActive } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import MobileNav from "./MobileNav";
 import SearchBar from "@/components/products/SearchBar";
@@ -42,15 +42,15 @@ export default function Header() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-10">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-8">
             {navLinks.map((link) => {
-              const active = pathname === link.href;
+              const active = isNavActive(pathname, link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "text-base font-medium transition-colors relative py-1",
+                    "text-sm xl:text-base font-medium transition-colors relative py-1",
                     active ? "text-green-700" : "text-gray-700 hover:text-green-700",
                     active && "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-green-500 after:rounded-full"
                   )}
@@ -62,7 +62,7 @@ export default function Header() {
           </nav>
 
           {/* Desktop search */}
-          <div className="hidden lg:block w-64 xl:w-72">
+          <div className="hidden lg:block w-44 xl:w-72">
             <SearchBar />
           </div>
 
