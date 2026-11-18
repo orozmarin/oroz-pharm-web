@@ -13,6 +13,7 @@ import { ArrowLeft } from "lucide-react";
 import type { ProductCategory, Product, Subcategory } from "@/types/views";
 import type { Category } from "@/payload-types";
 import { getImageUrl } from "@/lib/utils";
+import { categoryContent } from "@/data/categoryContent";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd, metaDescription, openGraph } from "@/lib/seo";
 
@@ -126,6 +127,7 @@ export default async function CategoryPage({ params }: Props) {
   const subcategories: Subcategory[] = subsByCategoryId.get(String(rawCat.id)) ?? [];
 
   const category: ProductCategory = normalizeCategory(rawCat, subcategories);
+  const content = categoryContent[slug];
 
   // Use manually curated related categories if set; otherwise fall back to auto-generated
   const relatedCategoryDocs: Category[] =
@@ -218,6 +220,39 @@ export default async function CategoryPage({ params }: Props) {
         <PoultryGrid subcategories={category.subcategories} products={products} />
       ) : (
         <CategoryDetailClient category={category} products={products} />
+      )}
+
+      {content && (
+        <section className="bg-white">
+          <div className="max-w-3xl mx-auto px-4 md:px-8 py-14">
+            <h2 className="text-2xl md:text-3xl font-bold text-green-900 font-heading mb-6">
+              {content.heading}
+            </h2>
+            <div className="space-y-5">
+              {content.paragraphs.map((p, i) => (
+                <p key={i} className="text-gray-600 leading-relaxed text-lg">
+                  {p}
+                </p>
+              ))}
+            </div>
+            <p className="mt-8 text-gray-600">
+              <Link
+                href="/poslovnice/pleternica"
+                className="text-green-700 hover:text-green-900 font-semibold"
+              >
+                Pronađite nas u Pleternici
+              </Link>{" "}
+              i{" "}
+              <Link
+                href="/poslovnice/pozega"
+                className="text-green-700 hover:text-green-900 font-semibold"
+              >
+                u Požegi
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
       )}
 
       {/* Related categories */}
