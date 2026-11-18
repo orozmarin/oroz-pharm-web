@@ -15,13 +15,16 @@ const icon = new L.Icon({
   shadowSize: [41, 41],
 });
 
-export default function Map() {
-  const center: [number, number] = [45.3078, 17.7385];
+export default function Map({ focusId }: { focusId?: string } = {}) {
+  const focus = focusId ? locations.find((l) => l.id === focusId) : undefined;
+  const center: [number, number] = focus
+    ? [focus.lat, focus.lng]
+    : [45.3078, 17.7385];
 
   return (
     <MapContainer
       center={center}
-      zoom={11}
+      zoom={focus ? 15 : 11}
       scrollWheelZoom={false}
       className="h-full w-full"
     >
@@ -29,7 +32,7 @@ export default function Map() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {locations.map((loc) => (
+      {(focus ? [focus] : locations).map((loc) => (
         <Marker key={loc.id} position={[loc.lat, loc.lng]} icon={icon}>
           <Popup>
             <div className="text-sm">
@@ -38,6 +41,12 @@ export default function Map() {
               {loc.address}
               <br />
               {loc.phone}
+              {!focus && (
+                <>
+                  <br />
+                  <a href={`/poslovnice/${loc.slug}`}>Više o poslovnici &rarr;</a>
+                </>
+              )}
             </div>
           </Popup>
         </Marker>

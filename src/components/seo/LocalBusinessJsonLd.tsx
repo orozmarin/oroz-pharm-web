@@ -1,4 +1,4 @@
-import { locations, legalData } from "@/data/locations";
+import { locations, legalData, specialHours } from "@/data/locations";
 
 const BASE_URL = "https://www.orozpharm.hr";
 
@@ -32,8 +32,8 @@ export default function LocalBusinessJsonLd() {
         "@id": `${BASE_URL}/#store-${loc.id}`,
         name: `Oroz PHARM ${loc.id === "pozega" ? "Požega" : "Pleternica"}`,
         parentOrganization: { "@id": organizationId },
-        url: `${BASE_URL}/kontakt`,
-        image: `${BASE_URL}/images/logo-oroz.png`,
+        url: `${BASE_URL}/poslovnice/${loc.slug}`,
+        image: `${BASE_URL}${loc.heroImage}`,
         telephone: loc.phone,
         address: {
           "@type": "PostalAddress",
@@ -50,6 +50,13 @@ export default function LocalBusinessJsonLd() {
           dayOfWeek: h.days,
           opens: h.opens,
           closes: h.closes,
+        })),
+        specialOpeningHoursSpecification: specialHours.map((h) => ({
+          "@type": "OpeningHoursSpecification",
+          opens: h.opens ?? "00:00",
+          closes: h.closes ?? "00:00",
+          validFrom: h.date,
+          validThrough: h.date,
         })),
       })),
     ],

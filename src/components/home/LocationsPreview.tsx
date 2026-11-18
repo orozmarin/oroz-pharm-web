@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useInView } from "@/lib/useInView";
 import { locations } from "@/data/locations";
 import SectionHeading from "@/components/shared/SectionHeading";
@@ -35,7 +36,9 @@ export default function LocationsPreview() {
               className="bg-white rounded-2xl p-6 shadow-md border border-green-100"
             >
               <h3 className="font-bold text-green-900 text-lg mb-3 font-heading">
-                {loc.name}
+                <Link href={`/poslovnice/${loc.slug}`} className="hover:text-green-600 transition-colors">
+                  {loc.name}
+                </Link>
               </h3>
               <div className="space-y-2 text-sm">
                 <div className="flex items-center gap-2">
@@ -72,6 +75,12 @@ export default function LocationsPreview() {
                   </div>
                 </div>
               </div>
+              <Link
+                href={`/poslovnice/${loc.slug}`}
+                className="inline-block mt-4 text-sm font-semibold text-green-700 hover:text-green-900 transition-colors"
+              >
+                Više o poslovnici &rarr;
+              </Link>
             </div>
           ))}
         </div>
