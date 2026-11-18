@@ -44,6 +44,13 @@ export const specialHours: {
   { date: "2026-12-31", label: "Stara godina", opens: "07:00", closes: "17:00" },
   { date: "2027-01-01", label: "Nova godina" },
   { date: "2027-01-06", label: "Sveta tri kralja" },
+  { date: "2027-03-29", label: "Uskrsni ponedjeljak" },
+  { date: "2027-05-01", label: "Praznik rada" },
+  { date: "2027-05-27", label: "Tijelovo" },
+  { date: "2027-06-22", label: "Dan antifašističke borbe" },
+  { date: "2027-08-05", label: "Dan pobjede" },
+  { date: "2027-11-01", label: "Svi sveti" },
+  { date: "2027-11-18", label: "Dan sjećanja na Vukovar" },
 ];
 
 const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
