@@ -7,6 +7,7 @@ import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeading from "@/components/shared/SectionHeading";
 import Button from "@/components/shared/Button";
 import StoreMap from "@/components/poslovnice/StoreMap";
+import PhotoGallery from "@/components/poslovnice/PhotoGallery";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd, metaDescription, openGraph } from "@/lib/seo";
 import { MapPin, Phone, Clock, Navigation, ChevronRight, Check, CalendarDays } from "lucide-react";
@@ -92,7 +93,7 @@ export default async function StorePage({ params }: Props) {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Početna", path: "/" },
-          { name: "Kontakt", path: "/kontakt" },
+          { name: "Poslovnice", path: "/poslovnice" },
           { name: loc.cityName, path: `/poslovnice/${loc.slug}` },
         ])}
       />
@@ -114,8 +115,8 @@ export default async function StorePage({ params }: Props) {
             <nav aria-label="Breadcrumb" className="mb-3">
               <ol className="flex items-center gap-1 text-sm text-white/75 flex-wrap">
                 <li>
-                  <Link href="/kontakt" className="hover:text-white transition-colors">
-                    Kontakt
+                  <Link href="/poslovnice" className="hover:text-white transition-colors">
+                    Poslovnice
                   </Link>
                 </li>
                 <li className="flex items-center" aria-hidden="true">
@@ -250,18 +251,8 @@ export default async function StorePage({ params }: Props) {
       {/* Gallery */}
       <AnimatedSection className="py-12 md:py-16 bg-green-50">
         <SectionHeading title="Pogledajte poslovnicu" subtitle={`Oroz PHARM ${loc.cityName}`} />
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {loc.gallery.map((img) => (
-            <div key={img.src} className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-          ))}
+        <div className="max-w-6xl mx-auto">
+          <PhotoGallery photos={loc.gallery} />
         </div>
       </AnimatedSection>
 
