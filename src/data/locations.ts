@@ -62,11 +62,17 @@ export const locations: StoreLocation[] = [
     cityName: "Pleternica",
     heroImage: "/images/poslovnice/pleternica-procelje.jpg",
     gallery: [
+      { src: "/images/poslovnice/pleternica-macak-mile.jpg", alt: "Mačak Mile čuva dvorište poslovnice u Pleternici" },
       { src: "/images/poslovnice/pleternica-unutra.jpg", alt: "Unutrašnjost poslovnice u Pleternici" },
+      { src: "/images/poslovnice/pleternica-ogrlice-povodci.jpg", alt: "Zid s ogrlicama i povodcima za pse" },
       { src: "/images/poslovnice/pleternica-sjeme.jpg", alt: "Sjeme povrća i cvijeća" },
+      { src: "/images/poslovnice/pleternica-kante.jpg", alt: "Kante za zalijevanje ispred poslovnice" },
       { src: "/images/poslovnice/pleternica-zastita-bilja.jpg", alt: "Sredstva za zaštitu bilja" },
+      { src: "/images/poslovnice/pleternica-klupica.jpg", alt: "Drvene klupice za cvijeće s natpisom Dobrodošli" },
       { src: "/images/poslovnice/pleternica-skladiste.jpg", alt: "Skladište u Pleternici" },
-      { src: "/images/poslovnice/pleternica-dvoriste.jpg", alt: "Dvorište s vanjskim skladištem" },
+      { src: "/images/poslovnice/pleternica-macak-mile-dvoriste.jpg", alt: "Mile prati utovar u dvorištu" },
+      { src: "/images/poslovnice/pleternica-plin.jpg", alt: "Plinske boce za domaćinstvo" },
+      { src: "/images/poslovnice/pleternica-pano.jpg", alt: "Pano Oroz PHARM uz cestu u Pleternici" },
       { src: "/images/poslovnice/pleternica-iz-zraka.jpg", alt: "Poslovnica Pleternica iz zraka" },
     ],
     intro: [
