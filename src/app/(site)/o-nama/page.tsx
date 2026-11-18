@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Timeline from "@/components/about/Timeline";
 import TeamGrid from "@/components/about/TeamGrid";
-import LocationGallery from "@/components/about/LocationGallery";
+import PartnersTestimonials from "@/components/home/PartnersTestimonials";
+import { getPayload } from "payload";
+import config from "@payload-config";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { Users, Package, TrendingUp, MapPin } from "lucide-react";
 
@@ -19,7 +21,24 @@ const stats = [
   { icon: MapPin, value: "2", label: "Lokacije" },
 ];
 
-export default function AboutPage() {
+export const revalidate = 3600;
+
+export default async function AboutPage() {
+  const payload = await getPayload({ config });
+  const { docs: testimonialDocs } = await payload.find({
+    collection: "testimonials",
+    sort: "order",
+    limit: 100,
+    depth: 1,
+  });
+  const testimonials = testimonialDocs.map((doc) => ({
+    id: doc.id,
+    quote: doc.quote,
+    author: doc.author,
+    company: doc.company,
+    logo: typeof doc.logo === "object" && doc.logo !== null ? doc.logo.url ?? null : null,
+  }));
+
   return (
     <>
       {/* Hero */}
@@ -76,7 +95,7 @@ export default function AboutPage() {
 
       <Timeline />
       <TeamGrid />
-      <LocationGallery />
+      {testimonials.length > 0 && <PartnersTestimonials testimonials={testimonials} />}
     </>
   );
 }

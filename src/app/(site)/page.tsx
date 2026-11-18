@@ -3,10 +3,8 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import HeroSlideshow from "@/components/home/HeroSlideshow";
 import ServicesIntro from "@/components/home/ServicesIntro";
-import PartnersTestimonials from "@/components/home/PartnersTestimonials";
-import LocationsPreview from "@/components/home/LocationsPreview";
+import StoresStrip from "@/components/home/StoresStrip";
 import BlogPreview from "@/components/home/BlogPreview";
-import LeafDivider from "@/components/shared/LeafDivider";
 import type { BlogPost } from "@/types/views";
 import { getImageUrl } from "@/lib/utils";
 
@@ -22,20 +20,12 @@ const FALLBACK_IMAGE =
 export default async function HomePage() {
   const payload = await getPayload({ config });
 
-  const [{ docs: blogDocs }, { docs: testimonialDocs }] = await Promise.all([
-    payload.find({
-      collection: "blogs",
-      sort: "-date",
-      depth: 1,
-      limit: 3,
-    }),
-    payload.find({
-      collection: "testimonials",
-      sort: "order",
-      limit: 100,
-      depth: 1,
-    }),
-  ]);
+  const { docs: blogDocs } = await payload.find({
+    collection: "blogs",
+    sort: "-date",
+    depth: 1,
+    limit: 3,
+  });
 
   const posts: BlogPost[] = blogDocs.map((doc) => ({
     slug: doc.slug,
@@ -48,23 +38,11 @@ export default async function HomePage() {
     tags: doc.tags?.map((t) => t.tag) ?? [],
   }));
 
-  const testimonials = testimonialDocs.map((doc) => ({
-    id: doc.id,
-    quote: doc.quote,
-    author: doc.author,
-    company: doc.company,
-    logo: typeof doc.logo === 'object' && doc.logo !== null ? doc.logo.url ?? null : null,
-  }));
-
   return (
     <>
       <HeroSlideshow />
       <ServicesIntro />
-      <LeafDivider />
-      <PartnersTestimonials testimonials={testimonials} />
-      <LeafDivider light className="bg-green-900" />
-      <LocationsPreview />
-      <LeafDivider className="bg-green-50" />
+      <StoresStrip />
       <BlogPreview posts={posts} />
     </>
   );

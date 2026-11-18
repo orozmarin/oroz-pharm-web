@@ -152,7 +152,7 @@ export default function PoultryGrid({ subcategories, products }: Props) {
           količine.
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
-          <Button href="/kontakt#poslovnice" variant="outline">
+          <Button href="/poslovnice" variant="outline">
             Posjetite poslovnicu
           </Button>
         </div>
