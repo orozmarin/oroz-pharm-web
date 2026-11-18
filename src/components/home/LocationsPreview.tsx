@@ -75,6 +75,12 @@ export default function LocationsPreview() {
                   </div>
                 </div>
               </div>
+              <Link
+                href={`/poslovnice/${loc.slug}`}
+                className="inline-block mt-4 text-sm font-semibold text-green-700 hover:text-green-900 transition-colors"
+              >
+                Više o poslovnici &rarr;
+              </Link>
             </div>
           ))}
         </div>

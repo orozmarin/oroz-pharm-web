@@ -41,6 +41,12 @@ export default function Map({ focusId }: { focusId?: string } = {}) {
               {loc.address}
               <br />
               {loc.phone}
+              {!focus && (
+                <>
+                  <br />
+                  <a href={`/poslovnice/${loc.slug}`}>Više o poslovnici &rarr;</a>
+                </>
+              )}
             </div>
           </Popup>
         </Marker>
