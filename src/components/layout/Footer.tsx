@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { navLinks } from "@/data/navigation";
+import { navLinks, cjenikUrl } from "@/data/navigation";
 import { locations, contactInfo, legalData } from "@/data/locations";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
@@ -167,6 +167,14 @@ export default function Footer() {
       <div className="border-t border-green-800">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-green-400">
           <span>&copy; {new Date().getFullYear()} {legalData.companyName} Sva prava pridržana.</span>
+          <a
+            href={cjenikUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white transition-colors underline underline-offset-2"
+          >
+            Važeći cjenik
+          </a>
           <span>OIB: {legalData.oib} | MBS: {legalData.mbs}</span>
         </div>
       </div>
